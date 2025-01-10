@@ -22,12 +22,14 @@
     <ClCompile Include="Goblin.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Orc.cpp" />
+    <ClCompile Include="Slime.cpp" />
     <ClCompile Include="Troll.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Goblin.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Orc.h" />
+    <ClInclude Include="Slime.h" />
     <ClInclude Include="Troll.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
