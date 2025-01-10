@@ -1,6 +1,5 @@
 #include "Orc.h"
 #include <random>
-#include <iostream>
 
 Orc::Orc(int level)
 {
@@ -12,12 +11,7 @@ Orc::Orc(int level)
 
 	name = "orc" + to_string(count++);
 	health = level * randomHealth(rd);
-
 	attack = level * randomAttack(rd);
-
-	cout << name << endl;
-	cout << health << endl;
-	cout << attack << endl;
 }
 
 string Orc::getName() const
