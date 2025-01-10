@@ -1,6 +1,5 @@
 #include "Troll.h"
 #include <random>
-#include <iostream>
 
 Troll::Troll(int level)
 {
