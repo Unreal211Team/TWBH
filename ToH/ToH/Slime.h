@@ -4,5 +4,8 @@
 
 class Slime : public Monster
 {
-	
+private:
+	string	name;
+	int		health;
+	int		attack;
 };
