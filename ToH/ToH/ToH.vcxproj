@@ -21,10 +21,12 @@
   <ItemGroup>
     <ClCompile Include="Goblin.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Orc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Goblin.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="Orc.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
