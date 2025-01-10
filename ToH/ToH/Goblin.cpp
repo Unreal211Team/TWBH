@@ -1,6 +1,5 @@
 #include "Goblin.h"
 #include <random>
-#include <iostream>
 
 Goblin::Goblin(int level)
 {
@@ -12,12 +11,7 @@ Goblin::Goblin(int level)
 
 	name = "goblin" + to_string(count++);
 	health = level * randomHealth(rd);
-
 	attack = level * randomAttack(rd);
-
-	cout << name << endl;
-	cout << health << endl;
-	cout << attack << endl;
 }
 
 string Goblin::getName() const
