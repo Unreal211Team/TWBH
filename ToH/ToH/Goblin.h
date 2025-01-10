@@ -4,5 +4,8 @@
 
 class Goblin : public Monster
 {
-
+private:
+	string	name;
+	int		health;
+	int		attack;
 };
