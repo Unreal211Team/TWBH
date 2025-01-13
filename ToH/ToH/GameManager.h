@@ -2,5 +2,6 @@
 
 class GameManager
 {
-	
+private:
+	static GameManager* instance;
 };
