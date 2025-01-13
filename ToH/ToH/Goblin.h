@@ -5,14 +5,15 @@
 class Goblin : public Monster
 {
 private:
-	string	name;
-	int		health;
-	int		attack;
+	std::string name;
+	int health;
+	int attack;
 
 public:
 	Goblin(int level = 0);
-	string	getName() const override;
-	int		getHealth() const override;
-	int		getAttack() const override;
-	void	takeDamage(int damage) override;
+	std::string getName() const override;
+	int getHealth() const override;
+	int getAttack() const override;
+	void takeDamage(int damage) override;
+	Item* dropItem() const override;
 };

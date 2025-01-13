@@ -1,15 +1,19 @@
 #include "Goblin.h"
 #include <random>
+#include "GoblinDropItem.h"
+#include <algorithm>  // max() 함수 사용을 위해 필요
+
+using namespace std;
 
 Goblin::Goblin(int level)
 {
 	random_device rd;
-	uniform_int_distribution<int> randomHealth(20, 30);
-	uniform_int_distribution<int> randomAttack(5, 10);
+	uniform_int_distribution<int> randomHealth(20, 30);	// 체력 랜덤 범위
+	uniform_int_distribution<int> randomAttack(5, 10);	// 공격력 랜덤 범위
 
 	static int count = 1;
 
-	name = "goblin" + to_string(count++);
+	name = "Goblin" + to_string(count++);
 	health = level * randomHealth(rd);
 	attack = level * randomAttack(rd);
 }
@@ -31,6 +35,11 @@ int Goblin::getAttack() const
 
 void Goblin::takeDamage(int damage)
 {
-	health -= damage;
-	health = health < 0 ? 0 : health;
+	health = max(0, health - damage);
+}
+
+Item* Goblin::dropItem() const
+{
+	Item* drop = new GoblinDropItem();
+	return drop;
 }
