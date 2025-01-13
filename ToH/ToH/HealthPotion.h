@@ -9,4 +9,11 @@ private:
 	const bool canUsing;		// 아이템 사용 가능 여부
 	const int price;
 	const int healthRestore;	// 체력 회복량
+
+public:
+	HealthPotion(std::string name = "HealthPotion", bool canUsing = true, int price = 50, int healthRestore = 50);
+	std::string getName() const override;
+	bool canUse() const override;
+	void use(Character* character) const override;
+	int getPrice() const override;
 };
