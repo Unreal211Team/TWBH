@@ -27,6 +27,7 @@ public:
 	void displayStatus() const;
 	std::string getName() const;
 	int getLevel() const;
+	void setLevel(int level);
 	int getHealth() const;
 	void setHealth(int health);
 	int getMaxHealth() const;
@@ -34,7 +35,9 @@ public:
 	int getAttack() const;
 	void setAttack(int attack);
 	int getExperience() const;
+	void setExperience(int experience);
 	int getMaxExperience() const;
+	void setMaxExperience(int maxExperience);
 	void addExperience(int experience);
 	int getGold() const;
 	void addGold(int gold);

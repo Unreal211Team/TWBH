@@ -45,6 +45,11 @@ int Character::getLevel() const
 	return level;
 }
 
+void Character::setLevel(int level)
+{
+	this->level = level;
+}
+
 int Character::getHealth() const
 {
 	return health;
@@ -80,9 +85,19 @@ int Character::getExperience() const
 	return experience;
 }
 
+void Character::setExperience(int experience)
+{
+	this->experience = experience;
+}
+
 int Character::getMaxExperience() const
 {
 	return maxExperience;
+}
+
+void Character::setMaxExperience(int maxExperience)
+{
+	this->maxExperience = maxExperience;
 }
 
 void Character::addExperience(int experience)
