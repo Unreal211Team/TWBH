@@ -56,8 +56,8 @@ Monster* GameManager::generateMonster(int level)
 
 void GameManager::battle(Character* player, Monster* monster)
 {
-	int experience = 50;// ëª¬ìŠ¤í„° ê³ ì • ê²½í—˜ì¹˜ 50
-	int itemDrop = 30;	// ì•„ì´í…œ ë“œë¡­ í™•ë¥  30í¼
+	int experience = 50;// ¸ó½ºÅÍ °íÁ¤ °æÇèÄ¡ 50
+	int itemDrop = 30;	// ¾ÆÀÌÅÛ µå·Ó È®·ü 30ÆÛ
 
 	random_device rd;
 	uniform_int_distribution<int> randomG(10, 20);
@@ -65,28 +65,28 @@ void GameManager::battle(Character* player, Monster* monster)
 
 	int randomGold = randomG(rd);
 	
-	//ì´ë¦„ì— ë”°ë¼ ë“±ì¥ë©”ì„¸ì§€ êµ¬ë¶„
+	//ÀÌ¸§¿¡ µû¶ó µîÀå¸Ş¼¼Áö ±¸ºĞ
 	if (monster->getName() == "Dragon")
 	{
-		cout << "â˜† â˜… â˜† â˜… â˜† ë³´ìŠ¤ ";
-		cout << "ëª¬ìŠ¤í„° " << monster->getName() << " ë“±ì¥! â˜† â˜… â˜† â˜… â˜† " << endl;
+		cout << "¡Ù ¡Ú ¡Ù ¡Ú ¡Ù º¸½º ";
+		cout << "¸ó½ºÅÍ " << monster->getName() << " µîÀå! ¡Ù ¡Ú ¡Ù ¡Ú ¡Ù " << endl;
 	}
-	else if (monster->getName().find("Elite") != string::npos) {	//find ì‚¬ìš© ì°¾ëŠ” ë¬¸ìê°€ ìˆìœ¼ë©´ nposë°˜í™˜í•˜ë¯€ë¡œ !=
-		cout << "â˜† â˜… â˜† ì—˜ë¦¬íŠ¸ ";
-		cout << "ëª¬ìŠ¤í„° " << monster->getName() << " ë“±ì¥! â˜† â˜… â˜† " << endl;
+	else if (monster->getName().find("Elite") != string::npos) {	//find »ç¿ë Ã£´Â ¹®ÀÚ°¡ ÀÖÀ¸¸é npos¹İÈ¯ÇÏ¹Ç·Î !=
+		cout << "¡Ù ¡Ú ¡Ù ¿¤¸®Æ® ";
+		cout << "¸ó½ºÅÍ " << monster->getName() << " µîÀå! ¡Ù ¡Ú ¡Ù " << endl;
 	}
 	else {
-		cout << "ëª¬ìŠ¤í„° " << monster->getName() << " ë“±ì¥! " << endl;
+		cout << "¸ó½ºÅÍ " << monster->getName() << " µîÀå! " << endl;
 	}
 
-	cout << "ì²´ë ¥: " << monster->getHealth();
-	cout << ", ê³µê²©ë ¥: " << monster->getAttack() << "\n";
+	cout << "Ã¼·Â: " << monster->getHealth();
+	cout << ", °ø°İ·Â: " << monster->getAttack() << "\n";
 
 
-	// ì „íˆ¬ ë¡œì§
+	// ÀüÅõ ·ÎÁ÷
 	while (true)
 	{
-		// ì „íˆ¬ ì‹œì‘ ì¡°ê±´ (ëª¬ìŠ¤í„°ì˜ ì²´ë ¥ì´ 0ë³´ë‹¤ í¬ë‹¤.)
+		// ÀüÅõ ½ÃÀÛ Á¶°Ç (¸ó½ºÅÍÀÇ Ã¼·ÂÀÌ 0º¸´Ù Å©´Ù.)
 		if (monster->getHealth() <= 0)
 		{
 			break;
@@ -95,8 +95,8 @@ void GameManager::battle(Character* player, Monster* monster)
 
 		int choiceAction;
 
-		cout << "1. ê³µê²©   2. ì¸ë²¤í† ë¦¬   3. ìƒíƒœì°½ \n";
-		cout << "ì…ë ¥ : ";
+		cout << "1. °ø°İ   2. ÀÎº¥Åä¸®   3. »óÅÂÃ¢ \n";
+		cout << "ÀÔ·Â : ";
 
 		while (true) 
 		{
@@ -106,8 +106,8 @@ void GameManager::battle(Character* player, Monster* monster)
 			{
 				cin.clear();
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cout << "ì˜ëª» ì…ë ¥ëœ ê°’ì…ë‹ˆë‹¤.\n";
-				cout << "ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”. :";
+				cout << "Àß¸ø ÀÔ·ÂµÈ °ªÀÔ´Ï´Ù.\n";
+				cout << "´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä. :";
 			}
 			else
 			{
@@ -120,23 +120,23 @@ void GameManager::battle(Character* player, Monster* monster)
 		switch (choiceAction)
 		{
 
-			// 1. ê³µê²© ì„ íƒ 
+			// 1. °ø°İ ¼±ÅÃ 
 		case 1:
 		{
 
 
 
-			// í”Œë ˆì´ì–´ì˜ ê³µê²©
-			cout << player->getName() << "ì´(ê°€) ";
+			// ÇÃ·¹ÀÌ¾îÀÇ °ø°İ
+			cout << player->getName() << "ÀÌ(°¡) ";
 			monster->takeDamage(player->getAttack());
 
-			// í”Œë ˆì´ì–´ì˜ ê³µê²©ì— ëª¬ìŠ¤í„°ê°€ ì£½ì—ˆì„ ë•Œ
+			// ÇÃ·¹ÀÌ¾îÀÇ °ø°İ¿¡ ¸ó½ºÅÍ°¡ Á×¾úÀ» ¶§
 			if (monster->getHealth() == 0)
 			{
-				cout << monster->getName() << " ì²˜ì¹˜!" << endl;
+				cout << monster->getName() << " Ã³Ä¡!" << endl;
 
 
-				// ë³´ìƒì„ ì§€ê¸‰í•˜ëŠ” ë¡œì§
+				// º¸»óÀ» Áö±ŞÇÏ´Â ·ÎÁ÷
 				player->addExperience(experience);
 				player->addGold(randomGold);
 
@@ -146,27 +146,27 @@ void GameManager::battle(Character* player, Monster* monster)
 					player->addItem(drop);
 				}
 
-				// ìºë¦­í„° ë ˆë²¨ì—… í™•ì¸í•˜ëŠ” ë¡œì§
+				// Ä³¸¯ÅÍ ·¹º§¾÷ È®ÀÎÇÏ´Â ·ÎÁ÷
 				if (player->IsLevelUp())
 				{
 					player->levelUp();
 				}
 
-				// ì£½ì€ ëª¬ìŠ¤í„°ê°€ ë³´ìŠ¤ì¸ì§€ í™•ì¸í•˜ëŠ” ë¡œì§
+				// Á×Àº ¸ó½ºÅÍ°¡ º¸½ºÀÎÁö È®ÀÎÇÏ´Â ·ÎÁ÷
 				if (monster->getName() == "Dragon")
 				{
-					cout << "\nì˜ì›… " << player->getName() << "ì— ì˜í•´ ì„¸ê³„ì˜ í‰í™”ê°€ ì§€ì¼œì¡Œë‹¤." << endl;
+					cout << "\n¿µ¿õ " << player->getName() << "¿¡ ÀÇÇØ ¼¼°èÀÇ ÆòÈ­°¡ ÁöÄÑÁ³´Ù." << endl;
 					break;
 				}
 				return;
 			}
 
 
-			// ëª¬ìŠ¤í„°ì˜ ê³µê²©
-			cout << monster->getName() << "ì´(ê°€) ";
+			// ¸ó½ºÅÍÀÇ °ø°İ
+			cout << monster->getName() << "ÀÌ(°¡) ";
 			player->takeDamage(monster->getAttack());
 
-			// ëª¬ìŠ¤í„°ì˜ ê³µê²©ì— í”Œë ˆì´ì–´ê°€ ì‚¬ë§í–ˆëŠ”ì§€ í™•ì¸í•˜ëŠ” ë¡œì§
+			// ¸ó½ºÅÍÀÇ °ø°İ¿¡ ÇÃ·¹ÀÌ¾î°¡ »ç¸ÁÇß´ÂÁö È®ÀÎÇÏ´Â ·ÎÁ÷
 			if (player->getHealth() == 0)
 			{
 				player->isDead();
@@ -175,7 +175,7 @@ void GameManager::battle(Character* player, Monster* monster)
 			break;
 		}
 
-		// 2. ì¸ë²¤í† ë¦¬ ì„ íƒ
+		// 2. ÀÎº¥Åä¸® ¼±ÅÃ
 		case 2:
 		{
 			displayInventory(player);
@@ -184,7 +184,7 @@ void GameManager::battle(Character* player, Monster* monster)
 		}
 
 
-		// 3. ìƒíƒœì°½ ì„ íƒ
+		// 3. »óÅÂÃ¢ ¼±ÅÃ
 		case 3:
 		{
 			player->displayStatus();
@@ -192,11 +192,11 @@ void GameManager::battle(Character* player, Monster* monster)
 		}
 		default:
 		{
-			cout << "ì˜ëª»ëœ ì…ë ¥ê°’ì…ë‹ˆë‹¤. \n";
+			cout << "Àß¸øµÈ ÀÔ·Â°ªÀÔ´Ï´Ù. \n";
 			break;
 		}
 
-		// ì „íˆ¬ê°€ ëë‚˜ë©´ ëª¬ìŠ¤í„° ê°ì²´ë¥¼ ì‚­ì œ
+		// ÀüÅõ°¡ ³¡³ª¸é ¸ó½ºÅÍ °´Ã¼¸¦ »èÁ¦
 		delete monster;
 		monster = nullptr;
 		}
@@ -211,11 +211,11 @@ void GameManager::displayInventory(Character* player)
 
 	cout << " --- Inventory ---" << endl;
 
-	cout << " ì†Œì§€ê³¨ë“œ : " << player->getGold() << " gold\n";
+	cout << " ¼ÒÁö°ñµå : " << player->getGold() << " gold\n";
 
 	if (inventory.empty())
 	{
-		cout << " ì†Œì§€ ì•„ì´í…œ : ì—†ìŒ\n" << endl;
+		cout << " ¼ÒÁö ¾ÆÀÌÅÛ : ¾øÀ½\n" << endl;
 		return;
 	}
 
@@ -234,11 +234,11 @@ void GameManager::useItemFromInventory(Character* player)
 
 	int itemIndex;
 
-	cout << "ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì—¬ ì•„ì´í…œ ì‚¬ìš©ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤. \n";
+	cout << "¹øÈ£¸¦ ÀÔ·ÂÇÏ¿© ¾ÆÀÌÅÛ »ç¿ëÀÌ °¡´ÉÇÕ´Ï´Ù. \n";
 
 	while (true)
 	{
-		cout << "0. ì¸ë²¤í† ë¦¬ ë‹«ê¸° \n";
+		cout << "0. ÀÎº¥Åä¸® ´İ±â \n";
 		cin >> itemIndex;
 
 		if (itemIndex > 0 && itemIndex <= inventory.size())
@@ -248,12 +248,12 @@ void GameManager::useItemFromInventory(Character* player)
 		}
 		else if (itemIndex == 0)
 		{
-			cout << "ì¸ë²¤í† ë¦¬ë¥¼ ë‹«ìŠµë‹ˆë‹¤. \n";
+			cout << "ÀÎº¥Åä¸®¸¦ ´İ½À´Ï´Ù. \n";
 			break;
 		}
 		else
 		{
-			cout << "ì˜ëª»ëœ ì…ë ¥ê°’ì…ë‹ˆë‹¤. \n";
+			cout << "Àß¸øµÈ ÀÔ·Â°ªÀÔ´Ï´Ù. \n";
 		}
 	}
 }
