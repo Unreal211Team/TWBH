@@ -6,7 +6,7 @@
 #include "Orc.h"
 #include "Troll.h"
 #include "Slime.h"
-
+#include "Skill.h"
 
 GameManager* GameManager::instance = nullptr;
 
@@ -102,6 +102,8 @@ void GameManager::battle(Character* player, Monster* monster)
 			continue;
 		}
 
+
+
 		// 입력 값 2. 인벤토리 - 아이템 사용
 		if (action == "2")
 		{
@@ -167,6 +169,7 @@ void GameManager::battle(Character* player, Monster* monster)
 		*/
 
 		monster->takeDamage(player->getAttack());
+
 
 		// 몬스터가 죽었을 때
 		if (monster->getHealth() == 0)

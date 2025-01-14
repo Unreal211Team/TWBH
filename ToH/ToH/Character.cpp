@@ -129,6 +129,11 @@ bool Character::IsLevelUp() const
 	return experience >= maxExperience;
 }
 
+int Character::getMana() const
+{
+	return mana;
+}
+
 void Character::levelUp()
 {
 	// 경험치 감소

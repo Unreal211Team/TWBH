@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include "Skill.h"
 class Item;
 
 using namespace std;
@@ -18,7 +19,13 @@ private:
 	int experience;
 	int maxExperience;
 	int gold;
+	int stamina;
+	int mana;
+	int maxMana;
 	vector<Item*> inventory;
+	vector<Skill*> skills;
+
+
 
 	Character(string name);
 	Character(const Character&) = delete;
@@ -49,5 +56,23 @@ public:
 	void levelUp();
 	void addItem(Item* item);
 	void useItem(int index);
+	int getMana() const { return mana; }
+	int getMaxMana() const { return maxMana; }
+	void reduceMana(int amount) { mana -= amount; }
+	void recoverMana(int amount) { mana = min(mana + amount, maxMana); }
+
+	Character() : mana(100), maxMana(100)
+	{
+		skills.push_back(new PowerStrike());
+		skills.push_back(new MagicClaw());
+	}
+
+	~Character() {
+		for (Skill* skill : skills)
+			delete skill;
+	}
+
+	const vector<Skill*>& getSkills() const { return skills; }
+
 	~Character();
 };
