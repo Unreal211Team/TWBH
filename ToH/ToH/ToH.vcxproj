@@ -23,6 +23,8 @@
     <ClCompile Include="BossMonster.cpp" />
     <ClCompile Include="BossMonsterDropItem.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="EliteDropItem.cpp" />
+    <ClCompile Include="EliteMonster.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Goblin.cpp" />
     <ClCompile Include="GoblinDropItem.cpp" />
@@ -41,6 +43,9 @@
     <ClInclude Include="BossMonster.h" />
     <ClInclude Include="BossMonsterDropItem.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="EliteDropItem.h" />
+    <ClInclude Include="EliteMonster.h" />
+    <ClInclude Include="Evolve.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Goblin.h" />
     <ClInclude Include="GoblinDropItem.h" />
