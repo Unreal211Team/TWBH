@@ -63,6 +63,12 @@
     <ClCompile Include="BossMonsterDropItem.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="EliteMonster.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="EliteDropItem.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Monster.h">
@@ -114,6 +120,15 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="BossMonsterDropItem.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EliteMonster.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EliteDropItem.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Evolve.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
