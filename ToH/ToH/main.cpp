@@ -2,6 +2,7 @@
 #include "GameManager.h"
 #include "Shop.h"
 #include "BossMonster.h"
+#include "Evolve.h"
 
 using namespace std;
 
@@ -22,10 +23,11 @@ int main()
 	Character* character = Character::getInstance(heroName);
 	Monster* monster = nullptr;
 	
-	cout << "캐릭터 " << character->getName();
-	cout << " 생성 완료! 레벨: " << character->getLevel();
-	cout << ", 체력: " << character->getHealth();
-	cout << ", 공격력: " << character->getAttack();
+	cout << "캐릭터 : " << character->getName() << "\n";
+	cout << "생성 완료! \n";
+	cout << "==================================================\n";
+
+	character->displayStatus();
 
 	string action = "";
 
@@ -37,6 +39,10 @@ int main()
 		// 배틀
 		cout << "\n==================================================" << endl;
 		monster = gameManager->generateMonster(character->getLevel());
+		// 진화 : 몬스터 Elite화 확인 30%확률
+		Evolve evolver;
+		monster = evolver.evolve(monster);
+		// 전투
 		gameManager->battle(character, monster);
 
 		// 사망

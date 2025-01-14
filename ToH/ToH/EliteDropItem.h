@@ -2,17 +2,18 @@
 
 #include "Item.h"
 
-class SlimeDropItem : public Item
+class EliteDropItem : public Item
 {
 private:
-	const string name;
+	const std::string name;
 	const bool canUsing;
 	const int price;
 
 public:
-	SlimeDropItem(string name = "불투명한 슬라임의 점액", bool canUsing = false, int price = 200);
-	string getName() const override;
+	EliteDropItem(std::string name = "엘리트 몬스터의 코어", bool canUsing = false, int price = 500);
+	std::string getName() const override;
 	bool canUse() const override;
 	void use(Character* character) const override;
 	int getPrice() const override;
 };
+

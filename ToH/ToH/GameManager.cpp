@@ -7,7 +7,6 @@
 #include "Troll.h"
 #include "Slime.h"
 
-using namespace std;
 
 GameManager* GameManager::instance = nullptr;
 
@@ -65,13 +64,21 @@ void GameManager::battle(Character* player, Monster* monster)
 	uniform_int_distribution<int> randomI(1, 100);
 
 	int randomGold = randomG(rd);
-
+	
+	//이름에 따라 등장메세지 구분
 	if (monster->getName() == "Dragon")
 	{
-		cout << "보스 ";
+		cout << "☆ ★ ☆ ★ ☆ 보스 ";
+		cout << "몬스터 " << monster->getName() << " 등장! ☆ ★ ☆ ★ ☆ " << endl;
+	}
+	else if (monster->getName().find("Elite") != string::npos) {	//find 사용 찾는 문자가 있으면 npos반환하므로 !=
+		cout << "☆ ★ ☆ 엘리트 ";
+		cout << "몬스터 " << monster->getName() << " 등장! ☆ ★ ☆ " << endl;
+	}
+	else {
+		cout << "몬스터 " << monster->getName() << " 등장! " << endl;
 	}
 
-	cout << "몬스터 " << monster->getName() << " 등장! ";
 	cout << "체력: " << monster->getHealth();
 	cout << ", 공격력: " << monster->getAttack() << endl;
 	
