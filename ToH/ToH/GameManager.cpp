@@ -6,6 +6,7 @@
 #include "Orc.h"
 #include "Troll.h"
 #include "Slime.h"
+#include "BuffCheck.h"
 
 
 GameManager* GameManager::instance = nullptr;
@@ -56,6 +57,8 @@ Monster* GameManager::generateMonster(int level)
 
 void GameManager::battle(Character* player, Monster* monster)
 {
+	BuffCheck bc;
+
 	int experience = 50;// 몬스터 고정 경험치 50
 	int itemDrop = 30;	// 아이템 드롭 확률 30퍼
 
@@ -213,6 +216,9 @@ void GameManager::battle(Character* player, Monster* monster)
 			cout << "  EXP: " << player->getExperience() << "/" << player->getMaxExperience();
 			cout << "  골드: " << player->getGold() << "원" << endl;
 
+			//버프 초기화
+			bc.resetBuff();
+
 			break;
 		}
 
@@ -230,6 +236,7 @@ void GameManager::battle(Character* player, Monster* monster)
 		cout << monster->getName() << "이 ";
 		cout << player->getName() << "을 공격합니다! ";
 		cout << player->getName() << " 체력: " << player->getHealth() << endl;
+
 
 		// 플레이어가 죽었을 때
 		if (player->getHealth() == 0)

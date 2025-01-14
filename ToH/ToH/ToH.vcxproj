@@ -42,6 +42,7 @@
     <ClInclude Include="AttackBoost.h" />
     <ClInclude Include="BossMonster.h" />
     <ClInclude Include="BossMonsterDropItem.h" />
+    <ClInclude Include="BuffCheck.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="EliteDropItem.h" />
     <ClInclude Include="EliteMonster.h" />

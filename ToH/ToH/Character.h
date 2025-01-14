@@ -46,5 +46,6 @@ public:
 	void levelUp();
 	void addItem(Item* item);
 	void useItem(int index);
+	void endBuff();
 	~Character();
 };

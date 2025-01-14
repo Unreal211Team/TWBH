@@ -160,6 +160,12 @@ void Character::useItem(int index)
 	inventory.erase(inventory.begin() + index);
 }
 
+//버프 종료
+void Character::endBuff()
+{
+	attack -= 10;
+}
+
 Character::~Character()
 {
 	// 메모리 해제
