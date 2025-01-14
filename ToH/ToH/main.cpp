@@ -200,5 +200,9 @@ int main()
 
 	gameManager->battle(character, monster);
 
+	delete shop;
+	delete character;
+	delete gameManager;
+
 	return 0;
 }
