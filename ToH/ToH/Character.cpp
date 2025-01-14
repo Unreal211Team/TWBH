@@ -17,7 +17,7 @@ Character::Character(string name) : name(name)
 	attack = 30;
 	experience = 0;
 	maxExperience = 100;
-	gold = 300;				// Gamble ì‹œì—° ìê¸ˆ
+	gold = 300;				// Gamble ½Ã¿¬ ÀÚ±İ
 	bIsAlive = true;
   
 	skills.push_back(new PowerStrike());
@@ -37,11 +37,11 @@ Character* Character::getInstance(const string& name)
 void Character::displayStatus() const
 {
 	cout << " --- status ---" << "\n";
-	cout << " ì´ë¦„ : " << name << "\n";
+	cout << " ÀÌ¸§ : " << name << "\n";
 	cout << " Lv." << level << "\n";
 	cout << " Exp	  (" << experience << "/" << maxExperience << ")" << "\n";
 	cout << " HP	  (" << health << "/" << maxHealth << ")\n";
-	cout << " ê³µê²©ë ¥	  " << attack << "\n";
+	cout << " °ø°İ·Â	  " << attack << "\n";
 }
 
 string Character::getName() const
@@ -112,8 +112,8 @@ void Character::setMaxExperience(int maxExperience)
 void Character::addExperience(int experience)
 {
 	this->experience += experience;
-	cout << getName() << "ê°€ ";
-	cout << experience << " Exp ë¥¼ íšë“í•˜ì˜€ìŠµë‹ˆë‹¤. \n";
+	cout << getName() << "°¡ ";
+	cout << experience << " Exp ¸¦ È¹µæÇÏ¿´½À´Ï´Ù. \n";
 }
 
 int Character::getGold() const
@@ -125,14 +125,14 @@ void Character::addGold(int gold)
 {
 	this->gold += gold;
 
-	cout << getName() << "ê°€ ";
+	cout << getName() << "°¡ ";
 	if (gold > 0)
 	{
-		cout << gold << " ê³¨ë“œë¥¼ íšë“í–ˆìŠµë‹ˆë‹¤. \n";
+		cout << gold << " °ñµå¸¦ È¹µæÇß½À´Ï´Ù. \n";
 	}
 	else
 	{
-		cout << (-1)*gold << " ê³¨ë“œë¥¼ ì†Œëª¨í–ˆìŠµë‹ˆë‹¤. \n";
+		cout << (-1)*gold << " °ñµå¸¦ ¼Ò¸ğÇß½À´Ï´Ù. \n";
 	}
 
 }
@@ -141,8 +141,8 @@ void Character::takeDamage(int damage)
 {
 	setHealth(this->health - damage);
 
-	cout << getName() << "ì„(ë¥¼) ê³µê²©í•©ë‹ˆë‹¤! ";
-	cout << getName() << " ì²´ë ¥: " << getHealth() << endl;
+	cout << getName() << "À»(¸¦) °ø°İÇÕ´Ï´Ù! ";
+	cout << getName() << " Ã¼·Â: " << getHealth() << endl;
 }
 
 
@@ -165,50 +165,50 @@ int Character::getMana() const
 void Character::levelUp()
 {
 
-	// ê²½í—˜ì¹˜ ê°ì†Œ
+	// °æÇèÄ¡ °¨¼Ò
 	experience -= maxExperience;
 
-	// ìš”êµ¬ ê²½í—˜ì¹˜ ì¦ê°€
+	// ¿ä±¸ °æÇèÄ¡ Áõ°¡
 	maxExperience *= 1.2;
-	maxExperience = (maxExperience / 10) * 10;  // 10ì˜ ë°°ìˆ˜ë¡œ ì„¤ì •
+	maxExperience = (maxExperience / 10) * 10;  // 10ÀÇ ¹è¼ö·Î ¼³Á¤
 
-	// ë ˆë²¨ì—…
+	// ·¹º§¾÷
 	++level;
 
-	// ì²´ë ¥ì—…
+	// Ã¼·Â¾÷
 	maxHealth += 20;
 
-	// ì™„ì „íšŒë³µ
+	// ¿ÏÀüÈ¸º¹
 	health = maxHealth;
 
-	// ê³µê²©ì—…
+	// °ø°İ¾÷
 	attack += 5;
 
-	cout << getName() << "ì´(ê°€) ë ˆë²¨ì—…! ";
+	cout << getName() << "ÀÌ(°¡) ·¹º§¾÷! ";
 	cout << "Lv." << getLevel() << endl;
 }
 
 void Character::addItem(Item* item)
 {
 	inventory.push_back(item);
-	cout << getName() << "ê°€ \"";
-	cout << item->getName() << "\"ì„ íšë“í–ˆìŠµë‹ˆë‹¤." << endl;
+	cout << getName() << "°¡ \"";
+	cout << item->getName() << "\"À» È¹µæÇß½À´Ï´Ù." << endl;
 }
 
 void Character::useItem(int index)
 {
-	// ì¬ë£Œ ì•„ì´í…œ ì‚¬ìš© ë¶ˆê°€
+	// Àç·á ¾ÆÀÌÅÛ »ç¿ë ºÒ°¡
 	if (!inventory[index]->canUse())
 	{
-		cout << "ì‚¬ìš© ë¶ˆê°€ëŠ¥í•œ ì•„ì´í…œì…ë‹ˆë‹¤." << endl;
+		cout << "»ç¿ë ºÒ°¡´ÉÇÑ ¾ÆÀÌÅÛÀÔ´Ï´Ù." << endl;
 		return;
 	}
 
-	cout << inventory[index]->getName() << "ì„ ì‚¬ìš©í•©ë‹ˆë‹¤." << endl;
+	cout << inventory[index]->getName() << "À» »ç¿ëÇÕ´Ï´Ù." << endl;
 
 	inventory[index]->use(this);
 
-	// ë©”ëª¨ë¦¬ í•´ì œ í›„ erase
+	// ¸Ş¸ğ¸® ÇØÁ¦ ÈÄ erase
 	delete inventory[index];
 
 	inventory.erase(inventory.begin() + index);
@@ -219,7 +219,7 @@ bool Character::isDead()
 	if (health <= 0)
 	{
 		bIsAlive = false;
-		cout << getName() << "ì´(ê°€) ì‚¬ë§í–ˆìŠµë‹ˆë‹¤. ê²Œì„ ì˜¤ë²„!" << endl;
+		cout << getName() << "ÀÌ(°¡) »ç¸ÁÇß½À´Ï´Ù. °ÔÀÓ ¿À¹ö!" << endl;
 
 	}
 	return bIsAlive;
@@ -228,7 +228,7 @@ bool Character::isDead()
 Character::~Character()
 {
   
-	// ë©”ëª¨ë¦¬ í•´ì œ
+	// ¸Ş¸ğ¸® ÇØÁ¦
 	for (Skill* skill : skills)
 	{	
 		delete skill;
@@ -237,7 +237,7 @@ Character::~Character()
   
 	for (Item* item : inventory)
 	{
-		delete item;  // ì•„ì´í…œì— ëŒ€í•œ ë©”ëª¨ë¦¬ í•´ì œ
+		delete item;  // ¾ÆÀÌÅÛ¿¡ ´ëÇÑ ¸Ş¸ğ¸® ÇØÁ¦
 	}
-	inventory.clear();  // ë²¡í„° ë¹„ìš°ê¸°
+	inventory.clear();  // º¤ÅÍ ºñ¿ì±â
 }
