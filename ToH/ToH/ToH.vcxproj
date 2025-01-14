@@ -30,6 +30,9 @@
     <ClCompile Include="GoblinDropItem.cpp" />
     <ClCompile Include="HealthPotion.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MonsterAttackMode.cpp" />
+    <ClCompile Include="MonsterFindDiffWord.cpp" />
+    <ClCompile Include="MonsterParrying.cpp" />
     <ClCompile Include="Orc.cpp" />
     <ClCompile Include="OrcDropItem.cpp" />
     <ClCompile Include="Shop.cpp" />
@@ -52,6 +55,9 @@
     <ClInclude Include="HealthPotion.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="MonsterFindDiffWord.h" />
+    <ClInclude Include="MonsterParrying.h" />
+    <ClInclude Include="MonsterAttackMode.h" />
     <ClInclude Include="Orc.h" />
     <ClInclude Include="OrcDropItem.h" />
     <ClInclude Include="Shop.h" />

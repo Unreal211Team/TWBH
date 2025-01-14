@@ -42,6 +42,7 @@ int main()
 		// 진화 : 몬스터 Elite화 확인 30%확률
 		Evolve evolver;
 		monster = evolver.evolve(monster);
+
 		// 전투
 		gameManager->battle(character, monster);
 

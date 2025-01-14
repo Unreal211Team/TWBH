@@ -6,7 +6,7 @@
 #include "Orc.h"
 #include "Troll.h"
 #include "Slime.h"
-
+#include "MonsterFindDiffWord.h"
 
 GameManager* GameManager::instance = nullptr;
 
@@ -64,7 +64,6 @@ void GameManager::battle(Character* player, Monster* monster)
 	uniform_int_distribution<int> randomI(1, 100);
 
 	int randomGold = randomG(rd);
-	
 	//이름에 따라 등장메세지 구분
 	if (monster->getName() == "Dragon")
 	{
@@ -86,7 +85,9 @@ void GameManager::battle(Character* player, Monster* monster)
 
 	bool isDigit = false;	//입력값이 숫자인지 아닌지 판단할 때 쓰임
 	int act = 0;
-
+	shared_ptr<Monster> m(monster);
+	shared_ptr<Monster> m1 = make_shared<MonsterFindDiffWord>(m);
+	monster = m1.get();
 	while (true) {
 
 		cout << "\n1)공격 2)인벤토리 3)상태창\n";
@@ -225,10 +226,12 @@ void GameManager::battle(Character* player, Monster* monster)
 		* 몬스터가 플레이어 공격
 		*/
 		
-		player->takeDamage(monster->getAttack());
 
 		cout << monster->getName() << "이 ";
 		cout << player->getName() << "을 공격합니다! ";
+
+		player->takeDamage(monster->getAttack());
+
 		cout << player->getName() << " 체력: " << player->getHealth() << endl;
 
 		// 플레이어가 죽었을 때
@@ -239,9 +242,6 @@ void GameManager::battle(Character* player, Monster* monster)
 		}
 	}
 
-	delete monster;
-
-	monster = nullptr;
 }
 
 void GameManager::displayInventory(Character* player)
