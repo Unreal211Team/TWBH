@@ -2,6 +2,7 @@
 #include "GameManager.h"
 #include "Shop.h"
 #include "BossMonster.h"
+#include "Evolve.h"
 
 using namespace std;
 
@@ -39,6 +40,10 @@ int main()
 		// 배틀
 		cout << "\n==================================================" << endl;
 		monster = gameManager->generateMonster(character->getLevel());
+		// 진화 : 몬스터 Elite화 확인 30%확률
+		Evolve evolver;
+		monster = evolver.evolve(monster);
+		// 전투
 		gameManager->battle(character, monster);
 
 		// 사망
@@ -60,7 +65,7 @@ int main()
 			while (true)
 			{
 				cout << "\n골드: " << character->getGold() << endl;
-				cout << "1)사기 2)팔기 Q)나가기: ";
+				cout << "1)사기 2)팔기 3)겜블 Q)나가기: ";
 				cin >> action;
 
 				if (action.compare("Q") == 0 || action.compare("q") == 0)
@@ -110,11 +115,10 @@ int main()
 
 					shop->buyItem(act - 1, character);
 					cout << endl;
-					continue;
 				}
 
 				// 상점. 아이템 팔기
-				if (action.compare("2") == 0)
+				else if (action.compare("2") == 0)
 				{
 					cout << endl;
 					gameManager->displayInventory(character);
@@ -150,7 +154,7 @@ int main()
 					// 입력 값이 숫자가 아니라면
 					if (!isDigit)
 					{
-						cout << "잘못된 입력입니다." << endl;
+						cout << "잘못된 입력입니다.1" << endl;
 						continue;
 					}
 
@@ -158,7 +162,7 @@ int main()
 
 					if (act > character->getInventory().size() || act <= 0)
 					{
-						cout << "잘못된 입력입니다." << endl;
+						cout << "잘못된 입력입니다.2" << endl;
 						continue;
 					}
 
@@ -166,7 +170,13 @@ int main()
 					cout << endl;
 				}
 
-				else // 1, 2, Q 외에 다른 값 입력
+				// 상점. 겜블
+				else if (action.compare("3") == 0)
+				{
+					shop->playGamble(character);
+				}
+
+				else // 1, 2, 3, Q 외에 다른 값 입력
 				{
 					cout << "잘못된 입력입니다." << endl;
 				}
@@ -197,6 +207,10 @@ int main()
 	monster = new BossMonster();
 
 	gameManager->battle(character, monster);
+
+	delete shop;
+	delete character;
+	delete gameManager;
 
 	return 0;
 }

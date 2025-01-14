@@ -75,6 +75,12 @@
     <ClCompile Include="AttackBoost.cpp">
       <Filter>Item Files</Filter>
     </ClCompile>
+    <ClCompile Include="EliteMonster.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="EliteDropItem.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GoblinDropItem.h">
@@ -127,6 +133,15 @@
     </ClInclude>
     <ClInclude Include="HealthPotion.h">
       <Filter>Item Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EliteMonster.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EliteDropItem.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Evolve.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

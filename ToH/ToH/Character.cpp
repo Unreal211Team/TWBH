@@ -5,15 +5,21 @@
 
 Character* Character::instance = nullptr;
 
+
 Character::Character(string name) : name(name)
 {
+  mana = 100; 
+  maxMana = 100;
 	level = 1;
 	health = maxHealth = 200;
 	attack = 30;
 	experience = 0;
 	maxExperience = 100;
-	gold = 0;
+  gold = 300;				// Gamble ì‹œì—° ìê¸ˆ
 	bIsAlive = true;
+  
+	skills.push_back(new PowerStrike());
+	skills.push_back(new MagicClaw());
 }
 
 Character* Character::getInstance(const string& name)
@@ -29,11 +35,11 @@ Character* Character::getInstance(const string& name)
 void Character::displayStatus() const
 {
 	cout << " --- status ---" << "\n";
-	cout << " ÀÌ¸§ : " << name << "\n";
+	cout << " ì´ë¦„ : " << name << "\n";
 	cout << " Lv." << level << "\n";
 	cout << " Exp	  (" << experience << "/" << maxExperience << ")" << "\n";
 	cout << " HP	  (" << health << "/" << maxHealth << ")\n";
-	cout << " °ø°İ·Â	  " << attack << "\n";
+	cout << " ê³µê²©ë ¥	  " << attack << "\n";
 }
 
 string Character::getName() const
@@ -44,6 +50,11 @@ string Character::getName() const
 int Character::getLevel() const
 {
 	return level;
+}
+
+void Character::setLevel(int level)
+{
+	this->level = level;
 }
 
 int Character::getHealth() const
@@ -81,16 +92,26 @@ int Character::getExperience() const
 	return experience;
 }
 
+void Character::setExperience(int experience)
+{
+	this->experience = experience;
+}
+
 int Character::getMaxExperience() const
 {
 	return maxExperience;
 }
 
+void Character::setMaxExperience(int maxExperience)
+{
+	this->maxExperience = maxExperience;
+}
+
 void Character::addExperience(int experience)
 {
 	this->experience += experience;
-	cout << getName() << "°¡ ";
-	cout << experience << " Exp ¸¦ È¹µæÇÏ¿´½À´Ï´Ù. \n";
+	cout << getName() << "ê°€ ";
+	cout << experience << " Exp ë¥¼ íšë“í•˜ì˜€ìŠµë‹ˆë‹¤. \n";
 }
 
 int Character::getGold() const
@@ -102,14 +123,14 @@ void Character::addGold(int gold)
 {
 	this->gold += gold;
 
-	cout << getName() << "°¡ ";
+	cout << getName() << "ê°€ ";
 	if (gold > 0)
 	{
-		cout << gold << " °ñµå¸¦ È¹µæÇß½À´Ï´Ù. \n";
+		cout << gold << " ê³¨ë“œë¥¼ íšë“í–ˆìŠµë‹ˆë‹¤. \n";
 	}
 	else
 	{
-		cout << (-1)*gold << " °ñµå¸¦ ¼Ò¸ğÇß½À´Ï´Ù. \n";
+		cout << (-1)*gold << " ê³¨ë“œë¥¼ ì†Œëª¨í–ˆìŠµë‹ˆë‹¤. \n";
 	}
 
 }
@@ -118,8 +139,8 @@ void Character::takeDamage(int damage)
 {
 	setHealth(this->health - damage);
 
-	cout << getName() << "À»(¸¦) °ø°İÇÕ´Ï´Ù! ";
-	cout << getName() << " Ã¼·Â: " << getHealth() << endl;
+	cout << getName() << "ì„(ë¥¼) ê³µê²©í•©ë‹ˆë‹¤! ";
+	cout << getName() << " ì²´ë ¥: " << getHealth() << endl;
 }
 
 
@@ -134,53 +155,58 @@ bool Character::IsLevelUp() const
 	return experience >= maxExperience;
 }
 
+int Character::getMana() const
+{
+	return mana;
+}
+
 void Character::levelUp()
 {
 
-	// °æÇèÄ¡ °¨¼Ò
+	// ê²½í—˜ì¹˜ ê°ì†Œ
 	experience -= maxExperience;
 
-	// ¿ä±¸ °æÇèÄ¡ Áõ°¡
+	// ìš”êµ¬ ê²½í—˜ì¹˜ ì¦ê°€
 	maxExperience *= 1.2;
-	maxExperience = (maxExperience / 10) * 10;  // 10ÀÇ ¹è¼ö·Î ¼³Á¤
+	maxExperience = (maxExperience / 10) * 10;  // 10ì˜ ë°°ìˆ˜ë¡œ ì„¤ì •
 
-	// ·¹º§¾÷
+	// ë ˆë²¨ì—…
 	++level;
 
-	// Ã¼·Â¾÷
+	// ì²´ë ¥ì—…
 	maxHealth += 20;
 
-	// ¿ÏÀüÈ¸º¹
+	// ì™„ì „íšŒë³µ
 	health = maxHealth;
 
-	// °ø°İ¾÷
+	// ê³µê²©ì—…
 	attack += 5;
 
-	cout << getName() << "ÀÌ(°¡) ·¹º§¾÷! ";
+	cout << getName() << "ì´(ê°€) ë ˆë²¨ì—…! ";
 	cout << "Lv." << getLevel() << endl;
 }
 
 void Character::addItem(Item* item)
 {
 	inventory.push_back(item);
-	cout << getName() << "°¡ \"";
-	cout << item->getName() << "\"À» È¹µæÇß½À´Ï´Ù." << endl;
+	cout << getName() << "ê°€ \"";
+	cout << item->getName() << "\"ì„ íšë“í–ˆìŠµë‹ˆë‹¤." << endl;
 }
 
 void Character::useItem(int index)
 {
-	// Àç·á ¾ÆÀÌÅÛ »ç¿ë ºÒ°¡
+	// ì¬ë£Œ ì•„ì´í…œ ì‚¬ìš© ë¶ˆê°€
 	if (!inventory[index]->canUse())
 	{
-		cout << "»ç¿ë ºÒ°¡´ÉÇÑ ¾ÆÀÌÅÛÀÔ´Ï´Ù." << endl;
+		cout << "ì‚¬ìš© ë¶ˆê°€ëŠ¥í•œ ì•„ì´í…œì…ë‹ˆë‹¤." << endl;
 		return;
 	}
 
-	cout << inventory[index]->getName() << "À» »ç¿ëÇÕ´Ï´Ù." << endl;
+	cout << inventory[index]->getName() << "ì„ ì‚¬ìš©í•©ë‹ˆë‹¤." << endl;
 
 	inventory[index]->use(this);
 
-	// ¸Ş¸ğ¸® ÇØÁ¦ ÈÄ erase
+	// ë©”ëª¨ë¦¬ í•´ì œ í›„ erase
 	delete inventory[index];
 
 	inventory.erase(inventory.begin() + index);
@@ -191,7 +217,7 @@ bool Character::isDead()
 	if (health <= 0)
 	{
 		bIsAlive = false;
-		cout << getName() << "ÀÌ(°¡) »ç¸ÁÇß½À´Ï´Ù. °ÔÀÓ ¿À¹ö!" << endl;
+		cout << getName() << "ì´(ê°€) ì‚¬ë§í–ˆìŠµë‹ˆë‹¤. ê²Œì„ ì˜¤ë²„!" << endl;
 
 	}
 	return bIsAlive;
@@ -199,10 +225,17 @@ bool Character::isDead()
 
 Character::~Character()
 {
-	// ¸Ş¸ğ¸® ÇØÁ¦
+  
+  // ë©”ëª¨ë¦¬ í•´ì œ
+  for (Skill* skill : skills)
+  {	
+    delete skill;
+  }
+  skill.clear();
+  
 	for (Item* item : inventory)
 	{
-		delete item;  // ¾ÆÀÌÅÛ¿¡ ´ëÇÑ ¸Ş¸ğ¸® ÇØÁ¦
+		delete item;  // ì•„ì´í…œì— ëŒ€í•œ ë©”ëª¨ë¦¬ í•´ì œ
 	}
-	inventory.clear();  // º¤ÅÍ ºñ¿ì±â
+	inventory.clear();  // ë²¡í„° ë¹„ìš°ê¸°
 }

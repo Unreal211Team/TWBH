@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "Monster.h"
+#include "Skill.h"
 
 class Item;
 
@@ -10,7 +11,7 @@ using namespace std;
 
 class Character
 {
-	// ½Ì±ÛÅæ ¿µ¿ª
+	// 
 private:
 	static Character* instance;
 
@@ -28,7 +29,7 @@ public:
 
 private:
 
-	// ¸â¹ö º¯¼ö
+	// 
 	const string name;
 	int level;
 	int health;
@@ -37,9 +38,15 @@ private:
 	int experience;
 	int maxExperience;
 	int gold;
+	int stamina;
+	int mana;
+	int maxMana;
+	bool isDead();
 	vector<Item*> inventory;
+	vector<Skill*> skills;
 
-	// Á×¾ú´ÂÁö »ì¾ÆÀÖ´ÂÁö
+
+	// 
 	bool bIsAlive;
 
 public:
@@ -47,6 +54,7 @@ public:
 	// Getter & Setter
 	string getName() const;
 	int getLevel() const;
+	void setLevel(int level);
 	int getHealth() const;
 	void setHealth(int health);
 	int getMaxHealth() const;
@@ -54,12 +62,17 @@ public:
 	int getAttack() const;
 	void setAttack(int attack);
 	int getExperience() const;
+	void setExperience(int experience);
 	int getMaxExperience() const;
+	void setMaxExperience(int maxExperience);
+	void addExperience(int experience);
 	int getGold() const;
+	int getMana() const { return mana; }
+	int getMaxMana() const { return maxMana; }
 	vector<Item*>& getInventory();
+	const vector<Skill*>& getSkills() const { return skills; }
 
-
-	// ±â´É
+	// 
 	void displayStatus() const;
 	void addExperience(int experience);
 	void addGold(int gold);
@@ -68,6 +81,9 @@ public:
 	void levelUp();
 	void addItem(Item* item);
 	void useItem(int index);
-	bool isDead();
+	void reduceMana(int amount) { mana -= amount; }
+	void recoverMana(int amount) { mana = min(mana + amount, maxMana); }
 
+
+	~Character();
 };
