@@ -26,7 +26,13 @@ Shop* Shop::getInstance()
 
 void Shop::displayItems() const
 {
-	cout << " --- List ---" << endl;
+	cout << "--- List ---" << endl;
+
+	if (avaliableItems.empty())
+	{
+		cout << "There are no items available for sale.\n";
+		return;
+	}
 
 	for (int i = 0; i < avaliableItems.size(); i++)
 	{
