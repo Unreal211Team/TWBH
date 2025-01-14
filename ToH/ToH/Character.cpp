@@ -12,7 +12,7 @@ Character::Character(string name) : name(name)
 	attack = 30;
 	experience = 0;
 	maxExperience = 100;
-	gold = 0;
+	gold = 300;				// Gamble 시연 자금
 }
 
 Character* Character::getInstance(const string& name)
