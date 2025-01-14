@@ -12,7 +12,7 @@ Character::Character(string name) : name(name)
 	attack = 30;
 	experience = 0;
 	maxExperience = 100;
-	gold = 0;
+	gold = 300;				// Gamble 시연 자금
 }
 
 Character* Character::getInstance(const string& name)
@@ -42,6 +42,11 @@ string Character::getName() const
 int Character::getLevel() const
 {
 	return level;
+}
+
+void Character::setLevel(int level)
+{
+	this->level = level;
 }
 
 int Character::getHealth() const
@@ -79,9 +84,19 @@ int Character::getExperience() const
 	return experience;
 }
 
+void Character::setExperience(int experience)
+{
+	this->experience = experience;
+}
+
 int Character::getMaxExperience() const
 {
 	return maxExperience;
+}
+
+void Character::setMaxExperience(int maxExperience)
+{
+	this->maxExperience = maxExperience;
 }
 
 void Character::addExperience(int experience)
