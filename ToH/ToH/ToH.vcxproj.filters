@@ -143,5 +143,14 @@
     <ClInclude Include="Evolve.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="MagicClaw.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerStrike.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

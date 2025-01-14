@@ -8,20 +8,12 @@ class Character;
 
 class Skill 
 {
-protected:
-    string name;   
-    int mana;           
-    double multiplier;  
-
 public:
-    Skill(const string& name, int mana, double multiplier)
-        : name(name), mana(mana), multiplier(multiplier) {
-    }
 
     virtual ~Skill() = default;
 
-    const string& getName() const { return name; }
-    int getMana() const { return mana; }
+    virtual const string& getName() const = 0;
+    virtual int getMana() const = 0;
 
-    virtual void use(Character* player, Character* target) = 0;
+    virtual void use(Character* player, Monster* target) = 0;
 };

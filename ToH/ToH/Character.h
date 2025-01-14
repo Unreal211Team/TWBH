@@ -4,6 +4,7 @@
 #include <vector>
 #include "Monster.h"
 #include "Skill.h"
+#include <algorithm>
 
 class Item;
 
@@ -41,7 +42,6 @@ private:
 	int stamina;
 	int mana;
 	int maxMana;
-	bool isDead();
 	vector<Item*> inventory;
 	vector<Skill*> skills;
 
@@ -65,14 +65,15 @@ public:
 	void setExperience(int experience);
 	int getMaxExperience() const;
 	void setMaxExperience(int maxExperience);
-	void addExperience(int experience);
 	int getGold() const;
-	int getMana() const { return mana; }
+	int getMana() const;
 	int getMaxMana() const { return maxMana; }
 	vector<Item*>& getInventory();
 	const vector<Skill*>& getSkills() const { return skills; }
 
 	// 
+
+	bool isDead();
 	void displayStatus() const;
 	void addExperience(int experience);
 	void addGold(int gold);
@@ -85,5 +86,4 @@ public:
 	void recoverMana(int amount) { mana = min(mana + amount, maxMana); }
 
 
-	~Character();
 };

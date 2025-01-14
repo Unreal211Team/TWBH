@@ -1,6 +1,8 @@
 #include "Character.h"
 #include "Item.h"
 #include <iostream>
+#include "PowerStrike.h"
+#include "MagicClaw.h"
 
 
 Character* Character::instance = nullptr;
@@ -8,14 +10,14 @@ Character* Character::instance = nullptr;
 
 Character::Character(string name) : name(name)
 {
-  mana = 100; 
-  maxMana = 100;
+	mana = 100; 
+	maxMana = 100;
 	level = 1;
 	health = maxHealth = 200;
 	attack = 30;
 	experience = 0;
 	maxExperience = 100;
-  gold = 300;				// Gamble 시연 자금
+	gold = 300;				// Gamble 시연 자금
 	bIsAlive = true;
   
 	skills.push_back(new PowerStrike());
@@ -226,12 +228,12 @@ bool Character::isDead()
 Character::~Character()
 {
   
-  // 메모리 해제
-  for (Skill* skill : skills)
-  {	
-    delete skill;
-  }
-  skill.clear();
+	// 메모리 해제
+	for (Skill* skill : skills)
+	{	
+		delete skill;
+	}
+	skills.clear();
   
 	for (Item* item : inventory)
 	{
