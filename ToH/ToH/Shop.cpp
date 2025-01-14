@@ -91,43 +91,48 @@ void Shop::sellItem(int index, Character* player)
 void Shop::playGamble(Character* player, int multiple) const
 {
 	Item* bossMonsterDropItem = new BossMonsterDropItem();
-	cout << "\n----------- 주사위 게임 -----------\n" << endl;
-	cout << " 1. 주사위를 6번 던집니다.\n" << endl;
-	cout << " 2-1. 주사위 눈은 합산됩니다." << endl;
-	cout << " 2-2. 중복된 눈이 있으면 제곱됩니다.\n" << endl;
-	cout << " 주사위ex) 6 2 6 1 6 2" << endl;
-	cout << " 1 + 2 x 2 + 6 x 6 x 6 = 221\n" << endl;
-	cout << "------------- 보상 -------------" << endl;
-	cout << " 1등 40000↑: " << bossMonsterDropItem->getName() << endl;
-	cout << " 2등 10000↑: 공격력 x 100, 체력 x 100" << endl;
-	cout << " 3등  1000↑: 공격력 x 10" << endl;
-	cout << " 4등   100↑: 10000 골드" << endl;
-	cout << " 5등    50↑: 1000 골드\n" << endl;
-	cout << "------ 럭키넘버 ------" << endl;
-	cout << " 한번 더 + 보상 3배" << endl;
-	cout << " 순서x) 1 2 3 4 5 6\n" << endl;
-	cout << "----- 언럭키넘버 -----" << endl;
-	cout << "      능력치리셋" << endl;;
-	cout << " 번호) 1 1 1 1 1 1" << endl;
-	cout << " 번호) 2 2 2 2 2 2" << endl;
-	cout << " 번호) 3 3 3 3 3 3" << endl;
-	cout << "------------------------------" << endl;
-	cout << "300 골드를 지불해서 게임을 할 수 있습니다. 소지골드: " << player->getGold() << endl;
-	cout << "\nY)한다 ...)안한다: ";
 
 	string action = "";
-	cin >> action;
 
-	if (action != "Y" && action != "y")
+	if (multiple == 1)
 	{
-		cout << "\n돌아갑니다." << endl;
-		return;
-	}
+		cout << "\n----------- 주사위 게임 -----------\n" << endl;
+		cout << " 1. 주사위를 6번 던집니다.\n" << endl;
+		cout << " 2-1. 주사위 눈은 합산됩니다." << endl;
+		cout << " 2-2. 중복된 눈이 있으면 제곱됩니다.\n" << endl;
+		cout << " 주사위ex) 6 2 6 1 6 2" << endl;
+		cout << " 1 + 2 x 2 + 6 x 6 x 6 = 221\n" << endl;
+		cout << "------------- 보상 -------------" << endl;
+		cout << " 1등 40000↑: " << bossMonsterDropItem->getName() << endl;
+		cout << " 2등 10000↑: 공격력 x 100, 체력 x 100" << endl;
+		cout << " 3등  1000↑: 공격력 x 10" << endl;
+		cout << " 4등   100↑: 10000 골드" << endl;
+		cout << " 5등    50↑: 1000 골드\n" << endl;
+		cout << "------ 럭키넘버 ------" << endl;
+		cout << " 한번 더 + 보상 3배" << endl;
+		cout << " 순서x) 1 2 3 4 5 6\n" << endl;
+		cout << "----- 언럭키넘버 -----" << endl;
+		cout << "      능력치리셋" << endl;;
+		cout << " 번호) 1 1 1 1 1 1" << endl;
+		cout << " 번호) 2 2 2 2 2 2" << endl;
+		cout << " 번호) 3 3 3 3 3 3" << endl;
+		cout << "------------------------------" << endl;
+		cout << "300 골드를 지불해서 게임을 할 수 있습니다. 소지골드: " << player->getGold() << endl;
+		cout << "\nY)한다 ...)안한다: ";
 
-	if (player->getGold() < 300)
-	{
-		cout << "\n골드가 부족합니다." << endl;
-		return;
+		cin >> action;
+
+		if (action != "Y" && action != "y")
+		{
+			cout << "\n돌아갑니다." << endl;
+			return;
+		}
+
+		if (player->getGold() < 300)
+		{
+			cout << "\n골드가 부족합니다." << endl;
+			return;
+		}
 	}
 
 	cout << "\n게임을 진행합니다.\n" << endl;
@@ -197,8 +202,13 @@ void Shop::playGamble(Character* player, int multiple) const
 
 	if (isLuckyNumber)
 	{
-		cout << "\n★럭키넘버★ 재도전 + 보상 3배 획득의 기회!" << endl;
+		cout << "\n★ 럭키넘버★ 재도전 + 보상 3배 획득의 기회!" << endl;
+
+		delete bossMonsterDropItem;
+
+		player->addGold(300);
 		playGamble(player, multiple * 3);
+
 		return;
 	}
 
@@ -215,6 +225,9 @@ void Shop::playGamble(Character* player, int multiple) const
 
 		cout << "\n언럭키넘버 UnU" << endl;
 		cout << "능력치가 초기화 되었습니다..." << endl;
+
+		delete bossMonsterDropItem;
+
 		return;
 	}
 
@@ -243,7 +256,7 @@ void Shop::playGamble(Character* player, int multiple) const
 	{
 		player->addItem(bossMonsterDropItem);
 
-		cout << "★경축★ 1등 당첨 " << bossMonsterDropItem->getName() << "을 획득합니다!" << endl;
+		cout << "★ 경축★ 1등 당첨 " << bossMonsterDropItem->getName() << "을 획득합니다!" << endl;
 
 		return;
 	}
@@ -257,7 +270,7 @@ void Shop::playGamble(Character* player, int multiple) const
 			player->addItem(new BossMonsterDropItem);
 		}
 
-		cout << "★경축★ 1등 당첨 " << bossMonsterDropItem->getName() << "를 " << multiple << "개 획득합니다!" << endl;
+		cout << "★ 경축★ 1등 당첨 " << bossMonsterDropItem->getName() << "를 " << multiple << "개 획득합니다!" << endl;
 
 		return;
 	}
@@ -267,7 +280,7 @@ void Shop::playGamble(Character* player, int multiple) const
 		player->setAttack(player->getAttack() * 100 * multiple);
 		player->setHealth(player->getHealth() * 100 * multiple);
 
-		cout << "★축★ 2등 당첨 공격력, 체력이 " << 100 * multiple << "배 증가합니다." << endl;
+		cout << "★ 축★ 2등 당첨 공격력, 체력이 " << 100 * multiple << "배 증가합니다." << endl;
 
 		return;
 	}
