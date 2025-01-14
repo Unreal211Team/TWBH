@@ -1,14 +1,13 @@
 #include "SlimeDropItem.h"
 #include "Character.h"
 
-using namespace std;
 
 SlimeDropItem::SlimeDropItem(string name, bool canUsing, int price)
 	: name(name), canUsing(canUsing), price(price)
 {
 }
 
-std::string SlimeDropItem::getName() const
+string SlimeDropItem::getName() const
 {
 	return name;
 }

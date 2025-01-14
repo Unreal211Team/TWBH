@@ -4,7 +4,6 @@
 #include <vector>
 #include <iostream>
 
-using namespace std;
 
 Shop* Shop::instance = nullptr;
 

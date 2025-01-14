@@ -3,7 +3,6 @@
 #include "OrcDropItem.h"
 #include <algorithm>  // max() 함수 사용을 위해 필요
 
-using namespace std;
 
 Orc::Orc(int level)
 {

@@ -22,10 +22,11 @@ int main()
 	Character* character = Character::getInstance(heroName);
 	Monster* monster = nullptr;
 	
-	cout << "캐릭터 " << character->getName();
-	cout << " 생성 완료! 레벨: " << character->getLevel();
-	cout << ", 체력: " << character->getHealth();
-	cout << ", 공격력: " << character->getAttack();
+	cout << "캐릭터 : " << character->getName() << "\n";
+	cout << "생성 완료! \n";
+	cout << "==================================================\n";
+
+	character->displayStatus();
 
 	string action = "";
 

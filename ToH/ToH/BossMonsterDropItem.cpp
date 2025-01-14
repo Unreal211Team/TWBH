@@ -2,14 +2,13 @@
 #include "Character.h"
 #include <iostream>
 
-using namespace std;
 
 BossMonsterDropItem::BossMonsterDropItem(string name, bool canUsing, int price)
 	: name(name), canUsing(canUsing), price(price)
 {
 }
 
-std::string BossMonsterDropItem::getName() const
+string BossMonsterDropItem::getName() const
 {
 	return name;
 }

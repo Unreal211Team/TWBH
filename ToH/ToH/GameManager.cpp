@@ -7,7 +7,6 @@
 #include "Troll.h"
 #include "Slime.h"
 
-using namespace std;
 
 GameManager* GameManager::instance = nullptr;
 
