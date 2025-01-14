@@ -13,6 +13,7 @@ Character::Character(string name) : name(name)
 	experience = 0;
 	maxExperience = 100;
 	gold = 0;
+	bIsAlive = true;
 }
 
 Character* Character::getInstance(const string& name)
@@ -29,9 +30,10 @@ void Character::displayStatus() const
 {
 	cout << " --- status ---" << "\n";
 	cout << " 이름 : " << name << "\n";
-	cout << " Lv." << level << "	(" << experience << "/" << maxExperience << ")" << "\n";
-	cout << " HP	(" << health << "/" << maxHealth << ")\n";
-	cout << " 공격력	" << attack << "\n";
+	cout << " Lv." << level << "\n";
+	cout << " Exp	  (" << experience << "/" << maxExperience << ")" << "\n";
+	cout << " HP	  (" << health << "/" << maxHealth << ")\n";
+	cout << " 공격력	  " << attack << "\n";
 }
 
 string Character::getName() const
@@ -87,6 +89,8 @@ int Character::getMaxExperience() const
 void Character::addExperience(int experience)
 {
 	this->experience += experience;
+	cout << getName() << "가 ";
+	cout << experience << " Exp 를 획득하였습니다. \n";
 }
 
 int Character::getGold() const
@@ -97,12 +101,28 @@ int Character::getGold() const
 void Character::addGold(int gold)
 {
 	this->gold += gold;
+
+	cout << getName() << "가 ";
+	if (gold > 0)
+	{
+		cout << gold << " 골드를 획득했습니다. \n";
+	}
+	else
+	{
+		cout << (-1)*gold << " 골드를 소모했습니다. \n";
+	}
+
 }
 
 void Character::takeDamage(int damage)
 {
 	setHealth(this->health - damage);
+
+	cout << getName() << "을(를) 공격합니다! ";
+	cout << getName() << " 체력: " << getHealth() << endl;
 }
+
+
 
 vector<Item*>& Character::getInventory()
 {
@@ -116,6 +136,7 @@ bool Character::IsLevelUp() const
 
 void Character::levelUp()
 {
+
 	// 경험치 감소
 	experience -= maxExperience;
 
@@ -134,11 +155,16 @@ void Character::levelUp()
 
 	// 공격업
 	attack += 5;
+
+	cout << getName() << "이(가) 레벨업! ";
+	cout << "Lv." << getLevel() << endl;
 }
 
 void Character::addItem(Item* item)
 {
 	inventory.push_back(item);
+	cout << getName() << "가 \"";
+	cout << item->getName() << "\"을 획득했습니다." << endl;
 }
 
 void Character::useItem(int index)
@@ -158,6 +184,17 @@ void Character::useItem(int index)
 	delete inventory[index];
 
 	inventory.erase(inventory.begin() + index);
+}
+
+bool Character::isDead()
+{
+	if (health <= 0)
+	{
+		bIsAlive = false;
+		cout << getName() << "이(가) 사망했습니다. 게임 오버!" << endl;
+
+	}
+	return bIsAlive;
 }
 
 Character::~Character()

@@ -2,6 +2,7 @@
 
 #include <string>
 #include "Item.h"
+#include <iostream>
 
 class Monster
 {
