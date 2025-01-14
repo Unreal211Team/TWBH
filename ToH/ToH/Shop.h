@@ -8,7 +8,7 @@ class Shop
 {
 private:
 	static Shop* instance;
-	std::vector<Item*> avaliableItems;
+	vector<Item*> avaliableItems;
 
 	Shop();
 	Shop(const Shop&) = delete;

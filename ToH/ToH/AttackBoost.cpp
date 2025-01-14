@@ -2,7 +2,6 @@
 #include "Character.h"
 #include <iostream>
 
-using namespace std;
 
 AttackBoost::AttackBoost(string name, bool canUsing, int price, int attackIncrease)
 	: name(name), canUsing(canUsing), price(price), attackIncrease(attackIncrease)

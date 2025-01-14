@@ -3,7 +3,6 @@
 #include <iostream>
 #include <algorithm>  // min() 함수 사용을 위해 필요
 
-using namespace std;
 
 HealthPotion::HealthPotion(string name, bool canUsing, int price, int healthRestore)
 	: name(name), canUsing(canUsing), price(price), healthRestore(healthRestore)

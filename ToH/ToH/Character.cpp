@@ -2,7 +2,6 @@
 #include "Item.h"
 #include <iostream>
 
-using namespace std;
 
 Character* Character::instance = nullptr;
 
@@ -28,11 +27,11 @@ Character* Character::getInstance(const string& name)
 
 void Character::displayStatus() const
 {
-	cout << " --- status ---" << endl;
-	cout << "  " << name << endl;
-	cout << " Lv." << level << "	(" << experience << "/" << maxExperience << ")" << endl;
-	cout << " HP	" << health << "/" << maxHealth << endl;
-	cout << " 공격력	" << attack << endl;
+	cout << " --- status ---" << "\n";
+	cout << " 이름 : " << name << "\n";
+	cout << " Lv." << level << "	(" << experience << "/" << maxExperience << ")" << "\n";
+	cout << " HP	(" << health << "/" << maxHealth << ")\n";
+	cout << " 공격력	" << attack << "\n";
 }
 
 string Character::getName() const

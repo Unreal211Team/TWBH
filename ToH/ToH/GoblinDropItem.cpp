@@ -1,7 +1,6 @@
 #include "GoblinDropItem.h"
 #include "Character.h"
 
-using namespace std;
 
 GoblinDropItem::GoblinDropItem(string name, bool canUsing, int price)
 	: name(name), canUsing(canUsing), price(price)

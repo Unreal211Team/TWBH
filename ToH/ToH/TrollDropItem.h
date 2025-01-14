@@ -5,13 +5,13 @@
 class TrollDropItem : public Item
 {
 private:
-	const std::string name;
+	const string name;
 	const bool canUsing;
 	const int price;
 
 public:
-	TrollDropItem(std::string name = "부서진 트롤의 몽둥이", bool canUsing = false, int price = 200);
-	std::string getName() const override;
+	TrollDropItem(string name = "부서진 트롤의 몽둥이", bool canUsing = false, int price = 200);
+	string getName() const override;
 	bool canUse() const override;
 	void use(Character* character) const override;
 	int getPrice() const override;
