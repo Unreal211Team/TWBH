@@ -453,28 +453,21 @@ void GameManager::useItemFromInventory(Character* player)
 {
 	vector<Item*> inventory = player->getInventory();
 
-	int itemIndex;
 
-	cout << "번호를 입력하여 아이템 사용이 가능합니다. \n";
+	cout << "번호를 입력하여 아이템 사용이 가능합니다.\n";
+	cout << "0. 인벤토리 닫기\n";
 
-	while (true)
+
+	int itemIndex = getValidatedInput("사용할 아이템 번호를 입력하세요: ", 0, inventory.size());
+
+
+	if (itemIndex == 0) 
 	{
-		cout << "0. 인벤토리 닫기 \n";
-		cin >> itemIndex;
-
-		if (itemIndex > 0 && itemIndex <= inventory.size())
-		{
-			player->useItem(itemIndex - 1);
-			break;
-		}
-		else if (itemIndex == 0)
-		{
-			cout << "인벤토리를 닫습니다. \n";
-			break;
-		}
-		else
-		{
-			cout << "잘못된 입력값입니다. \n";
-		}
+		cout << "인벤토리를 닫습니다.\n";
+		return;
 	}
+
+	player->useItem(itemIndex - 1);
+	cout << inventory[itemIndex - 1]->getName() << " 아이템을 사용했습니다.\n";
+
 }
