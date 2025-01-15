@@ -414,6 +414,12 @@ void Shop::playGamble(Character* player) const
 	cout << "꽝! >o< 다음 기회에~" << endl;
 }
 
+
+vector<Item*> Shop::getAvaliableItems()
+{
+	return avaliableItems;
+}
+
 Shop::~Shop()
 {
 	for (Item*& item : avaliableItems) {
