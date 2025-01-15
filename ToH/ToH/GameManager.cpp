@@ -71,19 +71,19 @@ void GameManager::battle(Character* player, Monster* monster)
 	if (monster->getName() == "Dragon")
 	{
 		cout << "☆ ★ ☆ ★ ☆ 보스 ";
-		cout << "몬스터 " << monster->getName() << " 등장! ☆ ★ ☆ ★ ☆ " << endl;
+		cout << "몬스터 Lv." << player->getLevel()<< " " << monster->getName() << " 등장!☆ ★ ☆ ★ ☆ " << endl;
 	}
 	else if (monster->getName().find("Elite") != string::npos) {	//find 사용 찾는 문자가 있으면 npos반환하므로 !=
 		cout << "☆ ★ ☆ 엘리트 ";
-		cout << "몬스터 " << monster->getName() << " 등장! ☆ ★ ☆ " << endl;
+		cout << "몬스터 Lv." << player->getLevel() << " " << monster->getName() << " 등장! ☆ ★ ☆ " << endl;
 	}
 	else {
-		cout << "몬스터 " << monster->getName() << " 등장! " << endl;
+		cout << "몬스터 Lv." << player->getLevel() << " " << monster->getName() << " 등장! " << endl;
 	}
-
+	cout << "\n-- Monster status --" << endl;
 	cout << "체력: " << monster->getHealth();
-	cout << ", 공격력: " << monster->getAttack() << "\n";
-
+	cout << "\n공격력: " << monster->getAttack() << "\n";
+	cout << "----- ------ -----\n\n";
 
 	// 전투 로직
 	while (true)
@@ -96,8 +96,9 @@ void GameManager::battle(Character* player, Monster* monster)
 
 
 		int choiceAction;
-
+		cout << "------------------------------\n";
 		cout << "1. 공격   2. 인벤토리   3. 상태창 \n";
+		cout << "------------------------------\n\n";
 		cout << "입력 : ";
 
 		while (true) 
@@ -127,8 +128,9 @@ void GameManager::battle(Character* player, Monster* monster)
 		{
 			int attackChoice;
 			cout << "\n현재 마나: " << player->getMana() << " / " << player->getMaxMana() << "\n";
-			cout << "1. 일반공격  2. 파워스트라이크(30) 3. 매직클로(60)\n";
-			cout << "공격 선택 : ";
+			cout << "--------------------------------\n";
+			cout << "1. 일반공격 2. 파워스트라이크(30) 3. 매직클로(60)\n\n";
+			cout << "입력 : ";
 			cin >> attackChoice;
 
 			switch (attackChoice)
@@ -167,13 +169,14 @@ void GameManager::battle(Character* player, Monster* monster)
 			// 플레이어의 공격에 몬스터가 죽었을 때
 			if (monster->getHealth() == 0)
 			{
+				cout << "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n";
 				cout << monster->getName() << " 처치!" << endl;
 
 
 				// 보상을 지급하는 로직
 				player->addExperience(experience);
 				player->addGold(randomGold);
-
+				cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n";
 				if (randomI(rd) <= itemDrop)
 				{
 					Item* drop = monster->dropItem();
@@ -247,13 +250,15 @@ void GameManager::displayInventory(Character* player)
 {
 	vector<Item*> inventory = player->getInventory();
 
+	cout << "\n";
 	cout << " --- Inventory ---" << endl;
 
-	cout << " 소지골드 : " << player->getGold() << " gold\n";
-
+	cout << " 골드 : " << player->getGold() << " gold\n";
 	if (inventory.empty())
 	{
-		cout << " 소지 아이템 : 없음\n" << endl;
+		cout << " 아이템 : 없음\n" << endl;
+
+		cout << " --- --------- ---\n\n";
 		return;
 	}
 
@@ -262,6 +267,7 @@ void GameManager::displayInventory(Character* player)
 		cout << i + 1 << ". " << inventory[i]->getName() << " ( " << inventory[i]->getPrice() << " gold ) \n";
 	}
 
+	cout << " --- --------- ---\n\n";
 
 	
 }
@@ -271,12 +277,14 @@ void GameManager::useItemFromInventory(Character* player)
 	vector<Item*> inventory = player->getInventory();
 
 	int itemIndex;
-
-	cout << "번호를 입력하여 아이템 사용이 가능합니다. \n";
+	if (!inventory.empty())
+	{
+		cout << "번호를 입력하여 아이템 사용이 가능합니다. \n";
+	}
 
 	while (true)
 	{
-		cout << "0. 인벤토리 닫기 \n";
+		cout << "0을입력해서 인벤토리 닫기 \n\n 입력 : ";
 		cin >> itemIndex;
 
 		if (itemIndex > 0 && itemIndex <= inventory.size())
@@ -286,7 +294,7 @@ void GameManager::useItemFromInventory(Character* player)
 		}
 		else if (itemIndex == 0)
 		{
-			cout << "인벤토리를 닫습니다. \n";
+			cout << "\n인벤토리를 닫습니다. \n\n";
 			break;
 		}
 		else

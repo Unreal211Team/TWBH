@@ -36,12 +36,15 @@ Character* Character::getInstance(const string& name)
 
 void Character::displayStatus() const
 {
-	cout << " --- status ---" << "\n";
+	cout << "\n";
+	cout << " --- status ---" << "\n" << "\n";
 	cout << " 이름 : " << name << "\n";
 	cout << " Lv." << level << "\n";
 	cout << " Exp	  (" << experience << "/" << maxExperience << ")" << "\n";
 	cout << " HP	  (" << health << "/" << maxHealth << ")\n";
-	cout << " 공격력	  " << attack << "\n";
+	cout << " MP	  (" << mana << "/" << maxMana << ")\n";
+	cout << " 공격력	  " << attack << "\n" << "\n";
+	cout << " --- ----- ---\n\n";
 }
 
 string Character::getName() const
@@ -144,7 +147,7 @@ int Character::getGold() const
 void Character::addGold(int gold)
 {
 	this->gold += gold;
-
+	cout << "\n";
 	cout << getName() << "가 ";
 	if (gold > 0)
 	{

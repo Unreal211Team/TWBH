@@ -13,8 +13,9 @@ int main()
 	
 	string heroName = "";
 
-	cout << "   ☆★ Game Start ★☆\n";
-	cout << "==================================================\n" << endl;
+	cout << "===========================\n";
+	cout << "   ☆ ★ Game Start ★ ☆\n";
+	cout << "===========================\n\n";
 	cout << "캐릭터 이름을 입력하세요: ";
 
 	// 이름 입력 받기
@@ -65,7 +66,7 @@ int main()
 		{
 			while (true)
 			{
-				cout << "\n골드: " << character->getGold() << endl;
+				cout << "\n골드: " << character->getGold() << " gold\n";
 				cout << "1)사기 2)팔기 3)겜블 Q)나가기: ";
 				cin >> action;
 

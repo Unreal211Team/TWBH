@@ -11,7 +11,7 @@ Orc::Orc(int level)
 
 	static int count = 1;
 
-	name = "Orc" + to_string(count++);
+	name = "Orc";
 	health = level * randomHealth(rd);
 	attack = level * randomAttack(rd);
 }
