@@ -6,13 +6,13 @@
 #include <iostream>
 #include <random>
 #include <map>
-#include <cmath>	// gamble()ì—ì„œ pow()ì‚¬ìš©
+#include <cmath>	// gamble()¿¡¼­ pow()»ç¿ë
 
 using namespace std;
 
 Shop* Shop::instance = nullptr;
 
-Shop::Shop()	//ì•„ì´í…œ ì¶”ê°€ë˜ë©´ push_back í•„ìš”
+Shop::Shop()	//¾ÆÀÌÅÛ Ãß°¡µÇ¸é push_back ÇÊ¿ä
 {
 	avaliableItems.push_back(new AttackBoost);
 	avaliableItems.push_back(new HealthPotion);
@@ -40,26 +40,26 @@ void Shop::displayItems() const
 
 	for (int i = 0; i < avaliableItems.size(); i++)
 	{
-		cout << i + 1 << ". " << avaliableItems[i]->getName() << " " << avaliableItems[i]->getPrice() << "ì›" << endl;
+		cout << i + 1 << ". " << avaliableItems[i]->getName() << " " << avaliableItems[i]->getPrice() << "¿ø" << endl;
 	}
 
 	cout << endl;
 }
 
-void Shop::buyItem(int index, Character* player)	// ì•„ì´í…œ ì¶”ê°€ë˜ë©´ ìˆ˜ì • í•„ìš”
+void Shop::buyItem(int index, Character* player)	// ¾ÆÀÌÅÛ Ãß°¡µÇ¸é ¼öÁ¤ ÇÊ¿ä
 {
 	if (index == 0)
 	{
 		if (player->getGold() < avaliableItems[0]->getPrice())
 		{
-			cout << "ê³¨ë“œê°€ ëª¨ìëë‹ˆë‹¤." << endl;
+			cout << "°ñµå°¡ ¸ğÀÚ¶ø´Ï´Ù." << endl;
 			return;
 		}
 
 		player->addGold(-50);
 		player->addItem(new AttackBoost);
 
-		cout << "AttackBoostë¥¼ êµ¬ë§¤í–ˆìŠµë‹ˆë‹¤." << endl;
+		cout << "AttackBoost¸¦ ±¸¸ÅÇß½À´Ï´Ù." << endl;
 
 		return;
 	}
@@ -67,14 +67,14 @@ void Shop::buyItem(int index, Character* player)	// ì•„ì´í…œ ì¶”ê°€ë˜ë©´ ìˆ˜ì 
 	{
 		if (player->getGold() < avaliableItems[1]->getPrice())
 		{
-			cout << "ê³¨ë“œê°€ ëª¨ìëë‹ˆë‹¤." << endl;
+			cout << "°ñµå°¡ ¸ğÀÚ¶ø´Ï´Ù." << endl;
 			return;
 		}
 
 		player->addGold(-50);
 		player->addItem(new HealthPotion);
 		
-		cout << "HealthPotionì„ êµ¬ë§¤í–ˆìŠµë‹ˆë‹¤." << endl;
+		cout << "HealthPotionÀ» ±¸¸ÅÇß½À´Ï´Ù." << endl;
 	}
 }
 
@@ -83,28 +83,28 @@ void Shop::sellItem(int index, Character* player)
 	vector<Item*>& inventory = player->getInventory();
 	Item* item = inventory[index];
 
-	player->addGold(item->getPrice() * 0.6);	//ë˜íŒ”ê¸° ê°€ê²© 60%
-	cout << item->getName() << "ì„ íŒë§¤í–ˆìŠµë‹ˆë‹¤." << endl;
+	player->addGold(item->getPrice() * 0.6);	//µÇÆÈ±â °¡°İ 60%
+	cout << item->getName() << "À» ÆÇ¸ÅÇß½À´Ï´Ù." << endl;
 	
 	inventory.erase(inventory.begin() + index);
 	delete item;
 }
 
-//ëŸ­í‚¤ë„˜ë²„ ë‚˜ì˜¬ ì‹œ ì¬ê·€ë¬¸ì„ ì“¸ìˆ˜ë„ ìˆì§€ë§Œ ì–¸ëŸ­í‚¤ë„˜ë²„ì˜ ìˆ«ì ìœ ì§€ë¥¼ ìœ„í•´ ì¬ê·€ë¬¸ëŒ€ì‹  ë°˜ë³µë¬¸ì‚¬ìš©
+//·°Å°³Ñ¹ö ³ª¿Ã ½Ã Àç±Í¹®À» ¾µ¼öµµ ÀÖÁö¸¸ ¾ğ·°Å°³Ñ¹öÀÇ ¼ıÀÚ À¯Áö¸¦ À§ÇØ Àç±Í¹®´ë½Å ¹İº¹¹®»ç¿ë
 void Shop::playGamble(Character* player) const
 {
-	Item* bossMonsterDropItem = new BossMonsterDropItem();	// 1ë“± ë‹¹ì²¨ ì‹œ ë³´ìƒ ì•„ì´í…œ, ì´ë¦„ ì‚¬ìš©ì„ ìœ„í•´ ë¯¸ë¦¬ ì„ ì–¸
+	Item* bossMonsterDropItem = new BossMonsterDropItem();	// 1µî ´çÃ· ½Ã º¸»ó ¾ÆÀÌÅÛ, ÀÌ¸§ »ç¿ëÀ» À§ÇØ ¹Ì¸® ¼±¾ğ
 
 	string action = "";
 
 	random_device rd;
-	uniform_int_distribution<int> randomDice(1, 6);	// ì£¼ì‚¬ìœ„ 1 ~ 6
+	uniform_int_distribution<int> randomDice(1, 6);	// ÁÖ»çÀ§ 1 ~ 6
 
-	vector<map<int, int>> unluckyNumbers(3);		// ì–¸ëŸ­í‚¤ë„˜ë²„ ì¤‘ë³µ ë¶ˆê°€
+	vector<map<int, int>> unluckyNumbers(3);		// ¾ğ·°Å°³Ñ¹ö Áßº¹ ºÒ°¡
 
 	int randomUnluckyNumber = 0;
 
-	// ì–¸ëŸ­í‚¤ë„˜ë²„ì—ì„œ ê°™ì€ ìˆ«ì 3ê°œ ì´í•˜ë¡œ ë‚˜ì˜¤ê²Œ ex) { 6 1 6 6 2 6 }: X, { 6 1 6 6 2 3 }: O
+	// ¾ğ·°Å°³Ñ¹ö¿¡¼­ °°Àº ¼ıÀÚ 3°³ ÀÌÇÏ·Î ³ª¿À°Ô ex) { 6 1 6 6 2 6 }: X, { 6 1 6 6 2 3 }: O
 	for (int i = 0; i < 3; i++)
 	{
 		for (int j = 0; j < 6; j++)
@@ -127,7 +127,7 @@ void Shop::playGamble(Character* player) const
 			}
 		}
 
-		// 1 2 3 4 5 6 : í•´ë‹¹ ê²½ìš°ëŠ” ëŸ­í‚¤ ë„˜ë²„ì´ë¯€ë¡œ ì–¸ëŸ­í‚¤ ë„˜ë²„ê°€ ë  ìˆ˜ ì—†ìŒ.
+		// 1 2 3 4 5 6 : ÇØ´ç °æ¿ì´Â ·°Å° ³Ñ¹öÀÌ¹Ç·Î ¾ğ·°Å° ³Ñ¹ö°¡ µÉ ¼ö ¾øÀ½.
 		if (unluckyNumbers[i].size() == 6)
 		{
 			unluckyNumbers.clear();
@@ -135,7 +135,7 @@ void Shop::playGamble(Character* player) const
 			continue;
 		}
 
-		// ì´ë¯¸ ë“±ì¥í•œ ì–¸ëŸ­í‚¤ ë„˜ë²„ì´ë©´ ë‹¤ì‹œ ì–¸ëŸ­í‚¤ ë„˜ë²„ ë½‘ê¸°
+		// ÀÌ¹Ì µîÀåÇÑ ¾ğ·°Å° ³Ñ¹öÀÌ¸é ´Ù½Ã ¾ğ·°Å° ³Ñ¹ö »Ì±â
 		for (int j = 0; j < i; j++)
 		{
 			if (unluckyNumbers[j] == unluckyNumbers[i])
@@ -147,33 +147,33 @@ void Shop::playGamble(Character* player) const
 		}
 	}
 	
-	cout << "\n============= ì£¼ì‚¬ìœ„ ê²Œì„ =============\n" << endl;
-	cout << " 1. ì£¼ì‚¬ìœ„ë¥¼ 6ë²ˆ ë˜ì§‘ë‹ˆë‹¤.\n" << endl;
-	cout << " 2-1. ì£¼ì‚¬ìœ„ ëˆˆì€ í•©ì‚°ë©ë‹ˆë‹¤." << endl;
-	cout << " 2-2. ì¤‘ë³µëœ ëˆˆì´ ìˆìœ¼ë©´ ì œê³±ë©ë‹ˆë‹¤.\n" << endl;
-	cout << " ì£¼ì‚¬ìœ„ex) 6 2 6 1 6 2" << endl;
+	cout << "\n============= ÁÖ»çÀ§ °ÔÀÓ =============\n" << endl;
+	cout << " 1. ÁÖ»çÀ§¸¦ 6¹ø ´øÁı´Ï´Ù.\n" << endl;
+	cout << " 2-1. ÁÖ»çÀ§ ´«Àº ÇÕ»êµË´Ï´Ù." << endl;
+	cout << " 2-2. Áßº¹µÈ ´«ÀÌ ÀÖÀ¸¸é Á¦°öµË´Ï´Ù.\n" << endl;
+	cout << " ÁÖ»çÀ§ex) 6 2 6 1 6 2" << endl;
 	cout << " 1 + 2 x 2 + 6 x 6 x 6 = 221\n" << endl;
 
-	int multiple = 1; //ëŸ­í‚¤ë„˜ë²„ê°€ ë‚˜ì˜¬ê²½ìš° 3ë°°ìˆ˜ë¡œ ì˜¬ë¼ê°
+	int multiple = 1; //·°Å°³Ñ¹ö°¡ ³ª¿Ã°æ¿ì 3¹è¼ö·Î ¿Ã¶ó°¨
 
 	vector<int> diceNumber;
 	map<int, int> diceNumberMap;
 
 	bool isLuckyNumber = false;
 
-	// ëŸ­í‚¤ë„˜ë²„ê°€ ë‚˜ì˜¬ê²½ìš° ì—¬ê¸°ì„œ ë‹¤ì‹œì‹œì‘
+	// ·°Å°³Ñ¹ö°¡ ³ª¿Ã°æ¿ì ¿©±â¼­ ´Ù½Ã½ÃÀÛ
 	do
 	{
 		isLuckyNumber = false;
 
-		cout << "---------------- ë³´ìƒ ----------------\n" << endl;
-		cout << " 1ë“± 10000â†‘: " << bossMonsterDropItem->getName() << endl;
-		cout << " 2ë“±  1000â†‘: ê³µê²©ë ¥ x 10" << endl;
-		cout << " 3ë“±   100â†‘: 10000 ê³¨ë“œ" << endl;
-		cout << " 4ë“±    50â†‘: 1000 ê³¨ë“œ\n" << endl;
+		cout << "---------------- º¸»ó ----------------\n" << endl;
+		cout << " 1µî 10000¡è: " << bossMonsterDropItem->getName() << endl;
+		cout << " 2µî  1000¡è: °ø°İ·Â x 10" << endl;
+		cout << " 3µî   100¡è: 10000 °ñµå" << endl;
+		cout << " 4µî    50¡è: 1000 °ñµå\n" << endl;
 		cout << "--------------------------------------\n" << endl;
-		cout << "               ìˆœì„œx\n" << endl;
-		cout << " Lucky  1 2 3 4 5 6 : í•œë²ˆë” + ë³´ìƒ 3ë°°" << endl;
+		cout << "               ¼ø¼­x\n" << endl;
+		cout << " Lucky  1 2 3 4 5 6 : ÇÑ¹ø´õ + º¸»ó 3¹è" << endl;
 
 		for (map<int, int>& unluckyNumber : unluckyNumbers)
 		{
@@ -185,65 +185,65 @@ void Shop::playGamble(Character* player) const
 					cout << iter.first << " ";
 				}
 			}
-			cout << ": ëŠ¥ë ¥ì¹˜ ë¦¬ì…‹" << endl;
+			cout << ": ´É·ÂÄ¡ ¸®¼Â" << endl;
 		}
 		
 		cout << "\n==========================================\n" << endl;
 
-		// ì²˜ìŒ ë“¤ì–´ì˜¤ë©´ ì‹¤í–‰
+		// Ã³À½ µé¾î¿À¸é ½ÇÇà
 		if (multiple == 1)
 		{
-			cout << "300 ê³¨ë“œë¥¼ ì§€ë¶ˆí•´ì„œ ê²Œì„ì„ í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤. ì†Œì§€ê³¨ë“œ: " << player->getGold() << endl;
+			cout << "300 °ñµå¸¦ ÁöºÒÇØ¼­ °ÔÀÓÀ» ÇÒ ¼ö ÀÖ½À´Ï´Ù. ¼ÒÁö°ñµå: " << player->getGold() << endl;
 
-			cout << "\nY)í•œë‹¤ ...)ì•ˆí•œë‹¤: ";
+			cout << "\nY)ÇÑ´Ù ...)¾ÈÇÑ´Ù: ";
 
 			cin >> action;
 
 			if (action != "Y" && action != "y")
 			{
-				cout << "\nëŒì•„ê°‘ë‹ˆë‹¤." << endl;
+				cout << "\nµ¹¾Æ°©´Ï´Ù." << endl;
 				return;
 			}
 
 			if (player->getGold() < 300)
 			{
-				cout << "\nê³¨ë“œê°€ ë¶€ì¡±í•©ë‹ˆë‹¤." << endl;
+				cout << "\n°ñµå°¡ ºÎÁ·ÇÕ´Ï´Ù." << endl;
 				return;
 			}
 
 			player->addGold(-300);
 		}
 
-		// ëŸ­í‚¤ë„˜ë²„ë¡œ ì¸í•´ ë‘ë²ˆì§¸ ë“¤ì–´ì˜¬ë•Œ
+		// ·°Å°³Ñ¹ö·Î ÀÎÇØ µÎ¹øÂ° µé¾î¿Ã¶§
 		else
 		{
-			cout << " â˜… ëŸ­í‚¤ë„˜ë²„â˜…" << endl;
-			cout << "ì¬ë„ì „ + ë³´ìƒ 3ë°° íšë“ì˜ ê¸°íšŒ!" << endl;
+			cout << " ¡Ú ·°Å°³Ñ¹ö¡Ú" << endl;
+			cout << "ÀçµµÀü + º¸»ó 3¹è È¹µæÀÇ ±âÈ¸!" << endl;
 		}
 
-		cout << "\nê²Œì„ì„ ì§„í–‰í•©ë‹ˆë‹¤.\n" << endl;
+		cout << "\n°ÔÀÓÀ» ÁøÇàÇÕ´Ï´Ù.\n" << endl;
 		
 		int number = 0;
 
-		// ì…ë ¥ë°›ê¸°
+		// ÀÔ·Â¹Ş±â
 		for (int i = 0; i < 6; i++)
 		{
-			cout << " " << i + 1 << "ë²ˆ ì£¼ì‚¬ìœ„ ë˜ì§€ê¸° \"" << i + 1 << "\" ì…ë ¥: ";
+			cout << " " << i + 1 << "¹ø ÁÖ»çÀ§ ´øÁö±â \"" << i + 1 << "\" ÀÔ·Â: ";
 			cin >> action;
 
 			cout << endl;
 
 			if (action != to_string(i + 1))
 			{
-				cout << "ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤.\n" << endl;
+				cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù.\n" << endl;
 				i--;
 				continue;
 			}
 
-			// ì£¼ì‚¬ìœ„ êµ´ë¦¬ê¸°
+			// ÁÖ»çÀ§ ±¼¸®±â
 			number = randomDice(rd);
 
-			cout << " " << number << " ë‚˜ì™”ìŠµë‹ˆë‹¤." << endl;
+			cout << " " << number << " ³ª¿Ô½À´Ï´Ù." << endl;
 
 			diceNumber.push_back(number);
 
@@ -257,7 +257,7 @@ void Shop::playGamble(Character* player) const
 				diceNumberMap[number]++;
 			}
 
-			cout << "í˜„ì¬:";
+			cout << "ÇöÀç:";
 
 			for (int num : diceNumber)
 			{
@@ -267,7 +267,7 @@ void Shop::playGamble(Character* player) const
 			cout << "\n" << endl;
 		}
 
-		// ëŸ­í‚¤ ë„˜ë²„ ì¼ ë•Œ
+		// ·°Å° ³Ñ¹ö ÀÏ ¶§
 		if (diceNumberMap.size() == 6)
 		{
 			multiple *= 3;
@@ -278,7 +278,7 @@ void Shop::playGamble(Character* player) const
 
 	} while (isLuckyNumber);
 
-	// ì–¸ëŸ­í‚¤ ë„˜ë²„ ì²´í¬
+	// ¾ğ·°Å° ³Ñ¹ö Ã¼Å©
 	bool isUnluckyNumber = false;
 
 	for (map<int, int>& number : unluckyNumbers)
@@ -289,7 +289,7 @@ void Shop::playGamble(Character* player) const
 		}
 	}
 
-	// ì–¸ëŸ­í‚¤ ë„˜ë²„ ì¼ ë•Œ
+	// ¾ğ·°Å° ³Ñ¹ö ÀÏ ¶§
 	if (isUnluckyNumber)
 	{
 		int level = player->getLevel();
@@ -300,24 +300,24 @@ void Shop::playGamble(Character* player) const
 		player->setExperience(0);
 		player->setMaxExperience(100);
 
-		cout << "\nì–¸ëŸ­í‚¤ë„˜ë²„ UnU" << endl;
-		cout << "ëŠ¥ë ¥ì¹˜ê°€ ì´ˆê¸°í™” ë˜ì—ˆìŠµë‹ˆë‹¤..." << endl;
+		cout << "\n¾ğ·°Å°³Ñ¹ö UnU" << endl;
+		cout << "´É·ÂÄ¡°¡ ÃÊ±âÈ­ µÇ¾ú½À´Ï´Ù..." << endl;
 
 		delete bossMonsterDropItem;
 
 		return;
 	}
 
-	// ëŸ­í‚¤/ì–¸ëŸ­í‚¤ ë„˜ë²„ê°€ ì•„ë‹ ë•Œ
-	int sum = 0; // ì´í•© ê²°ê³¼ê°’
+	// ·°Å°/¾ğ·°Å° ³Ñ¹ö°¡ ¾Æ´Ò ¶§
+	int sum = 0; // ÃÑÇÕ °á°ú°ª
 
 	for (pair<int, int> num : diceNumberMap)
 	{
 		sum = sum + pow(num.first, num.second);
 	}
 
-	// ì ìˆ˜ ê³„ì‚°ì‹ê³¼ í•©ê³„ ì¶œë ¥
-	cout << "ì ìˆ˜: ";
+	// Á¡¼ö °è»ê½Ä°ú ÇÕ°è Ãâ·Â
+	cout << "Á¡¼ö: ";
 
 	sort(diceNumber.begin(), diceNumber.end());
 
@@ -338,10 +338,10 @@ void Shop::playGamble(Character* player) const
 
 	cout << diceNumber[5] << " = " << sum << "\n" << endl;
 
-	// 1ë“±
+	// 1µî
 	if (sum > 10000 && multiple == 1)
 	{
-		cout << "â˜… ê²½ì¶•â˜… 1ë“± ë‹¹ì²¨" << endl;
+		cout << "¡Ú °æÃà¡Ú 1µî ´çÃ·" << endl;
 
 		player->addItem(bossMonsterDropItem);
 
@@ -350,7 +350,7 @@ void Shop::playGamble(Character* player) const
 
 	if (sum > 10000)
 	{
-		cout << "â˜… ê²½ì¶•â˜… 1ë“± ë‹¹ì²¨" << endl;
+		cout << "¡Ú °æÃà¡Ú 1µî ´çÃ·" << endl;
 
 		player->addItem(bossMonsterDropItem);
 
@@ -364,39 +364,39 @@ void Shop::playGamble(Character* player) const
 
 	delete bossMonsterDropItem;
 
-	// 2ë“±
+	// 2µî
 	if (sum > 1000)
 	{
 		player->setAttack(player->getAttack() * 10 * multiple);
 
-		cout << "2ë“± ë‹¹ì²¨" << endl;
-		cout << "ê³µê²©ë ¥ì´ " << 10 * multiple << "ë°° ì¦ê°€í•©ë‹ˆë‹¤." << endl;
+		cout << "2µî ´çÃ·" << endl;
+		cout << "°ø°İ·ÂÀÌ " << 10 * multiple << "¹è Áõ°¡ÇÕ´Ï´Ù." << endl;
 
 		return;
 	}
 
-	// 3ë“±
+	// 3µî
 	if (sum > 100)
 	{
-		cout << "3ë“± ë‹¹ì²¨";
+		cout << "3µî ´çÃ·";
 
 		player->addGold(10000 * multiple);
 
 		return;
 	}
 
-	// 4ë“±
+	// 4µî
 	if (sum > 50)
 	{
-		cout << "4ë“± ë‹¹ì²¨";
+		cout << "4µî ´çÃ·";
 
 		player->addGold(1000 * multiple);
 
 		return;
 	}
 
-	// ê½
-	cout << "ê½! >o< ë‹¤ìŒ ê¸°íšŒì—~" << endl;
+	// ²Î
+	cout << "²Î! >o< ´ÙÀ½ ±âÈ¸¿¡~" << endl;
 }
 
 Shop::~Shop()
