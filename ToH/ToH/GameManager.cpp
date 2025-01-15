@@ -72,13 +72,16 @@ void GameManager::battle(Character* player, Monster* monster)
 	{
 		cout << "☆ ★ ☆ ★ ☆ 보스 ";
 		cout << "몬스터 " << monster->getName() << " 등장! ☆ ★ ☆ ★ ☆ " << endl;
+		monster->displayArt();
 	}
 	else if (monster->getName().find("Elite") != string::npos) {	//find 사용 찾는 문자가 있으면 npos반환하므로 !=
 		cout << "☆ ★ ☆ 엘리트 ";
 		cout << "몬스터 " << monster->getName() << " 등장! ☆ ★ ☆ " << endl;
+		monster->displayArt();
 	}
 	else {
 		cout << "몬스터 " << monster->getName() << " 등장! " << endl;
+		monster->displayArt();
 	}
 
 	cout << "체력: " << monster->getHealth();
