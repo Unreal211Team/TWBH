@@ -7,6 +7,8 @@
 #include "Troll.h"
 #include "Slime.h"
 #include "Skill.h"
+#include "PowerStrike.h"
+#include "MagicClaw.h"
 
 GameManager* GameManager::instance = nullptr;
 
@@ -123,12 +125,44 @@ void GameManager::battle(Character* player, Monster* monster)
 			// 1. 공격 선택 
 		case 1:
 		{
+			int attackChoice;
+			cout << "\n현재 마나: " << player->getMana() << " / " << player->getMaxMana() << "\n";
+			cout << "1. 일반공격  2. 파워스트라이크(30) 3. 매직클로(60)\n";
+			cout << "공격 선택 : ";
+			cin >> attackChoice;
 
-
-
-			// 플레이어의 공격
-			cout << player->getName() << "이(가) ";
-			monster->takeDamage(player->getAttack());
+			switch (attackChoice)
+			{
+			case 1:
+				cout << player->getName() << "이(가) ";
+				monster->takeDamage(player->getAttack());
+				break;
+			case 2:
+			{
+				PowerStrike powerStrike;
+				powerStrike.use(player, monster);
+				if (player->getMana() < powerStrike.getMana())
+				{
+					cout << "다른 선택을 하세요.\n";
+					continue;
+				}
+				break;
+			}
+			case 3:
+			{
+				MagicClaw magicClaw;
+				magicClaw.use(player, monster);
+				if (player->getMana() < magicClaw.getMana())
+				{
+					cout << "다른 선택을 하세요.\n";
+					continue;
+				}
+				break;
+			}
+			default:
+				cout << "잘못된 입력입니다.\n";
+				continue;
+			}
 
 			// 플레이어의 공격에 몬스터가 죽었을 때
 			if (monster->getHealth() == 0)
