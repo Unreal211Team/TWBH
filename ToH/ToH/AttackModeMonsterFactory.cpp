@@ -20,5 +20,5 @@ shared_ptr<ActingMonster> AttackModeMonsterFactory::getRandomMonster(Monster& mo
 
 AttackModeMonsterFactory::AttackModeMonsterFactory()
 {
-    this->monsters = {make_shared<FindDiffWordMonster>(), make_shared<ParryingMonster>()};
+    this->monsters = {make_shared<FindDiffWordMonster>(), make_shared<ParryingMonster>(), make_shared<HitDelayMonster>()};
 }

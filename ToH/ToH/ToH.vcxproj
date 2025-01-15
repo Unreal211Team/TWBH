@@ -30,6 +30,7 @@
     <ClCompile Include="Goblin.cpp" />
     <ClCompile Include="GoblinDropItem.cpp" />
     <ClCompile Include="HealthPotion.cpp" />
+    <ClCompile Include="HitDelayMonster.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ActingMonster.cpp" />
     <ClCompile Include="FindDiffWordMonster.cpp" />
@@ -55,6 +56,7 @@
     <ClInclude Include="Goblin.h" />
     <ClInclude Include="GoblinDropItem.h" />
     <ClInclude Include="HealthPotion.h" />
+    <ClInclude Include="HitDelayMonster.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MagicClaw.h" />
     <ClInclude Include="Monster.h" />

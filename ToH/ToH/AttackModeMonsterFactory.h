@@ -2,6 +2,7 @@
 
 #include "FindDiffWordMonster.h"
 #include "ParryingMonster.h"
+#include "HitDelayMonster.h"
 
 class AttackModeMonsterFactory
 {
