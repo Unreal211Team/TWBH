@@ -23,10 +23,10 @@ public:
 	Item* dropItem() const override;
 	void displayArt() const override
 	{
-		cout << "            _/\\_/\\_" << endl;    
-		cout << "           /       \\" << endl;
-		cout << "          /  Elite  \\" << endl;
-		cout << "           \\_______/" << endl;
+		cout << "           _/\\_/\\_" << endl;    
+		cout << "          /       \\" << endl;
+		cout << "         /  Elite  \\" << endl;
+		cout << "          \\_______/" << endl;
 		originalMonster->displayArt();
 	}
 	
