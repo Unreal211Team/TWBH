@@ -2,13 +2,6 @@
 
 BuffManager* BuffManager::instance = nullptr;
 
-BuffManager::~BuffManager()
-{
-    for (auto& buff : buffs) {
-        delete buff;
-    }
-}
-
 BuffManager* BuffManager::getInstance()
 {
     if (instance == nullptr)
@@ -24,7 +17,8 @@ void BuffManager::addBuff(const string& name, int turns) {
     // 이미 존재하는 버프가 있는지 확인 (name을 기준으로)
     for (auto& buff : buffs) {
         if (buff->name == name) {           // 이름이 같은 버프가 있으면
-            
+            buff->remainingTurns = turns;   // 기존 버프의 지속시간 초기화
+            return;                         // 중복이라 추가할 필요없음
         }
     }
     //버프 만들어서 넣어주기

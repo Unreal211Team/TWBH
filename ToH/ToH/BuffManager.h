@@ -21,9 +21,13 @@ private:
     static BuffManager* instance;
 
     vector<Buff*> buffs; // Buff 포인터를 저장하는 벡터
-    //
+    //생성자 소멸자
     BuffManager() = default;
-    ~BuffManager();
+    ~BuffManager() = default;
+
+    // 복사 생성자와 복사 대입 연산자 삭제
+    BuffManager(const BuffManager&) = delete;
+    BuffManager& operator=(const BuffManager&) = delete;
 
 public:
     // BuffManager의 인스턴스를 가져오는 함수
