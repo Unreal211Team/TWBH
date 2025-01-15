@@ -34,6 +34,9 @@ void BossMonster::takeDamage(int damage)
 {
 	health -= damage;
 	health = health < 0 ? 0 : health;
+
+	cout << getName() << "을 공격합니다! ";
+	cout << getName() << " 체력: " << getHealth() << endl;
 }
 
 Item* BossMonster::dropItem() const

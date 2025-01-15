@@ -13,4 +13,5 @@ public:
 	Monster* generateMonster(int level);
 	void battle(Character* player, Monster* monster);
 	void displayInventory(Character* player);
+	void useItemFromInventory(Character* player);
 };

@@ -53,10 +53,13 @@
     <ClInclude Include="GoblinDropItem.h" />
     <ClInclude Include="HealthPotion.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="MagicClaw.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Orc.h" />
     <ClInclude Include="OrcDropItem.h" />
+    <ClInclude Include="PowerStrike.h" />
     <ClInclude Include="Shop.h" />
+    <ClInclude Include="Skill.h" />
     <ClInclude Include="Slime.h" />
     <ClInclude Include="SlimeDropItem.h" />
     <ClInclude Include="Troll.h" />

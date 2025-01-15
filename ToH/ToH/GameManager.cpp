@@ -1,14 +1,18 @@
 #include "GameManager.h"
 #include "Item.h"
-#include "iostream"
+#include <iostream>
 #include <random>
 #include "Goblin.h"
 #include "Orc.h"
 #include "Troll.h"
 #include "Slime.h"
+<<<<<<< HEAD
 #include "Evolve.h"
 #include "BuffManager.h"
 
+=======
+#include "Skill.h"
+>>>>>>> main
 
 GameManager* GameManager::instance = nullptr;
 
@@ -88,134 +92,99 @@ void GameManager::battle(Character* player, Monster* monster)
 	}
 
 	cout << "체력: " << monster->getHealth();
-	cout << ", 공격력: " << monster->getAttack() << endl;
-	
-	string action = "";
+	cout << ", 공격력: " << monster->getAttack() << "\n";
 
-	bool isDigit = false;	//입력값이 숫자인지 아닌지 판단할 때 쓰임
-	int act = 0;
 
-	while (true) {
-
-		cout << "\n1)공격 2)인벤토리 3)상태창\n";
-		cout << "입력: ";
-
-		cin >> action;
-
-		cout << endl;
-
-		if (action != "1" && action != "2" && action != "3")
+	// 전투 로직
+	while (true)
+	{
+		// 전투 시작 조건 (몬스터의 체력이 0보다 크다.)
+		if (monster->getHealth() <= 0)
 		{
-			cout << "잘못된 입력입니다." << endl;
-			continue;
+			break;
 		}
 
-		// 입력 값 2. 인벤토리 - 아이템 사용
-		if (action == "2")
+
+		int choiceAction;
+
+		cout << "1. 공격   2. 인벤토리   3. 상태창 \n";
+		cout << "입력 : ";
+
+		while (true) 
 		{
-			displayInventory(player);
+			cin >> choiceAction;
 
-			if (player->getInventory().size() == 0)
+			if (cin.fail())
 			{
-				continue;
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				cout << "잘못 입력된 값입니다.\n";
+				cout << "다시 입력해주세요. :";
 			}
-
-			cout << "\n숫자)해당 아이템 사용 Q)나가기";
-			cout << "입력: ";
-
-			cin >> action;
-
-			if (action == "Q" || action == "q")
+			else
 			{
-				continue;
-			}
-
-			// 입력 값이 숫자인지 판별
-			isDigit = true;
-
-			for (char actionChar : action)
-			{
-				if (!isdigit(actionChar))
-				{
-					isDigit = false;
-					break;
-				}
-			}
-
-			// 입력 값이 숫자가 아니라면
-			if (!isDigit)
-			{
-				cout << "잘못된 입력입니다." << endl;
-				continue;
-			}
-
-			act = stoi(action);
-
-			if (act > player->getInventory().size() || act <= 0)
-			{
-				cout << "잘못된 입력입니다." << endl;
-				continue;
-			}
-
-			player->useItem(act - 1);
-
-			continue;
-		}
-
-		// 입력 값 3. 스테이터스 출력
-		if (action == "3")
-		{
-			player->displayStatus();
-			continue;
-		}
-
-		/*
-		* 나머지 - 입력 값 1. 공격
-		* 플레이어가 몬스터 공격
-		*/
-
-		monster->takeDamage(player->getAttack());
-
-		// 몬스터가 죽었을 때
-		if (monster->getHealth() == 0)
-		{
-			cout << player->getName() << "가 ";
-			cout << monster->getName() << "을 공격합니다! ";
-			cout << monster->getName() << " 처치!" << endl;
-
-			// 보스를 잡았을 때
-			if (monster->getName()=="Dragon")
-			{
-				Item* drop = monster->dropItem();
-				cout << player->getName() << "가 \"";
-				cout << drop->getName() << "\"를 획득했습니다." << endl;
-				player->addItem(drop);
-				cout << "\n영웅 " << player->getName() << "에 의해 세계의 평화가 지켜졌다." << endl;
 				break;
 			}
+		}
 
-			player->addExperience(experience);
-			player->addGold(randomGold);
-			
-			cout << player->getName() << "가 ";
-			cout << experience << " EXP와 ";
-			cout << randomGold << " 골드를 획득했습니다." << endl;
+		
 
-			if (randomI(rd) <= 30)
+		switch (choiceAction)
+		{
+
+			// 1. 공격 선택 
+		case 1:
+		{
+
+
+
+			// 플레이어의 공격
+			cout << player->getName() << "이(가) ";
+			monster->takeDamage(player->getAttack());
+
+			// 플레이어의 공격에 몬스터가 죽었을 때
+			if (monster->getHealth() == 0)
 			{
-				Item* drop = monster->dropItem();
-				cout << player->getName() << "가 \"";
-				cout << drop->getName() << "\"을 획득했습니다." << endl;
-				player->addItem(drop);
+				cout << monster->getName() << " 처치!" << endl;
+
+
+				// 보상을 지급하는 로직
+				player->addExperience(experience);
+				player->addGold(randomGold);
+
+				if (randomI(rd) <= itemDrop)
+				{
+					Item* drop = monster->dropItem();
+					player->addItem(drop);
+				}
+
+				// 캐릭터 레벨업 확인하는 로직
+				if (player->IsLevelUp())
+				{
+					player->levelUp();
+				}
+
+				// 죽은 몬스터가 보스인지 확인하는 로직
+				if (monster->getName() == "Dragon")
+				{
+					cout << "\n영웅 " << player->getName() << "에 의해 세계의 평화가 지켜졌다." << endl;
+					break;
+				}
+				return;
 			}
 
-			// 캐릭터 레벨업
-			if (player->IsLevelUp())
+
+			// 몬스터의 공격
+			cout << monster->getName() << "이(가) ";
+			player->takeDamage(monster->getAttack());
+
+			// 몬스터의 공격에 플레이어가 사망했는지 확인하는 로직
+			if (player->getHealth() == 0)
 			{
-				player->levelUp();
-				cout << player->getName() << "가 레벨업! ";
-				cout << "Lv." << player->getLevel() << endl;
+				player->isDead();
+				return;
 			}
+<<<<<<< HEAD
 
 			cout << "\nHP: " << player->getHealth() << "/" << player->getMaxHealth();
 			cout << "  EXP: " << player->getExperience() << "/" << player->getMaxExperience();
@@ -251,16 +220,40 @@ void GameManager::battle(Character* player, Monster* monster)
 
 		// 플레이어가 죽었을 때
 		if (player->getHealth() == 0)
-		{
-			cout << player->getName() << "가 사망했습니다. 게임 오버!" << endl;
+=======
 			break;
 		}
+
+		// 2. 인벤토리 선택
+		case 2:
+>>>>>>> main
+		{
+			displayInventory(player);
+			useItemFromInventory(player);
+			break;
+		}
+
+
+		// 3. 상태창 선택
+		case 3:
+		{
+			player->displayStatus();
+			break;
+		}
+		default:
+		{
+			cout << "잘못된 입력값입니다. \n";
+			break;
+		}
+
+		// 전투가 끝나면 몬스터 객체를 삭제
+		delete monster;
+		monster = nullptr;
+		}
 	}
-
-	delete monster;
-
-	monster = nullptr;
 }
+
+
 
 void GameManager::displayInventory(Character* player)
 {
@@ -268,16 +261,49 @@ void GameManager::displayInventory(Character* player)
 
 	cout << " --- Inventory ---" << endl;
 
+	cout << " 소지골드 : " << player->getGold() << " gold\n";
+
 	if (inventory.empty())
 	{
-		cout << " 없음\n" << endl;
+		cout << " 소지 아이템 : 없음\n" << endl;
 		return;
 	}
 
 	for (int i = 0; i < inventory.size(); i++)
 	{
-		cout << i + 1 << ". " << inventory[i]->getName() << " " << inventory[i]->getPrice() << "원" << endl;
+		cout << i + 1 << ". " << inventory[i]->getName() << " ( " << inventory[i]->getPrice() << " gold ) \n";
 	}
 
-	cout << endl;
+
+	
+}
+
+void GameManager::useItemFromInventory(Character* player)
+{
+	vector<Item*> inventory = player->getInventory();
+
+	int itemIndex;
+
+	cout << "번호를 입력하여 아이템 사용이 가능합니다. \n";
+
+	while (true)
+	{
+		cout << "0. 인벤토리 닫기 \n";
+		cin >> itemIndex;
+
+		if (itemIndex > 0 && itemIndex <= inventory.size())
+		{
+			player->useItem(itemIndex - 1);
+			break;
+		}
+		else if (itemIndex == 0)
+		{
+			cout << "인벤토리를 닫습니다. \n";
+			break;
+		}
+		else
+		{
+			cout << "잘못된 입력값입니다. \n";
+		}
+	}
 }
