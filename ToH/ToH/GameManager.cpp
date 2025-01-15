@@ -6,13 +6,9 @@
 #include "Orc.h"
 #include "Troll.h"
 #include "Slime.h"
-<<<<<<< HEAD
 #include "Evolve.h"
 #include "BuffManager.h"
-
-=======
 #include "Skill.h"
->>>>>>> main
 
 GameManager* GameManager::instance = nullptr;
 
@@ -184,7 +180,6 @@ void GameManager::battle(Character* player, Monster* monster)
 				player->isDead();
 				return;
 			}
-<<<<<<< HEAD
 
 			cout << "\nHP: " << player->getHealth() << "/" << player->getMaxHealth();
 			cout << "  EXP: " << player->getExperience() << "/" << player->getMaxExperience();
@@ -220,13 +215,12 @@ void GameManager::battle(Character* player, Monster* monster)
 
 		// 플레이어가 죽었을 때
 		if (player->getHealth() == 0)
-=======
+		{
 			break;
 		}
 
 		// 2. 인벤토리 선택
 		case 2:
->>>>>>> main
 		{
 			displayInventory(player);
 			useItemFromInventory(player);

@@ -39,21 +39,15 @@ void Character::displayStatus() const
 {
 	cout << " --- status ---" << "\n";
 	cout << " 이름 : " << name << "\n";
-<<<<<<< HEAD
-	cout << " Lv." << level << "	(" << experience << "/" << maxExperience << ")" << "\n";
-	cout << " HP	(" << health << "/" << maxHealth << ")\n";
-	cout << " 공격력	" << attack << "\n";
+	cout << " Lv." << level << "\n";
+	cout << " Exp	  (" << experience << "/" << maxExperience << ")" << "\n";
+	cout << " HP	  (" << health << "/" << maxHealth << ")\n";
+	cout << " 공격력	  " << attack << "\n";
 	BuffManager* manager = BuffManager::getInstance();
 	if (manager->ActiveBuffsCheck())
 	{
 		manager->displayBuffs();
 	}
-=======
-	cout << " Lv." << level << "\n";
-	cout << " Exp	  (" << experience << "/" << maxExperience << ")" << "\n";
-	cout << " HP	  (" << health << "/" << maxHealth << ")\n";
-	cout << " 공격력	  " << attack << "\n";
->>>>>>> main
 }
 
 string Character::getName() const
@@ -226,12 +220,12 @@ void Character::useItem(int index)
 	inventory.erase(inventory.begin() + index);
 }
 
-<<<<<<< HEAD
 //버프 종료
 void Character::resetAttackBuff()
 {
 	attack -= 10;
-=======
+}
+
 bool Character::isDead()
 {
 	if (health <= 0)
@@ -241,7 +235,6 @@ bool Character::isDead()
 
 	}
 	return bIsAlive;
->>>>>>> main
 }
 
 Character::~Character()

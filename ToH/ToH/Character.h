@@ -82,13 +82,8 @@ public:
 	void levelUp();
 	void addItem(Item* item);
 	void useItem(int index);
-<<<<<<< HEAD
 	void resetAttackBuff();
-	~Character();
-=======
 	void reduceMana(int amount) { mana -= amount; }
 	void recoverMana(int amount) { mana = min(mana + amount, maxMana); }
 
-
->>>>>>> main
 };
