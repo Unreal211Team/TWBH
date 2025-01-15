@@ -14,6 +14,18 @@ Orc::Orc(int level)
 	name = "Orc";
 	health = level * randomHealth(rd);
 	attack = level * randomAttack(rd);
+
+	asciiArt = R"(
+      __,='`````'=/__
+     '//  (o) \(o) \\`  
+    //|     ,_)   (`\\
+  // |  \_.-==-._.-  | \\
+ //  |               |  \\
+//   \    \       /   /  \\
+//     '._  '.___' _.'    \\
+/         `'-----'         
+    )";
+
 }
 
 string Orc::getName() const

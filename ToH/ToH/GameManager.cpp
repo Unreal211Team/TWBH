@@ -80,13 +80,16 @@ void GameManager::battle(Character* player, Monster* monster)
 	{
 		cout << "☆ ★ ☆ ★ ☆ 보스 ";
 		cout << "몬스터 Lv." << player->getLevel()<< " " << monster->getName() << " 등장!☆ ★ ☆ ★ ☆ " << endl;
+    monster->displayArt();
 	}
 	else if (monster->getName().find("Elite") != string::npos) {	//find 사용 찾는 문자가 있으면 npos반환하므로 !=
 		cout << "☆ ★ ☆ 엘리트 ";
 		cout << "몬스터 Lv." << player->getLevel() << " " << monster->getName() << " 등장! ☆ ★ ☆ " << endl;
+    monster->displayArt();
 	}
 	else {
 		cout << "몬스터 Lv." << player->getLevel() << " " << monster->getName() << " 등장! " << endl;
+    monster->displayArt();
 	}
 	cout << "\n-- Monster status --" << endl;
 	cout << "체력: " << monster->getHealth();
@@ -460,30 +463,17 @@ void GameManager::useItemFromInventory(Character* player)
 {
 	vector<Item*> inventory = player->getInventory();
 
-	int itemIndex;
-	if (!inventory.empty())
+	cout << "번호를 입력하여 아이템 사용이 가능합니다.\n";
+	cout << "0. 인벤토리 닫기\n";
+
+	int itemIndex = getValidatedInput("사용할 아이템 번호를 입력하세요: ", 0, inventory.size());
+
+	if (itemIndex == 0)
 	{
-		cout << "번호를 입력하여 아이템 사용이 가능합니다. \n";
+		cout << "인벤토리를 닫습니다.\n";
+		return;
 	}
 
-	while (true)
-	{
-		cout << "0을입력해서 인벤토리 닫기 \n\n 입력 : ";
-		cin >> itemIndex;
-
-		if (itemIndex > 0 && itemIndex <= inventory.size())
-		{
-			player->useItem(itemIndex - 1);
-			break;
-		}
-		else if (itemIndex == 0)
-		{
-			cout << "\n인벤토리를 닫습니다. \n\n";
-			break;
-		}
-		else
-		{
-			cout << "잘못된 입력값입니다. \n";
-		}
-	}
+	player->useItem(itemIndex - 1);
+	cout << inventory[itemIndex - 1]->getName() << " 아이템을 사용했습니다.\n";
 }

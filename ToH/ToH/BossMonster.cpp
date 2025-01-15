@@ -13,6 +13,21 @@ BossMonster::BossMonster(int level)
 	name = "Dragon";
 	health = level * randomHealth(rd);
 	attack = level * randomAttack(rd);
+
+	asciiArt = R"(
+          __        _
+       _/  \    _(\(o
+      /     \  /  _  ^^^o
+     /   !   \/  ! '!!!v'
+    !  !  \ _' ( \____
+    ! . \ _!\   \===^\)
+     \ \_!  / __!
+      \!   /    \
+(\_      _/   _\ )
+ \ ^^--^^ __-^ /(__
+  ^^----^^    "^--v'
+    )";
+
 }
 
 string BossMonster::getName() const

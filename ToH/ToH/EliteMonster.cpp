@@ -8,6 +8,7 @@
 /// <param name="monster"></param>
 EliteMonster::EliteMonster(Monster* monster)
 {
+	originalMonster = monster;
 	name = "Elite_" + monster->getName();
 	health = monster->getHealth() * 2;
 	attack = monster->getAttack() * 2;
