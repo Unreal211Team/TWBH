@@ -14,7 +14,9 @@ void ParryingMonster::doAttack()
     string inputWord;
 
     char escapeChar = 'a' + random(rd);
+    cout << "==========================\n";
     cout << endl << "몬스터의 공격! 회피하시려면 " << escapeChar << "를 입력해주세요" << endl;
+    cout << "==========================\n";
 
     clock_t start = clock();
     cin >> inputWord;
@@ -26,12 +28,16 @@ void ParryingMonster::doAttack()
 
     if (spendTime < timeOut && inputWord.size() == 1 && inputWord[0] == escapeChar)
     {
+        cout << "☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★\n";
         cout << "회피 성공! 적의 공격력을 무력화했다!" << endl;
         this->damage = 0;
+        cout << "☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★\n";
     }
     else
     {
+        cout << "--------------------------\n";
         cout << "회피 실패!" << endl;
         this->damage = monster->getAttack();
+        cout << "--------------------------\n";
     }
 }

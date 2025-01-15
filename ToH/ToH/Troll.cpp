@@ -11,9 +11,26 @@ Troll::Troll(int level)
 
 	static int count = 1;
 
-	name = "Troll" + to_string(count++);
+	name = "Troll";
 	health = level * randomHealth(rd);
 	attack = level * randomAttack(rd);
+
+	asciiArt = R"(
+         _.--'\     |     /'--._
+       .'     '._.' '.'.'_.-'     `.
+      /    .-'         '-.    \
+     /   .'               '.   \
+    /   /                   \   \
+   ;   ;     (o)       (o)    ;   ;
+   |   |        _       _     |   |
+   |   |       ( '-.-' )      |   |
+   |   |        \_/ \_/       |   |
+   ;   ;        _/   \_       ;   ;
+    \   \     .'       `.    /   /
+     `._/`.  /           \ .'_.'
+         `._.'             `._.'
+    )";
+
 }
 
 string Troll::getName() const
