@@ -2,6 +2,7 @@
 
 #include "Monster.h"
 #include "Character.h"
+#include "Shop.h"
 
 class GameManager
 {
@@ -14,4 +15,10 @@ public:
 	void battle(Character* player, Monster* monster);
 	void displayInventory(Character* player);
 	void useItemFromInventory(Character* player);
+
+
+	// 수정사항
+	void visitShop(Character* character, Shop* shop);
+	int getValidatedInput(const string& prompt, int minValue, int maxValue);
+
 };
