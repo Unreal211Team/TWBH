@@ -85,6 +85,26 @@ void Character::setMaxHealth(int maxHealth)
 	this->maxHealth = maxHealth;
 }
 
+int Character::getMana() const
+{
+	return mana;
+}
+
+int Character::getMaxMana() const
+{
+	return maxMana;
+}
+
+void Character::setMana(int mana)
+{
+	this->mana = max(mana, 0);
+}
+
+void Character::setMaxMana(int maxMana)
+{
+	this->maxMana = maxMana;
+}
+
 int Character::getAttack() const
 {
 	return attack;
@@ -163,10 +183,7 @@ bool Character::IsLevelUp() const
 	return experience >= maxExperience;
 }
 
-int Character::getMana() const
-{
-	return mana;
-}
+
 
 void Character::levelUp()
 {
@@ -189,6 +206,13 @@ void Character::levelUp()
 
 	// 공격업
 	attack += 5;
+
+	//마나총량업
+	maxMana += 10;
+
+	//마나회복
+	mana = maxMana;
+
 
 	cout << getName() << "이(가) 레벨업! ";
 	cout << "Lv." << getLevel() << endl;

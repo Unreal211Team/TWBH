@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AttackBoost.cpp" />
+    <ClCompile Include="AttackModeMonsterFactory.cpp" />
     <ClCompile Include="BossMonster.cpp" />
     <ClCompile Include="BossMonsterDropItem.cpp" />
     <ClCompile Include="BuffManager.cpp" />
@@ -30,7 +31,12 @@
     <ClCompile Include="Goblin.cpp" />
     <ClCompile Include="GoblinDropItem.cpp" />
     <ClCompile Include="HealthPotion.cpp" />
+    <ClCompile Include="HitDelayMonster.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ActingMonster.cpp" />
+    <ClCompile Include="FindDiffWordMonster.cpp" />
+    <ClCompile Include="ManaPotion.cpp" />
+    <ClCompile Include="ParryingMonster.cpp" />
     <ClCompile Include="Orc.cpp" />
     <ClCompile Include="OrcDropItem.cpp" />
     <ClCompile Include="Shop.cpp" />
@@ -41,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AttackBoost.h" />
+    <ClInclude Include="AttackModeMonsterFactory.h" />
     <ClInclude Include="BossMonster.h" />
     <ClInclude Include="BossMonsterDropItem.h" />
     <ClInclude Include="BuffManager.h" />
@@ -52,9 +59,14 @@
     <ClInclude Include="Goblin.h" />
     <ClInclude Include="GoblinDropItem.h" />
     <ClInclude Include="HealthPotion.h" />
+    <ClInclude Include="HitDelayMonster.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MagicClaw.h" />
+    <ClInclude Include="ManaPotion.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="FindDiffWordMonster.h" />
+    <ClInclude Include="ParryingMonster.h" />
+    <ClInclude Include="ActingMonster.h" />
     <ClInclude Include="Orc.h" />
     <ClInclude Include="OrcDropItem.h" />
     <ClInclude Include="PowerStrike.h" />
