@@ -20,7 +20,6 @@ bool BossMonsterDropItem::canUse() const
 
 void BossMonsterDropItem::use(Character* character) const
 {	
-	cout << "드래곤 하트를 복용합니다." << endl;
 	cout << "체력이 100배 상승합니다." << endl;
 	cout << "공격력이 100배 상승합니다." << endl;
 

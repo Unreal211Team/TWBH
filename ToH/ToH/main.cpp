@@ -13,8 +13,8 @@ int main()
 	
 	string heroName = "";
 
-	cout << "   ☆★ Game Start ★☆";
-	cout << "\n==================================================" << endl;
+	cout << "   ☆★ Game Start ★☆\n";
+	cout << "==================================================\n" << endl;
 	cout << "캐릭터 이름을 입력하세요: ";
 
 	// 이름 입력 받기
@@ -23,9 +23,9 @@ int main()
 	Character* character = Character::getInstance(heroName);
 	Monster* monster = nullptr;
 	
-	cout << "캐릭터 : " << character->getName() << "\n";
+	system("cls");
+
 	cout << "생성 완료! \n";
-	cout << "==================================================\n";
 
 	character->displayStatus();
 
@@ -36,6 +36,7 @@ int main()
 
 	while (character->getLevel() < 10 && character->getHealth() > 0)
 	{
+
 		// 배틀
 		cout << "\n==================================================" << endl;
 		monster = gameManager->generateMonster(character->getLevel());
@@ -57,6 +58,7 @@ int main()
 		cout << "상점을 방문하시겠습니까?" << endl;
 		cout << "Y)한다 그외)안한다: ";
 		cin >> action;
+
 
 		if (action.compare("y") == 0 || action.compare("Y") == 0)
 		{
