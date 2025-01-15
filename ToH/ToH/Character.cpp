@@ -1,5 +1,6 @@
 #include "Character.h"
 #include "Item.h"
+#include "BuffManager.h"
 #include <iostream>
 
 
@@ -32,6 +33,11 @@ void Character::displayStatus() const
 	cout << " Lv." << level << "	(" << experience << "/" << maxExperience << ")" << "\n";
 	cout << " HP	(" << health << "/" << maxHealth << ")\n";
 	cout << " °ø°Ý·Â	" << attack << "\n";
+	BuffManager* manager = BuffManager::getInstance();
+	if (manager->ActiveBuffsCheck())
+	{
+		manager->displayBuffs();
+	}
 }
 
 string Character::getName() const
