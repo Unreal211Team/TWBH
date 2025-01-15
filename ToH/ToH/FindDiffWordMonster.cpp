@@ -1,7 +1,14 @@
-#include "MonsterFindDiffWord.h"
+#include "FindDiffWordMonster.h"
 
-int MonsterFindDiffWord::getAttack() const
+int FindDiffWordMonster::getAttack() const
 {
+    return this->damage;
+}
+
+void FindDiffWordMonster::doAttack()
+{
+    Character* character = Character::getInstance("");
+
     random_device rd;
     uniform_int_distribution<int> random(0, Lstring.size() - 1);
     string str;
@@ -19,8 +26,12 @@ int MonsterFindDiffWord::getAttack() const
     if (spendTime < timeOut && to_string(changePos + 1) == str)
     {
         cout << "ºóÆ´À» ÅëÇØ È¸ÇÇÇß´Ù!!" << endl;
-        return 0;
+        this->damage = 0;
     }
-    cout << "ºóÆ´À» Ã£Áö¸øÇß´Ù" << endl;
-    return monster->getAttack();
+    else
+    {
+        cout << "ºóÆ´À» Ã£Áö¸øÇß´Ù" << endl;
+        this->damage = monster->getAttack();
+    }
+
 }

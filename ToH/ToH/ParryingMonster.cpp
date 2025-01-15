@@ -1,6 +1,11 @@
-#include "MonsterParrying.h"
+#include "ParryingMonster.h"
 
-int MonsterParraying::getAttack() const
+int ParryingMonster::getAttack() const
+{
+    return this->damage;
+}
+
+void ParryingMonster::doAttack()
 {
     random_device rd;
     uniform_int_distribution<int> random(0, 25);
@@ -18,16 +23,11 @@ int MonsterParraying::getAttack() const
     if (spendTime < this->timeOut && inputWord.size() == 1 && inputWord[0] == escapeChar)
     {
         cout << "회피 성공! 적의 공격력을 무력화했다!" << endl;
-        return 0;
+        this->damage = 0;
     }
-
-    cout << "회피 실패!" << endl;
-    while (cin.fail())
+    else
     {
-        cout << "잘못된값 다시입력하세요" << endl;
-
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "회피 실패!" << endl;
+        this->damage = monster->getAttack();
     }
-    return monster->getAttack();
 }

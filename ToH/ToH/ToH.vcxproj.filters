@@ -81,13 +81,19 @@
     <ClCompile Include="EliteDropItem.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="MonsterAttackMode.cpp">
+    <ClCompile Include="AttackModeMonster.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="MonsterParrying.cpp">
+    <ClCompile Include="ParryingMonster.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="MonsterFindDiffWord.cpp">
+    <ClCompile Include="FindDiffWordMonster.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DelayTimeAttackMonster.h">
+      <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackModeMonsterFactory.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -152,13 +158,13 @@
     <ClInclude Include="Evolve.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="MonsterAttackMode.h">
+    <ClInclude Include="AttackModeMonster.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="MonsterParrying.h">
+    <ClInclude Include="ParryingMonster.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="MonsterFindDiffWord.h">
+    <ClInclude Include="FindDiffWordMonster.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="MagicClaw.h">
@@ -168,6 +174,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Skill.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackModeMonsterFactory.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

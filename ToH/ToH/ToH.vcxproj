@@ -20,19 +20,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AttackBoost.cpp" />
+    <ClCompile Include="AttackModeMonsterFactory.cpp" />
     <ClCompile Include="BossMonster.cpp" />
     <ClCompile Include="BossMonsterDropItem.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="EliteDropItem.cpp" />
     <ClCompile Include="EliteMonster.cpp" />
+    <ClCompile Include="DelayTimeAttackMonster.h" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Goblin.cpp" />
     <ClCompile Include="GoblinDropItem.cpp" />
     <ClCompile Include="HealthPotion.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MonsterAttackMode.cpp" />
-    <ClCompile Include="MonsterFindDiffWord.cpp" />
-    <ClCompile Include="MonsterParrying.cpp" />
+    <ClCompile Include="AttackModeMonster.cpp" />
+    <ClCompile Include="FindDiffWordMonster.cpp" />
+    <ClCompile Include="ParryingMonster.cpp" />
     <ClCompile Include="Orc.cpp" />
     <ClCompile Include="OrcDropItem.cpp" />
     <ClCompile Include="Shop.cpp" />
@@ -43,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AttackBoost.h" />
+    <ClInclude Include="AttackModeMonsterFactory.h" />
     <ClInclude Include="BossMonster.h" />
     <ClInclude Include="BossMonsterDropItem.h" />
     <ClInclude Include="Character.h" />
@@ -56,9 +59,9 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="MagicClaw.h" />
     <ClInclude Include="Monster.h" />
-    <ClInclude Include="MonsterFindDiffWord.h" />
-    <ClInclude Include="MonsterParrying.h" />
-    <ClInclude Include="MonsterAttackMode.h" />
+    <ClInclude Include="FindDiffWordMonster.h" />
+    <ClInclude Include="ParryingMonster.h" />
+    <ClInclude Include="AttackModeMonster.h" />
     <ClInclude Include="Orc.h" />
     <ClInclude Include="OrcDropItem.h" />
     <ClInclude Include="PowerStrike.h" />
