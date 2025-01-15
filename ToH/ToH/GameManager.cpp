@@ -462,31 +462,23 @@ void GameManager::displayInventory(Character* player)
 void GameManager::useItemFromInventory(Character* player)
 {
 	vector<Item*> inventory = player->getInventory();
+  
 
-	int itemIndex;
-	if (!inventory.empty())
+	cout << "��ȣ�� �Է��Ͽ� ������ ����� �����մϴ�.\n";
+	cout << "0. �κ��丮 �ݱ�\n";
+
+
+	int itemIndex = getValidatedInput("����� ������ ��ȣ�� �Է��ϼ���: ", 0, inventory.size());
+
+
+	if (itemIndex == 0) 
 	{
-		cout << "번호를 입력하여 아이템 사용이 가능합니다. \n";
+		cout << "�κ��丮�� �ݽ��ϴ�.\n";
+		return;
+
 	}
 
-	while (true)
-	{
-		cout << "0을입력해서 인벤토리 닫기 \n\n 입력 : ";
-		cin >> itemIndex;
+	player->useItem(itemIndex - 1);
+	cout << inventory[itemIndex - 1]->getName() << " �������� ����߽��ϴ�.\n";
 
-		if (itemIndex > 0 && itemIndex <= inventory.size())
-		{
-			player->useItem(itemIndex - 1);
-			break;
-		}
-		else if (itemIndex == 0)
-		{
-			cout << "\n인벤토리를 닫습니다. \n\n";
-			break;
-		}
-		else
-		{
-			cout << "잘못된 입력값입니다. \n";
-		}
-	}
 }
