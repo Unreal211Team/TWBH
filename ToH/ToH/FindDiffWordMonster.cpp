@@ -17,7 +17,7 @@ void FindDiffWordMonster::doAttack()
     int changeRow = randomRow(rd);
     
     int answer = 0;
-
+    cout << "\n==========================\n";
     cout << "ºóÆ´À» Ã£ÀÚ!!" << endl << endl;
 
     for (int col = 0; col < character->getLevel(); col++)
@@ -34,6 +34,7 @@ void FindDiffWordMonster::doAttack()
     }
 
     cout << "iÀÇ °¹¼ö´Â?" << endl;
+    cout << "==========================\n\n";
     clock_t start = clock();
     cin >> str;
     clock_t end = clock();
@@ -41,13 +42,17 @@ void FindDiffWordMonster::doAttack()
     double spendTime = static_cast<double>(end - start) / CLOCKS_PER_SEC;
     if (spendTime < timeOut && to_string(answer) == str)
     {
+        cout << "¡Ù ¡Ú ¡Ù ¡Ú ¡Ù ¡Ú ¡Ù ¡Ú ¡Ù ¡Ú\n";
         cout << "ºóÆ´À» ÅëÇØ È¸ÇÇÇß´Ù!!" << endl;
         this->damage = 0;
+        cout << "¡Ù ¡Ú ¡Ù ¡Ú ¡Ù ¡Ú ¡Ù ¡Ú ¡Ù ¡Ú\n";
     }
     else
     {
+        cout << "--------------------------\n";
         cout << "ºóÆ´À» Ã£Áö¸øÇß´Ù" << endl;
         this->damage = monster->getAttack();
+        cout << "--------------------------\n";
     }
 
 }

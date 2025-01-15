@@ -37,7 +37,8 @@ Character* Character::getInstance(const string& name)
 
 void Character::displayStatus() const
 {
-	cout << " --- status ---" << "\n";
+	cout << "\n";
+	cout << " --- status ---" << "\n" << "\n";
 	cout << " ÀÌ¸§ : " << name << "\n";
 	cout << " Lv." << level << "\n";
 	cout << " Exp	  (" << experience << "/" << maxExperience << ")" << "\n";
@@ -48,6 +49,7 @@ void Character::displayStatus() const
 	{
 		manager->displayBuffs();
 	}
+	cout << " --- ----- ---\n\n";
 }
 
 string Character::getName() const
@@ -150,7 +152,7 @@ int Character::getGold() const
 void Character::addGold(int gold)
 {
 	this->gold += gold;
-
+	cout << "\n";
 	cout << getName() << "°¡ ";
 	if (gold > 0)
 	{

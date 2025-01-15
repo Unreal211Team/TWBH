@@ -12,11 +12,12 @@ int main()
 	
 	string heroName = "";
 
-	cout << "   â˜†â˜… Game Start â˜…â˜†\n";
-	cout << "==================================================\n" << endl;
-	cout << "ìºë¦­í„° ì´ë¦„ì„ ìž…ë ¥í•˜ì„¸ìš”: ";
+	cout << "===========================\n";
+	cout << "   ¡Ù ¡Ú Game Start ¡Ú ¡Ù\n";
+	cout << "===========================\n\n";
+	cout << "Ä³¸¯ÅÍ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä: ";
 
-	// ì´ë¦„ ìž…ë ¥ ë°›ê¸°
+	// ÀÌ¸§ ÀÔ·Â ¹Þ±â
 	cin >> heroName;
 
 	Character* character = Character::getInstance(heroName);
@@ -24,26 +25,26 @@ int main()
 	
 	system("cls");
 
-	cout << "ìƒì„± ì™„ë£Œ! \n";
+	cout << "»ý¼º ¿Ï·á! \n";
 
 	character->displayStatus();
 
 	string action = "";
 
-	bool isDigit = false;	//ìž…ë ¥ê°’ì´ ìˆ«ìžì¸ì§€ ì•„ë‹Œì§€ íŒë‹¨í•  ë•Œ ì“°ìž„
+	bool isDigit = false;	//ÀÔ·Â°ªÀÌ ¼ýÀÚÀÎÁö ¾Æ´ÑÁö ÆÇ´ÜÇÒ ¶§ ¾²ÀÓ
 	int act = 0;
 
 	while (character->getLevel() < 10 && character->getHealth() > 0)
 	{
 
-		// ë°°í‹€
+		// ¹èÆ²
 		cout << "\n==================================================" << endl;
 		monster = gameManager->generateMonster(character->getLevel());
 
-		// ì „íˆ¬
+		// ÀüÅõ
 		gameManager->battle(character, monster);
 
-		// ì‚¬ë§
+		// »ç¸Á
 		if (character->getHealth() == 0)
 		{
 			break;
@@ -61,7 +62,7 @@ int main()
 
 	cout << "\n" << endl;
 
-	// ë ˆë²¨ì´ 10ì´ë©´ ë³´ìŠ¤ì „, ì¶”í›„ì— mainì—ì„œ ë¶„ë¦¬ í•„ìš”í• ì§€ë„?
+	// ·¹º§ÀÌ 10ÀÌ¸é º¸½ºÀü, ÃßÈÄ¿¡ main¿¡¼­ ºÐ¸® ÇÊ¿äÇÒÁöµµ?
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -72,7 +73,7 @@ int main()
 		cout << endl;
 	}
 
-	cout << "\n --- Boss ì¶œí˜„! ---\n" << endl;
+	cout << "\n --- Boss ÃâÇö! ---\n" << endl;
 
 	monster = new BossMonster();
 

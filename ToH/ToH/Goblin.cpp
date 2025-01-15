@@ -11,7 +11,7 @@ Goblin::Goblin(int level)
 
 	static int count = 1;
 
-	name = "Goblin" + to_string(count++);
+	name = "Goblin";
 	health = level * randomHealth(rd);
 	attack = level * randomAttack(rd);
 
