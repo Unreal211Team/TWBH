@@ -84,8 +84,8 @@ public:
 	void levelUp();
 	void addItem(Item* item);
 	void useItem(int index);
+	void resetAttackBuff();
 	void reduceMana(int amount) { mana -= amount; }
 	void recoverMana(int amount) { mana = min(mana + amount, maxMana); }
-
 
 };

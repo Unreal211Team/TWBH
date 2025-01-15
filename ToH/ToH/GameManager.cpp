@@ -6,6 +6,8 @@
 #include "Orc.h"
 #include "Troll.h"
 #include "Slime.h"
+#include "Evolve.h"
+#include "BuffManager.h"
 #include "Skill.h"
 #include "AttackModeMonsterFactory.h"
 #include "PowerStrike.h"
@@ -54,11 +56,17 @@ Monster* GameManager::generateMonster(int level)
 		break;
 	}
 
+	// 진화 : 몬스터 Elite화 확인 30%확률
+	Evolve evolver;
+	monster = evolver.evolve(monster);
+
 	return monster;
 }
 
 void GameManager::battle(Character* player, Monster* monster)
 {
+	BuffManager* manager = BuffManager::getInstance();
+
 	int experience = 50;// 몬스터 고정 경험치 50
 	int itemDrop = 30;	// 아이템 드롭 확률 30퍼
 
@@ -210,6 +218,42 @@ void GameManager::battle(Character* player, Monster* monster)
 				player->isDead();
 				return;
 			}
+
+			cout << "\nHP: " << player->getHealth() << "/" << player->getMaxHealth();
+			cout << "  EXP: " << player->getExperience() << "/" << player->getMaxExperience();
+			cout << "  골드: " << player->getGold() << "원" << endl;
+
+			if (manager->ActiveBuffsCheck())
+			{
+				manager->updateBuffs(player);
+			}
+
+			break;
+		}
+
+		cout << player->getName() << "가 ";
+		cout << monster->getName() << "을 공격합니다! ";
+		cout << monster->getName() << " 체력: " << monster->getHealth() << endl;
+
+
+		/*
+		* 몬스터가 플레이어 공격
+		*/
+		
+		player->takeDamage(monster->getAttack());
+
+		cout << monster->getName() << "이 ";
+		cout << player->getName() << "을 공격합니다! ";
+		cout << player->getName() << " 체력: " << player->getHealth() << endl;
+
+		if (manager->ActiveBuffsCheck())
+		{
+			manager->updateBuffs(player);
+		}
+
+		// 플레이어가 죽었을 때
+		if (player->getHealth() == 0)
+		{
 			break;
 		}
 

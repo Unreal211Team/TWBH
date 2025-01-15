@@ -1,5 +1,6 @@
 #include "Character.h"
 #include "Item.h"
+#include "BuffManager.h"
 #include <iostream>
 #include "PowerStrike.h"
 #include "MagicClaw.h"
@@ -42,6 +43,11 @@ void Character::displayStatus() const
 	cout << " Exp	  (" << experience << "/" << maxExperience << ")" << "\n";
 	cout << " HP	  (" << health << "/" << maxHealth << ")\n";
 	cout << " 공격력	  " << attack << "\n";
+	BuffManager* manager = BuffManager::getInstance();
+	if (manager->ActiveBuffsCheck())
+	{
+		manager->displayBuffs();
+	}
 }
 
 string Character::getName() const
@@ -236,6 +242,12 @@ void Character::useItem(int index)
 	delete inventory[index];
 
 	inventory.erase(inventory.begin() + index);
+}
+
+//버프 종료
+void Character::resetAttackBuff()
+{
+	attack -= 10;
 }
 
 bool Character::isDead()
