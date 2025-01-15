@@ -1,6 +1,7 @@
 #include "Shop.h"
 #include "AttackBoost.h"
 #include "HealthPotion.h"
+#include "ManaPotion.h"
 #include "BossMonsterDropItem.h"
 #include <vector>
 #include <iostream>
@@ -16,6 +17,7 @@ Shop::Shop()	//아이템 추가되면 push_back 필요
 {
 	avaliableItems.push_back(new AttackBoost);
 	avaliableItems.push_back(new HealthPotion);
+	avaliableItems.push_back(new ManaPotion);
 }
 
 Shop* Shop::getInstance()
@@ -75,6 +77,19 @@ void Shop::buyItem(int index, Character* player)	// 아이템 추가되면 수정 필요
 		player->addItem(new HealthPotion);
 		
 		cout << "HealthPotion을 구매했습니다." << endl;
+	}
+	if (index == 2)
+	{
+		if (player->getGold() < avaliableItems[2]->getPrice())
+		{
+			cout << "골드가 모자랍니다." << endl;
+			return;
+		}
+
+		player->addGold(-50);
+		player->addItem(new ManaPotion);
+
+		cout << "ManaPotion을 구매했습니다." << endl;
 	}
 }
 
