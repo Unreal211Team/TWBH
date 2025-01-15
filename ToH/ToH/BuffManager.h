@@ -49,4 +49,3 @@ public:
     bool ActiveBuffsCheck() const;
 
 };
-
