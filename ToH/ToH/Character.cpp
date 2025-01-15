@@ -167,7 +167,7 @@ void Character::useItem(int index)
 }
 
 //버프 종료
-void Character::endBuff()
+void Character::resetAttackBuff()
 {
 	attack -= 10;
 }

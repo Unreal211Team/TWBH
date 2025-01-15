@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include "Character.h"
 
 using namespace std;
 
@@ -39,7 +40,7 @@ public:
     bool dupliBuffCheck(string& name) const;
 
     // 턴 업데이트
-    void updateBuffs();
+    void updateBuffs(Character* player);
 
     // 활성 버프 출력
     void displayBuffs() const;

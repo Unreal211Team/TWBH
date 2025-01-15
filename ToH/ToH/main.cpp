@@ -2,7 +2,6 @@
 #include "GameManager.h"
 #include "Shop.h"
 #include "BossMonster.h"
-#include "Evolve.h"
 
 using namespace std;
 
@@ -39,9 +38,7 @@ int main()
 		// 배틀
 		cout << "\n==================================================" << endl;
 		monster = gameManager->generateMonster(character->getLevel());
-		// 진화 : 몬스터 Elite화 확인 30%확률
-		Evolve evolver;
-		monster = evolver.evolve(monster);
+		
 		// 전투
 		gameManager->battle(character, monster);
 

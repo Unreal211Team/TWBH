@@ -1,4 +1,5 @@
 #include "BuffManager.h"
+#include "Character.h"
 
 BuffManager* BuffManager::instance = nullptr;
 
@@ -38,15 +39,21 @@ bool BuffManager::dupliBuffCheck(string& name) const
 }
 
 // 턴 업데이트
-void BuffManager::updateBuffs() {
+void BuffManager::updateBuffs(Character* player) {
     for (auto& buff : buffs) {
         --buff->remainingTurns;
     }
 
     // 남은 턴이 0 이하인 버프 삭제 및 메모리 해제
     auto it = remove_if(buffs.begin(), buffs.end(),
-        [](const Buff* buff) {
+        [player](const Buff* buff) {
             if (buff->remainingTurns <= 0) {
+                switch (buff->name == "AttackBoost")
+                {
+                    player->resetAttackBuff();
+                default:
+                    break;
+                }
                 delete buff; // 메모리 해제
                 return true; // 벡터에서 제거
             }

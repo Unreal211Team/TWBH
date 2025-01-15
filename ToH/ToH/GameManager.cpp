@@ -6,6 +6,7 @@
 #include "Orc.h"
 #include "Troll.h"
 #include "Slime.h"
+#include "Evolve.h"
 #include "BuffManager.h"
 
 
@@ -51,6 +52,10 @@ Monster* GameManager::generateMonster(int level)
 	default:
 		break;
 	}
+
+	// 진화 : 몬스터 Elite화 확인 30%확률
+	Evolve evolver;
+	monster = evolver.evolve(monster);
 
 	return monster;
 }
@@ -218,7 +223,7 @@ void GameManager::battle(Character* player, Monster* monster)
 
 			if (manager->ActiveBuffsCheck())
 			{
-				manager->updateBuffs();
+				manager->updateBuffs(player);
 			}
 
 			break;
@@ -241,7 +246,7 @@ void GameManager::battle(Character* player, Monster* monster)
 
 		if (manager->ActiveBuffsCheck())
 		{
-			manager->updateBuffs();
+			manager->updateBuffs(player);
 		}
 
 		// 플레이어가 죽었을 때
