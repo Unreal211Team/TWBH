@@ -14,6 +14,17 @@ Goblin::Goblin(int level)
 	name = "Goblin";
 	health = level * randomHealth(rd);
 	attack = level * randomAttack(rd);
+
+	asciiArt = R"(
+       ,      ,
+      /(.-""-.)\
+  |\  |  ,   ,  |  /|
+   \\ |   O O   | //
+    \\|     ^    |//
+     -\    '    /-
+      --.___.--
+    )";
+
 }
 
 string Goblin::getName() const

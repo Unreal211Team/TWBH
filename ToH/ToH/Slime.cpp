@@ -14,6 +14,18 @@ Slime::Slime(int level)
 	name = "Slime";
 	health = level * randomHealth(rd);
 	attack = level * randomAttack(rd);
+
+	asciiArt = R"(
+       _____
+       .-'     `-.
+     .'           `.
+    /   O      O    \
+   :                 :
+ \  /     _______    \  /
+     `.___________.'
+
+    )";
+
 }
 
 string Slime::getName() const
