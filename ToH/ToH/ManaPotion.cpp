@@ -22,7 +22,7 @@ bool ManaPotion::canUse() const
 void ManaPotion::use(Character* character) const
 {
 	cout << "마나을 회복합니다." << endl;
-	int MP = character->getMana() + healthRestore;
+	int MP = character->getMana() + ManaRestore;
 	int maxMP = character->getMaxMana();
 
 	// 최대 마나을 초과하지 못함.

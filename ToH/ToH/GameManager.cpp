@@ -7,6 +7,7 @@
 #include "Troll.h"
 #include "Slime.h"
 #include "Skill.h"
+#include "AttackModeMonsterFactory.h"
 #include "PowerStrike.h"
 #include "MagicClaw.h"
 
@@ -66,7 +67,6 @@ void GameManager::battle(Character* player, Monster* monster)
 	uniform_int_distribution<int> randomI(1, 100);
 
 	int randomGold = randomG(rd);
-	
 	//이름에 따라 등장메세지 구분
 	if (monster->getName() == "Dragon")
 	{
@@ -195,11 +195,15 @@ void GameManager::battle(Character* player, Monster* monster)
 				return;
 			}
 
+			AttackModeMonsterFactory& attackModeMonsterFactory = AttackModeMonsterFactory::getInstance();
+			shared_ptr<ActingMonster> tempMonster = attackModeMonsterFactory.getRandomMonster(*monster);
 
 			// 몬스터의 공격
 			cout << monster->getName() << "이(가) ";
-			player->takeDamage(monster->getAttack());
+			player->takeDamage(tempMonster->getAttack());
+			tempMonster->doAttack();
 
+			cout << "플레이어의 체력 :" << player->getHealth() << endl;
 			// 몬스터의 공격에 플레이어가 사망했는지 확인하는 로직
 			if (player->getHealth() == 0)
 			{

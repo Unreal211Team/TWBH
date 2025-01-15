@@ -65,9 +65,11 @@ public:
 	void setExperience(int experience);
 	int getMaxExperience() const;
 	void setMaxExperience(int maxExperience);
-	int getGold() const;
+	int getGold() const; 
+	void setMana(int mana);
+	void setMaxMana(int mana);
 	int getMana() const;
-	int getMaxMana() const { return maxMana; }
+	int getMaxMana() const;
 	vector<Item*>& getInventory();
 	const vector<Skill*>& getSkills() const { return skills; }
 
