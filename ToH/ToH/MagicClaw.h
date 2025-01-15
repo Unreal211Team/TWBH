@@ -20,7 +20,7 @@ public:
     void use(Character* player, Monster* target) override
     {
         if (player->getMana() < skillCost) {
-            cout << "자원이 부족합니다!" << endl;
+            cout << "마나가 부족합니다!" << endl;
             return;
         }
         player->reduceMana(skillCost);
