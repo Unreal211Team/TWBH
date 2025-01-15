@@ -1,12 +1,12 @@
 #pragma once
 
-#include "AttackModeMonster.h"
+#include "ActingMonster.h"
 
-class ParryingMonster : public AttackModeMonster
+class ParryingMonster : public ActingMonster
 {
 public:
 	ParryingMonster() = default;
-	ParryingMonster(shared_ptr<Monster> monster) : AttackModeMonster(*monster) {};
+	ParryingMonster(shared_ptr<Monster> monster) : ActingMonster(*monster) {};
 	int getAttack() const;
 	void doAttack() override;
 

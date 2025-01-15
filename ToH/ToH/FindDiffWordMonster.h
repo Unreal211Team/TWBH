@@ -1,13 +1,13 @@
 #pragma once
 
-#include "AttackModeMonster.h"
+#include "ActingMonster.h"
 #include "Character.h"
 
-class FindDiffWordMonster : public AttackModeMonster
+class FindDiffWordMonster : public ActingMonster
 {
 public:
 	FindDiffWordMonster() = default;
-	FindDiffWordMonster(Monster& monster) : AttackModeMonster(monster) {};
+	FindDiffWordMonster(Monster& monster) : ActingMonster(monster) {};
 	int getAttack() const;
 	void doAttack() override;
 

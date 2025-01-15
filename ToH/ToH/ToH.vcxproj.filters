@@ -81,7 +81,7 @@
     <ClCompile Include="EliteDropItem.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="AttackModeMonster.cpp">
+    <ClCompile Include="ActingMonster.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="ParryingMonster.cpp">
@@ -89,9 +89,6 @@
     </ClCompile>
     <ClCompile Include="FindDiffWordMonster.cpp">
       <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="DelayTimeAttackMonster.h">
-      <Filter>헤더 파일</Filter>
     </ClCompile>
     <ClCompile Include="AttackModeMonsterFactory.cpp">
       <Filter>소스 파일</Filter>
@@ -158,7 +155,7 @@
     <ClInclude Include="Evolve.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="AttackModeMonster.h">
+    <ClInclude Include="ActingMonster.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ParryingMonster.h">

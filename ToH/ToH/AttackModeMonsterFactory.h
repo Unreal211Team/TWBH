@@ -7,10 +7,10 @@ class AttackModeMonsterFactory
 {
 public:
 	static AttackModeMonsterFactory& getInstance();
-	shared_ptr<AttackModeMonster> getRandomMonster(Monster& monster);
+	shared_ptr<ActingMonster> getRandomMonster(Monster& monster);
 
 private:
-	vector<shared_ptr<AttackModeMonster>> monsters;
+	vector<shared_ptr<ActingMonster>> monsters;
 
 	AttackModeMonsterFactory();
 	~AttackModeMonsterFactory() = default;

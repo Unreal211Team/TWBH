@@ -7,12 +7,12 @@ AttackModeMonsterFactory& AttackModeMonsterFactory::getInstance()
     // TODO: 여기에 return 문을 삽입합니다.
 }
 
-shared_ptr<AttackModeMonster> AttackModeMonsterFactory::getRandomMonster(Monster& monster)
+shared_ptr<ActingMonster> AttackModeMonsterFactory::getRandomMonster(Monster& monster)
 {
     random_device rd;
     uniform_int_distribution<int> random(0, this->monsters.size() - 1);
     int randomMonsterIndex = random(rd);
-    AttackModeMonster* randomMonster = monsters[randomMonsterIndex].get();
+    ActingMonster* randomMonster = monsters[randomMonsterIndex].get();
     randomMonster->setMonster(monster);
 
     return monsters[randomMonsterIndex];
