@@ -19,6 +19,6 @@ public:
 	void displayItems() const;
 	void buyItem(int index, Character* player);
 	void sellItem(int index, Character* player);
-	void playGamble(Character* player, int multiple = 1) const;
+	void playGamble(Character* player) const;
 	~Shop();
 };

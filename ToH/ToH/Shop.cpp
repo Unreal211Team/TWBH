@@ -5,8 +5,10 @@
 #include <vector>
 #include <iostream>
 #include <random>
+#include <map>
 #include <cmath>	// gamble()에서 pow()사용
 
+using namespace std;
 
 Shop* Shop::instance = nullptr;
 
@@ -88,122 +90,207 @@ void Shop::sellItem(int index, Character* player)
 	delete item;
 }
 
-void Shop::playGamble(Character* player, int multiple) const
+//럭키넘버 나올 시 재귀문을 쓸수도 있지만 언럭키넘버의 숫자 유지를 위해 재귀문대신 반복문사용
+void Shop::playGamble(Character* player) const
 {
-	Item* bossMonsterDropItem = new BossMonsterDropItem();
-	cout << "\n----------- 주사위 게임 -----------\n" << endl;
+	Item* bossMonsterDropItem = new BossMonsterDropItem();	// 1등 당첨 시 보상 아이템, 이름 사용을 위해 미리 선언
+
+	string action = "";
+
+	random_device rd;
+	uniform_int_distribution<int> randomDice(1, 6);	// 주사위 1 ~ 6
+
+	vector<map<int, int>> unluckyNumbers(3);		// 언럭키넘버 중복 불가
+
+	int randomUnluckyNumber = 0;
+
+	// 언럭키넘버에서 같은 숫자 3개 이하로 나오게 ex) { 6 1 6 6 2 6 }: X, { 6 1 6 6 2 3 }: O
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 6; j++)
+		{
+			randomUnluckyNumber = randomDice(rd);
+
+			if (unluckyNumbers[i].find(randomUnluckyNumber) == unluckyNumbers[i].end())
+			{
+				unluckyNumbers[i][randomUnluckyNumber] = 1;
+			}
+
+			else if (unluckyNumbers[i][randomUnluckyNumber] < 3)
+			{
+				unluckyNumbers[i][randomUnluckyNumber]++;
+			}
+
+			else
+			{
+				j--;
+			}
+		}
+
+		// 1 2 3 4 5 6 : 해당 경우는 럭키 넘버이므로 언럭키 넘버가 될 수 없음.
+		if (unluckyNumbers[i].size() == 6)
+		{
+			unluckyNumbers.clear();
+			i--;
+			continue;
+		}
+
+		// 이미 등장한 언럭키 넘버이면 다시 언럭키 넘버 뽑기
+		for (int j = 0; j < i; j++)
+		{
+			if (unluckyNumbers[j] == unluckyNumbers[i])
+			{
+				unluckyNumbers[i].clear();
+				i--;
+				break;
+			}
+		}
+	}
+	
+	cout << "\n============= 주사위 게임 =============\n" << endl;
 	cout << " 1. 주사위를 6번 던집니다.\n" << endl;
 	cout << " 2-1. 주사위 눈은 합산됩니다." << endl;
 	cout << " 2-2. 중복된 눈이 있으면 제곱됩니다.\n" << endl;
 	cout << " 주사위ex) 6 2 6 1 6 2" << endl;
 	cout << " 1 + 2 x 2 + 6 x 6 x 6 = 221\n" << endl;
-	cout << "------------- 보상 -------------" << endl;
-	cout << " 1등 40000↑: " << bossMonsterDropItem->getName() << endl;
-	cout << " 2등 10000↑: 공격력 x 100, 체력 x 100" << endl;
-	cout << " 3등  1000↑: 공격력 x 10" << endl;
-	cout << " 4등   100↑: 10000 골드" << endl;
-	cout << " 5등    50↑: 1000 골드\n" << endl;
-	cout << "------ 럭키넘버 ------" << endl;
-	cout << " 한번 더 + 보상 3배" << endl;
-	cout << " 순서x) 1 2 3 4 5 6\n" << endl;
-	cout << "----- 언럭키넘버 -----" << endl;
-	cout << "      능력치리셋" << endl;;
-	cout << " 번호) 1 1 1 1 1 1" << endl;
-	cout << " 번호) 2 2 2 2 2 2" << endl;
-	cout << " 번호) 3 3 3 3 3 3" << endl;
-	cout << "------------------------------" << endl;
-	cout << "300 골드를 지불해서 게임을 할 수 있습니다. 소지골드: " << player->getGold() << endl;
-	cout << "\nY)한다 ...)안한다: ";
 
-	string action = "";
-	cin >> action;
-
-	if (action != "Y" && action != "y")
-	{
-		cout << "\n돌아갑니다." << endl;
-		return;
-	}
-
-	if (player->getGold() < 300)
-	{
-		cout << "\n골드가 부족합니다." << endl;
-		return;
-	}
-
-	cout << "\n게임을 진행합니다.\n" << endl;
-
-	player->addGold(-300);
-
-	random_device rd;
-	uniform_int_distribution<int> randomDice(1, 6);	// 주사위 1 ~ 6
+	int multiple = 1; //럭키넘버가 나올경우 3배수로 올라감
 
 	vector<int> diceNumber;
-	int number = 0;
+	map<int, int> diceNumberMap;
 
-	for (int i = 0; i < 6; i++)
+	bool isLuckyNumber = false;
+
+	// 럭키넘버가 나올경우 여기서 다시시작
+	do
 	{
-		cout << " " << i + 1 << "번 주사위 던지기 \"" << i + 1 << "\" 입력: ";
-		cin >> action;
+		isLuckyNumber = false;
 
-		cout << endl;
+		cout << "---------------- 보상 ----------------\n" << endl;
+		cout << " 1등 10000↑: " << bossMonsterDropItem->getName() << endl;
+		cout << " 2등  1000↑: 공격력 x 10" << endl;
+		cout << " 3등   100↑: 10000 골드" << endl;
+		cout << " 4등    50↑: 1000 골드\n" << endl;
+		cout << "--------------------------------------\n" << endl;
+		cout << "               순서x\n" << endl;
+		cout << " Lucky  1 2 3 4 5 6 : 한번더 + 보상 3배" << endl;
 
-		if (action != to_string(i + 1))
+		for (map<int, int>& unluckyNumber : unluckyNumbers)
 		{
-			cout << "잘못된 입력입니다.\n" << endl;
-			i--;
-			continue;
-		}
-
-		// 주사위 굴리기
-		number = randomDice(rd);
-
-		cout << " " << number << " 나왔습니다." << endl;
-
-		diceNumber.push_back(number);
-
-		cout << "현재:";
-
-		for (int num : diceNumber)
-		{
-			cout << " " << num;
+			cout << "UnLucky ";
+			for (pair<int, int> iter : unluckyNumber)
+			{
+				for (int i = 0; i < iter.second; i++)
+				{
+					cout << iter.first << " ";
+				}
+			}
+			cout << ": 능력치 리셋" << endl;
 		}
 		
-		cout << "\n" << endl;
-	}
+		cout << "\n==========================================\n" << endl;
 
-	int numCount = 0;	// 주사위 중복 갯수
-	int sum = 0;		// 총합 결과값
-	bool isLuckyNumber = true;
-
-	for (int i = 0; i < 6; i++)		// O(n²)이지만 반복횟수가 적음
-	{
-		numCount = 0;
-		for (int num : diceNumber)
+		// 처음 들어오면 실행
+		if (multiple == 1)
 		{
-			if (num - 1 == i)
+			cout << "300 골드를 지불해서 게임을 할 수 있습니다. 소지골드: " << player->getGold() << endl;
+
+			cout << "\nY)한다 ...)안한다: ";
+
+			cin >> action;
+
+			if (action != "Y" && action != "y")
 			{
-				numCount++;
+				cout << "\n돌아갑니다." << endl;
+				return;
 			}
+
+			if (player->getGold() < 300)
+			{
+				cout << "\n골드가 부족합니다." << endl;
+				return;
+			}
+
+			player->addGold(-300);
 		}
 
-		if (numCount == 0)	// 해당 숫자가 없다면 넘어가기
+		// 럭키넘버로 인해 두번째 들어올때
+		else
 		{
-			isLuckyNumber = false;
-			continue;
+			cout << " ★ 럭키넘버★" << endl;
+			cout << "재도전 + 보상 3배 획득의 기회!" << endl;
 		}
 
-		sum = sum + pow(i + 1, numCount);
-	}
+		cout << "\n게임을 진행합니다.\n" << endl;
+		
+		int number = 0;
 
-	if (isLuckyNumber)
+		// 입력받기
+		for (int i = 0; i < 6; i++)
+		{
+			cout << " " << i + 1 << "번 주사위 던지기 \"" << i + 1 << "\" 입력: ";
+			cin >> action;
+
+			cout << endl;
+
+			if (action != to_string(i + 1))
+			{
+				cout << "잘못된 입력입니다.\n" << endl;
+				i--;
+				continue;
+			}
+
+			// 주사위 굴리기
+			number = randomDice(rd);
+
+			cout << " " << number << " 나왔습니다." << endl;
+
+			diceNumber.push_back(number);
+
+			if (diceNumberMap.find(number) == diceNumberMap.end())
+			{
+				diceNumberMap[number] = 1;
+			}
+
+			else
+			{
+				diceNumberMap[number]++;
+			}
+
+			cout << "현재:";
+
+			for (int num : diceNumber)
+			{
+				cout << " " << num;
+			}
+
+			cout << "\n" << endl;
+		}
+
+		// 럭키 넘버 일 때
+		if (diceNumberMap.size() == 6)
+		{
+			multiple *= 3;
+			isLuckyNumber = true;
+			diceNumber.clear();
+			diceNumberMap.clear();
+		}
+
+	} while (isLuckyNumber);
+
+	// 언럭키 넘버 체크
+	bool isUnluckyNumber = false;
+
+	for (map<int, int>& number : unluckyNumbers)
 	{
-		cout << "\n★럭키넘버★ 재도전 + 보상 3배 획득의 기회!" << endl;
-		playGamble(player, multiple * 3);
-		return;
+		if (number == diceNumberMap)
+		{
+			isUnluckyNumber = true;
+		}
 	}
 
-	// 언럭키넘버
-	if (sum == 1 || sum == 64 || sum == 729)
+	// 언럭키 넘버 일 때
+	if (isUnluckyNumber)
 	{
 		int level = player->getLevel();
 		player->setLevel(1);
@@ -218,6 +305,15 @@ void Shop::playGamble(Character* player, int multiple) const
 		return;
 	}
 
+	// 럭키/언럭키 넘버가 아닐 때
+	int sum = 0; // 총합 결과값
+
+	for (pair<int, int> num : diceNumberMap)
+	{
+		sum = sum + pow(num.first, num.second);
+	}
+
+	// 점수 계산식과 합계 출력
 	cout << "점수: ";
 
 	sort(diceNumber.begin(), diceNumber.end());
@@ -239,66 +335,64 @@ void Shop::playGamble(Character* player, int multiple) const
 
 	cout << diceNumber[5] << " = " << sum << "\n" << endl;
 
-	if (sum > 40000 && multiple == 1)
+	// 1등
+	if (sum > 10000 && multiple == 1)
 	{
+		cout << "★ 경축★ 1등 당첨" << endl;
+
 		player->addItem(bossMonsterDropItem);
-
-		cout << "★경축★ 1등 당첨 " << bossMonsterDropItem->getName() << "을 획득합니다!" << endl;
-
-		return;
-	}
-
-	delete bossMonsterDropItem;
-
-	if (sum > 40000)
-	{
-		for (int i = 0; i < multiple; i++)
-		{
-			player->addItem(new BossMonsterDropItem);
-		}
-
-		cout << "★경축★ 1등 당첨 " << bossMonsterDropItem->getName() << "를 " << multiple << "개 획득합니다!" << endl;
 
 		return;
 	}
 
 	if (sum > 10000)
 	{
-		player->setAttack(player->getAttack() * 100 * multiple);
-		player->setHealth(player->getHealth() * 100 * multiple);
+		cout << "★ 경축★ 1등 당첨" << endl;
 
-		cout << "★축★ 2등 당첨 공격력, 체력이 " << 100 * multiple << "배 증가합니다." << endl;
+		player->addItem(bossMonsterDropItem);
+
+		for (int i = 0; i < multiple - 1; i++)
+		{
+			player->addItem(new BossMonsterDropItem);
+		}
 
 		return;
 	}
 
+	delete bossMonsterDropItem;
+
+	// 2등
 	if (sum > 1000)
 	{
 		player->setAttack(player->getAttack() * 10 * multiple);
 
-		cout << "3등 당첨 공격력이 " << 10 * multiple << "배 증가합니다." << endl;
+		cout << "2등 당첨" << endl;
+		cout << "공격력이 " << 10 * multiple << "배 증가합니다." << endl;
 
 		return;
 	}
 
+	// 3등
 	if (sum > 100)
 	{
+		cout << "3등 당첨";
+
 		player->addGold(10000 * multiple);
 
-		cout << "4등 당첨 " << 10000 * multiple <<  " 골드를 획득합니다." << endl;
-
 		return;
 	}
 
+	// 4등
 	if (sum > 50)
 	{
-		player->addGold(1000 * multiple);
+		cout << "4등 당첨";
 
-		cout << "5등 당첨 " << 1000 * multiple << " 골드를 획득합니다." << endl;
+		player->addGold(1000 * multiple);
 
 		return;
 	}
 
+	// 꽝
 	cout << "꽝! >o< 다음 기회에~" << endl;
 }
 
