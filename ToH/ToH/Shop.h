@@ -20,5 +20,8 @@ public:
 	void buyItem(int index, Character* player);
 	void sellItem(int index, Character* player);
 	void playGamble(Character* player) const;
+
+	vector<Item*> getAvaliableItems();
+
 	~Shop();
 };

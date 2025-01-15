@@ -81,6 +81,8 @@
     <ClCompile Include="EliteDropItem.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="BuffManager.cpp">
+    </ClCompile>
     <ClCompile Include="ActingMonster.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -159,6 +161,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Evolve.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BuffManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ActingMonster.h">

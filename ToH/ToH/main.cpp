@@ -2,7 +2,6 @@
 #include "GameManager.h"
 #include "Shop.h"
 #include "BossMonster.h"
-#include "Evolve.h"
 
 using namespace std;
 
@@ -13,11 +12,11 @@ int main()
 	
 	string heroName = "";
 
-	cout << "   ¡Ù¡Ú Game Start ¡Ú¡Ù\n";
+	cout << "   â˜†â˜… Game Start â˜…â˜†\n";
 	cout << "==================================================\n" << endl;
-	cout << "Ä³¸¯ÅÍ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä: ";
+	cout << "ìºë¦­í„° ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”: ";
 
-	// ÀÌ¸§ ÀÔ·Â ¹Ş±â
+	// ì´ë¦„ ì…ë ¥ ë°›ê¸°
 	cin >> heroName;
 
 	Character* character = Character::getInstance(heroName);
@@ -25,164 +24,33 @@ int main()
 	
 	system("cls");
 
-	cout << "»ı¼º ¿Ï·á! \n";
+	cout << "ìƒì„± ì™„ë£Œ! \n";
 
 	character->displayStatus();
 
 	string action = "";
 
-	bool isDigit = false;	//ÀÔ·Â°ªÀÌ ¼ıÀÚÀÎÁö ¾Æ´ÑÁö ÆÇ´ÜÇÒ ¶§ ¾²ÀÓ
+	bool isDigit = false;	//ì…ë ¥ê°’ì´ ìˆ«ìì¸ì§€ ì•„ë‹Œì§€ íŒë‹¨í•  ë•Œ ì“°ì„
 	int act = 0;
 
 	while (character->getLevel() < 10 && character->getHealth() > 0)
 	{
 
-		// ¹èÆ²
+		// ë°°í‹€
 		cout << "\n==================================================" << endl;
 		monster = gameManager->generateMonster(character->getLevel());
-		// ÁøÈ­ : ¸ó½ºÅÍ EliteÈ­ È®ÀÎ 30%È®·ü
-		Evolve evolver;
-		monster = evolver.evolve(monster);
 
-		// ÀüÅõ
+		// ì „íˆ¬
 		gameManager->battle(character, monster);
 
-		// »ç¸Á
+		// ì‚¬ë§
 		if (character->getHealth() == 0)
 		{
 			break;
 		}
 
+		gameManager->visitShop(character, shop);
 
-		// »óÁ¡
-		cout << "\n==================================================\n" << endl;	// ÃßÈÄ »óÁ¡ ·ÎÁ÷Àº main¿¡¼­ ºĞ¸®°¡ ÇÊ¿ä ÇÒÁöµµ?
-		cout << "»óÁ¡À» ¹æ¹®ÇÏ½Ã°Ú½À´Ï±î?" << endl;
-		cout << "Y)ÇÑ´Ù ±×¿Ü)¾ÈÇÑ´Ù: ";
-		cin >> action;
-
-
-		if (action.compare("y") == 0 || action.compare("Y") == 0)
-		{
-			while (true)
-			{
-				cout << "\n°ñµå: " << character->getGold() << endl;
-				cout << "1)»ç±â 2)ÆÈ±â 3)°×ºí Q)³ª°¡±â: ";
-				cin >> action;
-
-				if (action.compare("Q") == 0 || action.compare("q") == 0)
-				{
-					break;
-				}
-
-				// »óÁ¡. ¾ÆÀÌÅÛ »ç±â
-				if (action.compare("1") == 0)
-				{
-					cout << endl;
-					shop->displayItems();
-					cout << "±¸¸Å ¹øÈ£ Q)µ¹¾Æ°¡±â: ";
-					cin >> action;
-
-					if (action.compare("Q") == 0 || action.compare("q") == 0)
-					{
-						continue;
-					}
-
-					// ÀÔ·Â °ªÀÌ ¼ıÀÚÀÎÁö ÆÇº°
-					isDigit = true;
-
-					for (char actionChar : action)
-					{
-						if (!isdigit(actionChar))
-						{
-							isDigit = false;
-							break;
-						}
-					}
-
-					// ÀÔ·Â °ªÀÌ ¼ıÀÚ°¡ ¾Æ´Ï¶ó¸é
-					if (!isDigit)
-					{
-						cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù." << endl;
-						continue;
-					}
-
-					act = stoi(action);
-
-					if (act <= 0 || act > 2)	// shop¿¡¼­ ÆÇ¸ÅÇÏ´Â ¾ÆÀÌÅÛ °³¼ö°¡ 2°³ÀÓ. ÇÏµå ÄÚµù °³¼± ÇÊ¿ä**
-					{
-						cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù." << endl;
-						continue;
-					}
-
-					shop->buyItem(act - 1, character);
-					cout << endl;
-				}
-
-				// »óÁ¡. ¾ÆÀÌÅÛ ÆÈ±â
-				else if (action.compare("2") == 0)
-				{
-					cout << endl;
-					gameManager->displayInventory(character);
-
-					if (character->getInventory().size() == 0)
-					{
-						cout << "ÆÇ¸Å °¡´ÉÇÑ ¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù." << endl;
-						continue;
-					}
-
-					cout << "¿ø°¡ÀÇ 60% °¡°İÀ¸·Î ÆÇ¸ÅÇÕ´Ï´Ù." << endl;
-
-					cout << "ÆÇ¸Å ¹øÈ£ Q)µ¹¾Æ°¡±â: ";
-					cin >> action;
-
-					if (action.compare("Q") == 0 || action.compare("q") == 0)
-					{
-						continue;
-					}
-
-					// ÀÔ·Â °ªÀÌ ¼ıÀÚÀÎÁö ÆÇº°
-					isDigit = true;
-
-					for (char actionChar : action)
-					{
-						if (!isdigit(actionChar))
-						{
-							isDigit = false;
-							break;
-						}
-					}
-
-					// ÀÔ·Â °ªÀÌ ¼ıÀÚ°¡ ¾Æ´Ï¶ó¸é
-					if (!isDigit)
-					{
-						cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù.1" << endl;
-						continue;
-					}
-
-					act = stoi(action);
-
-					if (act > character->getInventory().size() || act <= 0)
-					{
-						cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù.2" << endl;
-						continue;
-					}
-
-					shop->sellItem(act - 1, character);
-					cout << endl;
-				}
-
-				// »óÁ¡. °×ºí
-				else if (action.compare("3") == 0)
-				{
-					shop->playGamble(character);
-				}
-
-				else // 1, 2, 3, Q ¿Ü¿¡ ´Ù¸¥ °ª ÀÔ·Â
-				{
-					cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù." << endl;
-				}
-			}
-		}
 	}
 
 	if (character->getLevel() < 10)
@@ -190,9 +58,10 @@ int main()
 		return 0;
 	}
 
+
 	cout << "\n" << endl;
 
-	// ·¹º§ÀÌ 10ÀÌ¸é º¸½ºÀü, ÃßÈÄ¿¡ main¿¡¼­ ºĞ¸® ÇÊ¿äÇÒÁöµµ?
+	// ë ˆë²¨ì´ 10ì´ë©´ ë³´ìŠ¤ì „, ì¶”í›„ì— mainì—ì„œ ë¶„ë¦¬ í•„ìš”í• ì§€ë„?
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -203,7 +72,7 @@ int main()
 		cout << endl;
 	}
 
-	cout << "\n --- Boss ÃâÇö! ---\n" << endl;
+	cout << "\n --- Boss ì¶œí˜„! ---\n" << endl;
 
 	monster = new BossMonster();
 
