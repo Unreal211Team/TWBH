@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ActingMonster.h"
+#include "Character.h"
 
 class ParryingMonster : public ActingMonster
 {
@@ -13,5 +14,5 @@ public:
 private:
 	int damage = 0;
 
-	const int timeOut = 2;
+	const int timeOutPlus = 1;
 };
