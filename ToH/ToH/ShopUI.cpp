@@ -109,7 +109,6 @@ void ShopUI::printGamblePrize(int score, int multiple)
 	if (score > 1000)
 	{
 		cout << "2등 당첨" << endl;
-		cout << "공격력이 " << 10 * multiple << "배 증가합니다." << endl;
 
 		return;
 	}
@@ -130,6 +129,12 @@ void ShopUI::printGamblePrize(int score, int multiple)
 		return;
 	}
 
+	if (score > 25)
+	{
+		cout << "5등 당첨";
+
+		return;
+	}
 	// 꽝
 	cout << "꽝! >o< 다음 기회에~" << endl;
 }

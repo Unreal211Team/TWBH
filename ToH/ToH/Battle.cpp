@@ -12,7 +12,7 @@ Battle::Battle()
 
 bool Battle::doBattle()
 {
-	randomGold = randomInt(200, 300);
+	randomGold = randomInt(325, 550);
 
 	// 몬스터 생성
 	Monster& monster = this->actingMonster.getMonster();
@@ -103,10 +103,9 @@ bool Battle::doFight(Monster& monster)
 		// 3. 상태창 선택
 		case 3:
 		{
-			string str;
 			player.displayStatus();
-			cout << "상태창을 나가시려면 아무키나 누르세요";
-			cin >> str;
+			battleUi.exitmenu();
+			int flag = getValidatedInput("", 0, 0);
 			break;
 		}
 		default:
@@ -240,8 +239,8 @@ bool Battle::attackChoice(Monster& monster)
 				magicClaw.use(&player, &monster);
 			}
 			return true;
-		}
-		case 4:
+		}  //탈출
+		case 0:
 		{
 			return false;
 		}

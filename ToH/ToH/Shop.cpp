@@ -183,7 +183,8 @@ void Shop::playGamble(Character* player) const
 		cout << " 1µî 10000¡è: 20000 gold"  << endl;
 		cout << " 2µî  1000¡è: 2000 °ñµå" << endl;
 		cout << " 3µî   100¡è: 500 °ñµå" << endl;
-		cout << " 4µî    50¡è: 100 °ñµå\n" << endl;
+		cout << " 4µî    50¡è: 100 °ñµå" << endl;
+		cout << " 5µî    25¡è: 50 °ñµå\n" << endl;
 		cout << "--------------------------------------\n" << endl;
 		cout << "               ¼ø¼­x\n" << endl;
 		cout << " Lucky  1 2 3 4 5 6 : ÇÑ¹ø´õ + º¸»ó 3¹è" << endl;
@@ -368,7 +369,13 @@ void Shop::playGamble(Character* player) const
 		REPORT->OnGoldEvent("EarnGold", 100 * multiple);
 		return;
 	}
-
+	// 5µî
+	if (sum > 25)
+	{
+		player->addGold(50 * multiple);
+		REPORT->OnGoldEvent("EarnGold", 50 * multiple);
+		return;
+	}
 	// ²Î
 	
 }

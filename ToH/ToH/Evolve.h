@@ -17,7 +17,7 @@ public:
 
     // 몬스터를 진화시키는 함수
     shared_ptr<Monster> evolve(shared_ptr<Monster>& monster) {
-        if (distribution(generator) < 100) { // 30% 확률
+        if (distribution(generator) < 30) { // 30% 확률
             return make_shared<EliteMonster>(monster);
             cout << "ABFA";
         }

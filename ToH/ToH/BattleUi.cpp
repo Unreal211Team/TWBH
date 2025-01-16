@@ -24,7 +24,7 @@ void BattleUi::spawnMonster(const Monster& monster) const
 		cout << "\n공격력: " << monster.getAttack() << "\n";
 		cout << "----- ------ -----\n\n";
 
-		cout << "\n--------전투를 준비하세요!----------\n\n준비가 되셨으면 아무키나 누르세요";
+		cout << "\n--------전투를 준비하세요!----------\n\n준비가 되셨으면 아무키나 누르세요(space bar제외)";
 		string str;
 		cin >> str;
 		displayClear();
@@ -53,7 +53,7 @@ void BattleUi::showCurrentManaAndAttack(const Monster& monster) const
 {
 	Character& character = Character::getInstance();
 	stringstream ss;
-	ss << "\n\n-----------------------------------------------------------\n1. 일반공격 2. 파워스트라이크(30) 3. 매직클로(60) 4. 공격을 취소\n-----------------------------------------------------------\n\n";
+	ss << "\n\n-----------------------------------------------------------\n1. 일반공격 2. 파워스트라이크(30) 3. 매직클로(60) 0. 공격을 취소\n-----------------------------------------------------------\n\n";
 	cout << ss.str();
 }
 
@@ -139,4 +139,9 @@ void BattleUi::displayShortStatus() const
 void BattleUi::displayClear() const
 {
 	cout << system("cls");
+}
+
+void BattleUi::exitmenu() const
+{
+	cout << "나가시려면 0을 누르세요" << endl;
 }

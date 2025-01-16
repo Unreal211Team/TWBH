@@ -29,4 +29,5 @@ public:
 	void manaAlert() const;
 	void displayShortStatus() const;
 	void displayClear() const;
+	void exitmenu() const;
 };

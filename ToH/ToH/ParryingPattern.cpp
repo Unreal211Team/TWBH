@@ -29,10 +29,18 @@ bool ParryingPattern::doAttack(const Monster& monster)
         cout << "\n☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★\n\n";
         return true;
     }
-    else
+    else if (inputWord.size() == 1 && inputWord[0] == escapeChar)
     {
         cout << "\n--------------------------\n\n";
-        cout << "회피 실패!" << endl;
+        cout << "회피 입력 실패!" << endl;
+        this->damage = monster.getAttack();
+        cout << "\n--------------------------\n\n";
+        return false;
+    }
+    else if (spendTime < timeOut)
+    {
+        cout << "\n--------------------------\n\n";
+        cout << "회피에 늦었습니다!" << endl;
         this->damage = monster.getAttack();
         cout << "\n--------------------------\n\n";
         return false;
