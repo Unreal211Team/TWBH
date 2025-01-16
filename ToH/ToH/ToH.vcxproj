@@ -39,6 +39,7 @@
     <ClCompile Include="ParryingMonster.cpp" />
     <ClCompile Include="Orc.cpp" />
     <ClCompile Include="OrcDropItem.cpp" />
+    <ClCompile Include="Report.cpp" />
     <ClCompile Include="Shop.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="SlimeDropItem.cpp" />
@@ -60,6 +61,7 @@
     <ClInclude Include="GoblinDropItem.h" />
     <ClInclude Include="HealthPotion.h" />
     <ClInclude Include="HitDelayMonster.h" />
+    <ClInclude Include="IObserver.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MagicClaw.h" />
     <ClInclude Include="ManaPotion.h" />
@@ -70,6 +72,7 @@
     <ClInclude Include="Orc.h" />
     <ClInclude Include="OrcDropItem.h" />
     <ClInclude Include="PowerStrike.h" />
+    <ClInclude Include="Report.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="Slime.h" />
