@@ -4,7 +4,9 @@
 #include <iostream>
 #include "PowerStrike.h"
 #include "MagicClaw.h"
+#include "CharacterUI.h"
 #include "BuffUi.h"
+
 
 
 Character* Character::instance = nullptr;
@@ -19,7 +21,7 @@ Character::Character(string name) : name(name)
 	attack = 30;
 	experience = 0;
 	maxExperience = 100;
-	gold = 300;				// Gamble ½Ã¿¬ ÀÚ±İ
+	gold = 300;				// Gamble ì‹œì—° ìê¸ˆ
 	bIsAlive = true;
   
 	skills.push_back(new PowerStrike());
@@ -38,15 +40,8 @@ Character* Character::getInstance(const string& name)
 
 void Character::displayStatus() const
 {
-	cout << "\n";
-	cout << " --- status ---" << "\n" << "\n";
-	cout << " ÀÌ¸§ : " << name << "\n";
-	cout << " Lv." << level << "\n";
-	cout << " Exp	  (" << experience << "/" << maxExperience << ")" << "\n";
-	cout << " HP	  (" << health << "/" << maxHealth << ")\n";
-	cout << " °ø°İ·Â	  " << attack << "\n";
-	cout << " --- ----- ---\n\n";
-	//¹öÇÁ Ui
+	CharacterUI::displayStatus(this);
+  	//ë²„í”„ Ui
 	BuffUi::printMessege();
 }
 
@@ -138,8 +133,7 @@ void Character::setMaxExperience(int maxExperience)
 void Character::addExperience(int experience)
 {
 	this->experience += experience;
-	cout << getName() << "°¡ ";
-	cout << experience << " Exp ¸¦ È¹µæÇÏ¿´½À´Ï´Ù. \n";
+	CharacterUI::displayExperienceGain(this, experience);
 }
 
 int Character::getGold() const
@@ -150,25 +144,15 @@ int Character::getGold() const
 void Character::addGold(int gold)
 {
 	this->gold += gold;
-	cout << "\n";
-	cout << getName() << "°¡ ";
-	if (gold > 0)
-	{
-		cout << gold << " °ñµå¸¦ È¹µæÇß½À´Ï´Ù. \n";
-	}
-	else
-	{
-		cout << (-1)*gold << " °ñµå¸¦ ¼Ò¸ğÇß½À´Ï´Ù. \n";
-	}
-
+	CharacterUI::displayGoldGain(this, gold);
+	
 }
 
 void Character::takeDamage(int damage)
 {
 	setHealth(this->health - damage);
 
-	cout << getName() << "À»(¸¦) °ø°İÇÕ´Ï´Ù! ";
-	cout << getName() << " Ã¼·Â: " << getHealth() << endl;
+	CharacterUI::displayDamageTaken(this, damage);
 }
 
 
@@ -188,63 +172,61 @@ bool Character::IsLevelUp() const
 void Character::levelUp()
 {
 
-	// °æÇèÄ¡ °¨¼Ò
+	// ê²½í—˜ì¹˜ ê°ì†Œ
 	experience -= maxExperience;
 
-	// ¿ä±¸ °æÇèÄ¡ Áõ°¡
+	// ìš”êµ¬ ê²½í—˜ì¹˜ ì¦ê°€
 	maxExperience *= 1.2;
-	maxExperience = (maxExperience / 10) * 10;  // 10ÀÇ ¹è¼ö·Î ¼³Á¤
+	maxExperience = (maxExperience / 10) * 10;  // 10ì˜ ë°°ìˆ˜ë¡œ ì„¤ì •
 
-	// ·¹º§¾÷
+	// ë ˆë²¨ì—…
 	++level;
 
-	// Ã¼·Â¾÷
+	// ì²´ë ¥ì—…
 	maxHealth += 20;
 
-	// ¿ÏÀüÈ¸º¹
+	// ì™„ì „íšŒë³µ
 	health = maxHealth;
 
-	// °ø°İ¾÷
+	// ê³µê²©ì—…
 	attack += 5;
 
-	//¸¶³ªÃÑ·®¾÷
+	//ë§ˆë‚˜ì´ëŸ‰ì—…
 	maxMana += 10;
 
-	//¸¶³ªÈ¸º¹
+	//ë§ˆë‚˜íšŒë³µ
 	mana = maxMana;
 
 
-	cout << getName() << "ÀÌ(°¡) ·¹º§¾÷! ";
-	cout << "Lv." << getLevel() << endl;
+	CharacterUI::displayLevelUp(this);
 }
 
 void Character::addItem(Item* item)
 {
 	inventory.push_back(item);
-	cout << getName() << "°¡ \"";
-	cout << item->getName() << "\"À» È¹µæÇß½À´Ï´Ù." << endl;
+	CharacterUI::displayItemGain(this, item->getName());
 }
 
 void Character::useItem(int index)
 {
-	// Àç·á ¾ÆÀÌÅÛ »ç¿ë ºÒ°¡
+	// ì¬ë£Œ ì•„ì´í…œ ì‚¬ìš© ë¶ˆê°€
 	if (!inventory[index]->canUse())
 	{
-		cout << "»ç¿ë ºÒ°¡´ÉÇÑ ¾ÆÀÌÅÛÀÔ´Ï´Ù." << endl;
+		CharacterUI::displayItemCannotUse();
 		return;
 	}
 
-	cout << inventory[index]->getName() << "À» »ç¿ëÇÕ´Ï´Ù." << endl;
+	CharacterUI::displayItemUse(this, inventory[index]->getName());
 
 	inventory[index]->use(this);
 
-	// ¸Ş¸ğ¸® ÇØÁ¦ ÈÄ erase
+	// ë©”ëª¨ë¦¬ í•´ì œ í›„ erase
 	delete inventory[index];
 
 	inventory.erase(inventory.begin() + index);
 }
 
-//¹öÇÁ Á¾·á
+//ë²„í”„ ì¢…ë£Œ
 void Character::resetAttackBuff()
 {
 	attack -= 10;
@@ -255,7 +237,7 @@ bool Character::isDead()
 	if (health <= 0)
 	{
 		bIsAlive = false;
-		cout << getName() << "ÀÌ(°¡) »ç¸ÁÇß½À´Ï´Ù. °ÔÀÓ ¿À¹ö!" << endl;
+		CharacterUI::displayDeath(this);
 
 	}
 	return bIsAlive;
@@ -264,7 +246,7 @@ bool Character::isDead()
 Character::~Character()
 {
   
-	// ¸Ş¸ğ¸® ÇØÁ¦
+	// ë©”ëª¨ë¦¬ í•´ì œ
 	for (Skill* skill : skills)
 	{	
 		delete skill;
@@ -273,7 +255,7 @@ Character::~Character()
   
 	for (Item* item : inventory)
 	{
-		delete item;  // ¾ÆÀÌÅÛ¿¡ ´ëÇÑ ¸Ş¸ğ¸® ÇØÁ¦
+		delete item;  // ì•„ì´í…œì— ëŒ€í•œ ë©”ëª¨ë¦¬ í•´ì œ
 	}
-	inventory.clear();  // º¤ÅÍ ºñ¿ì±â
+	inventory.clear();  // ë²¡í„° ë¹„ìš°ê¸°
 }
