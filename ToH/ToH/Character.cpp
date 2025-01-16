@@ -5,6 +5,8 @@
 #include "PowerStrike.h"
 #include "MagicClaw.h"
 #include "CharacterUI.h"
+#include "BuffUi.h"
+
 
 
 Character* Character::instance = nullptr;
@@ -19,7 +21,7 @@ Character::Character(string name) : name(name)
 	attack = 30;
 	experience = 0;
 	maxExperience = 100;
-	gold = 300;				// Gamble ½Ã¿¬ ÀÚ±İ
+	gold = 300;				// Gamble ì‹œì—° ìê¸ˆ
 	bIsAlive = true;
   
 	skills.push_back(new PowerStrike());
@@ -39,6 +41,8 @@ Character* Character::getInstance(const string& name)
 void Character::displayStatus() const
 {
 	CharacterUI::displayStatus(this);
+  	//ë²„í”„ Ui
+	BuffUi::printMessege();
 }
 
 string Character::getName() const
@@ -168,29 +172,29 @@ bool Character::IsLevelUp() const
 void Character::levelUp()
 {
 
-	// °æÇèÄ¡ °¨¼Ò
+	// ê²½í—˜ì¹˜ ê°ì†Œ
 	experience -= maxExperience;
 
-	// ¿ä±¸ °æÇèÄ¡ Áõ°¡
+	// ìš”êµ¬ ê²½í—˜ì¹˜ ì¦ê°€
 	maxExperience *= 1.2;
-	maxExperience = (maxExperience / 10) * 10;  // 10ÀÇ ¹è¼ö·Î ¼³Á¤
+	maxExperience = (maxExperience / 10) * 10;  // 10ì˜ ë°°ìˆ˜ë¡œ ì„¤ì •
 
-	// ·¹º§¾÷
+	// ë ˆë²¨ì—…
 	++level;
 
-	// Ã¼·Â¾÷
+	// ì²´ë ¥ì—…
 	maxHealth += 20;
 
-	// ¿ÏÀüÈ¸º¹
+	// ì™„ì „íšŒë³µ
 	health = maxHealth;
 
-	// °ø°İ¾÷
+	// ê³µê²©ì—…
 	attack += 5;
 
-	//¸¶³ªÃÑ·®¾÷
+	//ë§ˆë‚˜ì´ëŸ‰ì—…
 	maxMana += 10;
 
-	//¸¶³ªÈ¸º¹
+	//ë§ˆë‚˜íšŒë³µ
 	mana = maxMana;
 
 
@@ -205,7 +209,7 @@ void Character::addItem(Item* item)
 
 void Character::useItem(int index)
 {
-	// Àç·á ¾ÆÀÌÅÛ »ç¿ë ºÒ°¡
+	// ì¬ë£Œ ì•„ì´í…œ ì‚¬ìš© ë¶ˆê°€
 	if (!inventory[index]->canUse())
 	{
 		CharacterUI::displayItemCannotUse();
@@ -216,13 +220,13 @@ void Character::useItem(int index)
 
 	inventory[index]->use(this);
 
-	// ¸Ş¸ğ¸® ÇØÁ¦ ÈÄ erase
+	// ë©”ëª¨ë¦¬ í•´ì œ í›„ erase
 	delete inventory[index];
 
 	inventory.erase(inventory.begin() + index);
 }
 
-//¹öÇÁ Á¾·á
+//ë²„í”„ ì¢…ë£Œ
 void Character::resetAttackBuff()
 {
 	attack -= 10;
@@ -242,7 +246,7 @@ bool Character::isDead()
 Character::~Character()
 {
   
-	// ¸Ş¸ğ¸® ÇØÁ¦
+	// ë©”ëª¨ë¦¬ í•´ì œ
 	for (Skill* skill : skills)
 	{	
 		delete skill;
@@ -251,7 +255,7 @@ Character::~Character()
   
 	for (Item* item : inventory)
 	{
-		delete item;  // ¾ÆÀÌÅÛ¿¡ ´ëÇÑ ¸Ş¸ğ¸® ÇØÁ¦
+		delete item;  // ì•„ì´í…œì— ëŒ€í•œ ë©”ëª¨ë¦¬ í•´ì œ
 	}
-	inventory.clear();  // º¤ÅÍ ºñ¿ì±â
+	inventory.clear();  // ë²¡í„° ë¹„ìš°ê¸°
 }

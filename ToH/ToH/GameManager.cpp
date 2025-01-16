@@ -187,6 +187,13 @@ void GameManager::battle(Character* player, Monster* monster)
 					cout << "\n영웅 " << player->getName() << "에 의해 세계의 평화가 지켜졌다." << endl;
 					break;
 				}
+
+				//버프 카운팅
+				if (manager->ActiveBuffsCheck())
+				{
+					manager->updateBuffs(player);
+				}
+
 				return;
 			}
 
@@ -210,6 +217,7 @@ void GameManager::battle(Character* player, Monster* monster)
 			cout << "  EXP: " << player->getExperience() << "/" << player->getMaxExperience();
 			cout << "  골드: " << player->getGold() << "원" << endl;
 
+			//버프 카운팅
 			if (manager->ActiveBuffsCheck())
 			{
 				manager->updateBuffs(player);
@@ -217,33 +225,6 @@ void GameManager::battle(Character* player, Monster* monster)
 
 			break;
 		}
-
-		cout << player->getName() << "가 ";
-		cout << monster->getName() << "을 공격합니다! ";
-		cout << monster->getName() << " 체력: " << monster->getHealth() << endl;
-
-
-		/*
-		* 몬스터가 플레이어 공격
-		*/
-		
-		player->takeDamage(monster->getAttack());
-
-		cout << monster->getName() << "이 ";
-		cout << player->getName() << "을 공격합니다! ";
-		cout << player->getName() << " 체력: " << player->getHealth() << endl;
-
-		if (manager->ActiveBuffsCheck())
-		{
-			manager->updateBuffs(player);
-		}
-
-		// 플레이어가 죽었을 때
-		if (player->getHealth() == 0)
-		{
-			break;
-		}
-
 		// 2. 인벤토리 선택
 		case 2:
 		{
@@ -476,5 +457,4 @@ void GameManager::useItemFromInventory(Character* player)
 	}
 
 	player->useItem(itemIndex - 1);
-	cout << inventory[itemIndex - 1]->getName() << " 아이템을 사용했습니다.\n";
 }

@@ -81,8 +81,6 @@
     <ClCompile Include="EliteDropItem.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="BuffManager.cpp">
-    </ClCompile>
     <ClCompile Include="ActingMonster.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -99,6 +97,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="ManaPotion.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BuffManager.cpp">
+      <Filter>Manager Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BuffUi.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="CharacterUI.cpp">
@@ -166,9 +170,6 @@
     <ClInclude Include="Evolve.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="BuffManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="ActingMonster.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -194,6 +195,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ManaPotion.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BuffManager.h">
+      <Filter>Manager Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BuffUi.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="CharacterUI.h">
