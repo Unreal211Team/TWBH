@@ -4,10 +4,13 @@
 #include "BossMonster.h"
 #include "Battle.h"
 #include "CharacterUI.h"
+#include "Report.h"
+
 using namespace std;
 
 int main()
 {
+	
 	GameManager* gameManager = GameManager::getInstance();
 	Shop* shop = Shop::getInstance();
 	
@@ -58,6 +61,8 @@ int main()
 	{
 		CharacterUI::displayEscape(character);
 	}
+
+	REPORT->GenerateReport();
 
 	delete shop;
 	delete gameManager;

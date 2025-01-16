@@ -4,6 +4,8 @@
 #include <string>
 #include "IObserver.h"
 
+#define REPORT PlayReport::GetInstance()
+
 using namespace std;
 
 class PlayReport : public IObserver
