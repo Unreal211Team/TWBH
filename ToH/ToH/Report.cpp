@@ -82,8 +82,14 @@ void PlayReport::GenerateBattleReport() const
 void PlayReport::GenerateGoldReport() const
 {
     cout << "\n == == ==  Gold Statistics  == == == \n";
-    cout << "Total Gold Earned : " << TotalGoldEarned << "\n";
-    cout << "Total Gold Spent : " << TotalGoldSpent << "\n";
+    cout << "  Total Gold Earned : " << TotalGoldEarned << "\n";
+    cout << "  Total Gold Spent : " << TotalGoldSpent << "\n";
+    cout << "  Curren Gold : " << CurrentGold() << "\n";
+}
+
+int PlayReport::CurrentGold() const
+{
+    return TotalGoldEarned - TotalGoldSpent;
 }
 
 
@@ -96,6 +102,7 @@ void PlayReport::PrintMap(const string& Title, const map<string, int>& Data) con
     {
         cout << "  " << it->first << " : " << it->second << "\n";
     }
+
 }
 
 

@@ -71,6 +71,9 @@ public:
     void GenerateBattleReport() const;
     void GenerateGoldReport() const;
 
+    
+    int CurrentGold() const;
+
 
     // 전체 데이터 출력
     void GenerateReport() const;
