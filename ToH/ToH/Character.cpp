@@ -4,6 +4,7 @@
 #include <iostream>
 #include "PowerStrike.h"
 #include "MagicClaw.h"
+#include "BuffUi.h"
 
 
 Character* Character::instance = nullptr;
@@ -44,12 +45,9 @@ void Character::displayStatus() const
 	cout << " Exp	  (" << experience << "/" << maxExperience << ")" << "\n";
 	cout << " HP	  (" << health << "/" << maxHealth << ")\n";
 	cout << " 공격력	  " << attack << "\n";
-	BuffManager* manager = BuffManager::getInstance();
-	if (manager->ActiveBuffsCheck())
-	{
-		manager->displayBuffs();
-	}
 	cout << " --- ----- ---\n\n";
+	//버프 Ui
+	BuffUi::printMessege();
 }
 
 string Character::getName() const

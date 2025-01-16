@@ -1,7 +1,6 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <iostream>
 #include "Character.h"
 
 using namespace std;
@@ -42,8 +41,8 @@ public:
     // 턴 업데이트
     void updateBuffs(Character* player);
 
-    // 활성 버프 출력
-    void displayBuffs() const;
+    //버프 목록 Get
+    vector<Buff*> getBuffList();
 
     // 활성 버프 유무 출력
     bool ActiveBuffsCheck() const;
