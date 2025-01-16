@@ -6,10 +6,7 @@
 #include "MagicClaw.h"
 
 
-Character* Character::instance = nullptr;
-
-
-Character::Character(string name) : name(name)
+Character::Character()
 {
 	mana = 100; 
 	maxMana = 100;
@@ -25,14 +22,10 @@ Character::Character(string name) : name(name)
 	skills.push_back(new MagicClaw());
 }
 
-Character* Character::getInstance(const string& name)
+Character& Character::getInstance()
 {
-	if (instance == nullptr)
-	{
-		instance = new Character(name);
-	}
-
-	return instance;
+	static Character character;
+	return character;
 }
 
 void Character::displayStatus() const
@@ -55,6 +48,11 @@ void Character::displayStatus() const
 string Character::getName() const
 {
 	return name;
+}
+
+void Character::setName(const string& name)
+{
+	this->name = name;
 }
 
 int Character::getLevel() const
@@ -140,8 +138,6 @@ void Character::setMaxExperience(int maxExperience)
 void Character::addExperience(int experience)
 {
 	this->experience += experience;
-	cout << getName() << "가 ";
-	cout << experience << " Exp 를 획득하였습니다. \n";
 }
 
 int Character::getGold() const
@@ -152,25 +148,11 @@ int Character::getGold() const
 void Character::addGold(int gold)
 {
 	this->gold += gold;
-	cout << "\n";
-	cout << getName() << "가 ";
-	if (gold > 0)
-	{
-		cout << gold << " 골드를 획득했습니다. \n";
-	}
-	else
-	{
-		cout << (-1)*gold << " 골드를 소모했습니다. \n";
-	}
-
 }
 
 void Character::takeDamage(int damage)
 {
 	setHealth(this->health - damage);
-
-	cout << getName() << "을(를) 공격합니다! ";
-	cout << getName() << " 체력: " << getHealth() << endl;
 }
 
 

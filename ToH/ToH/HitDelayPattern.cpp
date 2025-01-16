@@ -1,6 +1,6 @@
-#include "HitDelayMonster.h"
+#include "HitDelayPattern.h"
 
-void HitDelayMonster::doAttack()
+bool HitDelayPattern::doAttack(const Monster& monster)
 {
     random_device rd;
     uniform_int_distribution<int> random(3, 5);
@@ -25,18 +25,21 @@ void HitDelayMonster::doAttack()
         cout << "회피 성공했습니다!" << endl;
         cout << "☆ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★\n";
         this->damage = 0;
+        return true;
     }
     else
     {
         cout << "--------------------------\n";
         cout << "실패했습니다!" << endl;
         cout << "--------------------------\n";
-        this->damage = monster->getAttack();
+        this->damage = monster.getAttack();
+        return false;
     }
+    
 
 }
 
-int HitDelayMonster::getAttack() const
+int HitDelayPattern::getDamage()
 {
     return this->damage;
 }

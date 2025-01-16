@@ -1,21 +1,24 @@
 #pragma once
 
-#include <memory>
-#include <ctime>
-#include <iostream>
-#include <random>
-#include "Monster.h"
+#include "MonsterFactory.h"
+#include "MonsterPatternFactory.h"
 
-using namespace std;
 class ActingMonster
 {
-protected:
-	Monster* monster;
-
 public:
-	ActingMonster() = default;
-	ActingMonster(Monster& m) : monster(&m) {};
-	void setMonster(Monster& monster);
-	virtual void doAttack() = 0;
-	virtual int getAttack() const = 0;
+	ActingMonster();
+
+	void doAttack();
+
+	string getName() const;
+	int getHealth() const;
+	int getAttack() const;
+	void takeDamage(int damage);
+	Item* dropItem() const;
+
+	Monster& getMonster() { return *monster; };
+private:
+	int damage;
+	shared_ptr<Monster> monster;
+	MonsterPatternFactory monsterPattern;
 };

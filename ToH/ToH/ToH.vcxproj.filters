@@ -86,19 +86,34 @@
     <ClCompile Include="ActingMonster.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="ParryingMonster.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="FindDiffWordMonster.cpp">
+    <ClCompile Include="ParryingPattern.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="AttackModeMonsterFactory.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="HitDelayMonster.cpp">
+    <ClCompile Include="HitDelayPattern.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="ManaPotion.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleUi.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterFactory.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FindDiffWordPattern.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterPatternFactory.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Battle.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -169,10 +184,10 @@
     <ClInclude Include="ActingMonster.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="ParryingMonster.h">
+    <ClInclude Include="ParryingPattern.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="FindDiffWordMonster.h">
+    <ClInclude Include="FindDiffWordPattern.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="MagicClaw.h">
@@ -187,10 +202,28 @@
     <ClInclude Include="AttackModeMonsterFactory.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="HitDelayMonster.h">
+    <ClInclude Include="HitDelayPattern.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ManaPotion.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleUi.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Battle.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterFactory.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterAttackPattern.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterPatternFactory.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
