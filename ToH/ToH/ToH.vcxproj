@@ -42,6 +42,7 @@
     <ClCompile Include="Orc.cpp" />
     <ClCompile Include="OrcDropItem.cpp" />
     <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="ShopUI.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="SlimeDropItem.cpp" />
     <ClCompile Include="Troll.cpp" />
@@ -75,6 +76,7 @@
     <ClInclude Include="OrcDropItem.h" />
     <ClInclude Include="PowerStrike.h" />
     <ClInclude Include="Shop.h" />
+    <ClInclude Include="ShopUI.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="Slime.h" />
     <ClInclude Include="SlimeDropItem.h" />
