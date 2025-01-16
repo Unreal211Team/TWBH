@@ -11,7 +11,7 @@ private:
 	const int healthRestore;	// 체력 회복량
 
 public:
-	HealthPotion(string name = "HealthPotion", bool canUsing = true, int price = 50, int healthRestore = 50);
+	HealthPotion(string name = "HealthPotion", bool canUsing = true, int price = 100, int healthRestore = 50);
 	string getName() const override;
 	bool canUse() const override;
 	void use(Character* character) const override;

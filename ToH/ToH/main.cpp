@@ -42,12 +42,6 @@ int main()
 
 		Battle battle = Battle();
 		battle.doBattle();
-		//monster = gameManager->generateMonster(character.getLevel());
-
-		//// ÀüÅõ
-		//gameManager->battle(&character, monster);
-
-		// »ç¸Á
 		if (character.getHealth() == 0)
 		{
 			break;

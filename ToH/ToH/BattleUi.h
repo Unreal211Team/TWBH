@@ -18,7 +18,7 @@ public:
 
 	void displayHitMessage(const Monster& monster) const;
 
-	void displayRewardMessage(const Monster& monster, const int exp, const int gold, const string& itemName = "") const;
+	void displayRewardMessage(const Monster& monster, const int exp, const int gold, Item* takeItem = nullptr) const;
 
 	void monsterDisplay(const Monster& monster) const;
 

@@ -11,7 +11,7 @@ private:
 	const int attackIncrease;	// 공격력 증가량
 
 public:
-	AttackBoost(string name = "AttackBoost", bool canUsing = true, int price = 50, int attackIncrease = 10);
+	AttackBoost(string name = "AttackBoost", bool canUsing = true, int price = 100, int attackIncrease = 10);
 	string getName() const override;
 	bool canUse() const override;
 	void use(Character* character) const override;

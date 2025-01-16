@@ -53,7 +53,7 @@ void BattleUi::showCurrentManaAndAttack(const Monster& monster) const
 {
 	Character& character = Character::getInstance();
 	stringstream ss;
-	ss << "\n\n-----------------------------------------------------------\n1. 일반공격 2. 파워스트라이크(30) 3. 매직클로(60)\n-----------------------------------------------------------\n\n";
+	ss << "\n\n-----------------------------------------------------------\n1. 일반공격 2. 파워스트라이크(30) 3. 매직클로(60) 4. 공격을 취소\n-----------------------------------------------------------\n\n";
 	cout << ss.str();
 }
 
@@ -73,17 +73,20 @@ void BattleUi::displayHitMessage(const Monster& monster) const
 	
 }
 
-void BattleUi::displayRewardMessage(const Monster& monster, const int exp, const int gold, const string& itemName) const
+void BattleUi::displayRewardMessage(const Monster& monster, const int exp, const int gold, Item* item) const
 {
 	stringstream ss;
-	Character& character = Character::getInstance();
-	ss << "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n" << monster.getName() << " 처치!\n" << character.getName() << "가 " << exp << "경험치 와 " << gold << " gold를 획득하였습니다! \n ";
-	if (itemName.size() != 0)
-	{
-		ss << character.getName() << "이(가)" << "<" << itemName << ">을 획득했습니다!\n\n";
-	}
-	ss << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n\n";
+	Character& character = Character::getInstance(); 
+	ss << "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n" << monster.getName() << " 처치!\n" << endl;
 	cout << ss.str();
+	character.addExperience(exp);
+	character.addGold(gold);
+
+	if (item != nullptr)
+	{
+		character.addItem(item);
+	}
+	cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n\n";
 }
 
 void BattleUi::monsterDisplay(const Monster& monster) const

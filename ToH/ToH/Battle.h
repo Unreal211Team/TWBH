@@ -21,7 +21,7 @@ private:
 	int randomGold = 10;
 	int randomInt(int start, int end);
 
-	void attackChoice(Monster& monster);
+	bool attackChoice(Monster& monster);
 
 	void getReward(Monster& monster);
 

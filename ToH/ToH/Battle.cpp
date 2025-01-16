@@ -11,12 +11,16 @@ Battle::Battle()
 
 bool Battle::doBattle()
 {
-	int randomGold = randomInt(10, 20);
+	randomGold = randomInt(200, 300);
 
 	Monster& monster = this->actingMonster.getMonster();
 	
 	battleUi.spawnMonster(monster);
 
+	if (player.getLevel() >= 10)
+	{
+		this->experience = 0;
+	}
 	return doFight(monster);
 }
 
@@ -34,7 +38,11 @@ bool Battle::doFight(Monster& monster)
 		case 1:
 		{
 
-			attackChoice(monster);
+			bool isAttack = attackChoice(monster);
+			if (!isAttack)
+			{
+				continue;
+			}
 
 			// 플레이어의 공격에 몬스터가 죽었을 때
 			if (monster.getHealth() == 0)
@@ -90,7 +98,10 @@ bool Battle::doFight(Monster& monster)
 		// 3. 상태창 선택
 		case 3:
 		{
+			string str;
 			player.displayStatus();
+			cout << "상태창을 나가시려면 아무키나 누르세요";
+			cin >> str;
 			break;
 		}
 		default:
@@ -176,7 +187,7 @@ int Battle::randomInt(int start, int end)
 	return random(rd);
 }
 
-void Battle::attackChoice(Monster& monster)
+bool Battle::attackChoice(Monster& monster)
 {
 	int attackChoice;
 
@@ -191,7 +202,7 @@ void Battle::attackChoice(Monster& monster)
 		case 1:
 			monster.takeDamage(player.getAttack());
 			battleUi.displayAttackMessage(monster);
-			return;
+			return true;
 		case 2:
 		{
 			PowerStrike powerStrike;
@@ -204,7 +215,7 @@ void Battle::attackChoice(Monster& monster)
 			{
 				powerStrike.use(&player, &monster);
 			}
-			return;
+			return true;
 		}
 		case 3:
 		{
@@ -218,7 +229,11 @@ void Battle::attackChoice(Monster& monster)
 			{
 				magicClaw.use(&player, &monster);
 			}
-			return;
+			return true;
+		}
+		case 4:
+		{
+			return false;
 		}
 		default:
 			battleUi.displayWrongInput();
@@ -230,14 +245,12 @@ void Battle::attackChoice(Monster& monster)
 
 void Battle::getReward(Monster& monster)
 {
-	player.addExperience(experience);
-	player.addGold(randomGold);
+
 
 	Item* drop = monster.dropItem();
 	if (randomInt(1, 100) <= itemDropRate)
 	{
-		player.addItem(drop);
-		battleUi.displayRewardMessage(monster, experience, randomGold, drop->getName());
+		battleUi.displayRewardMessage(monster, experience, randomGold, drop);
 	}
 	else
 	{

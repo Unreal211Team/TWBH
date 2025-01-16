@@ -95,7 +95,6 @@ void Shop::sellItem(int index, Character* player)
 //럭키넘버 나올 시 재귀문을 쓸수도 있지만 언럭키넘버의 숫자 유지를 위해 재귀문대신 반복문사용
 void Shop::playGamble(Character* player) const
 {
-	Item* bossMonsterDropItem = new BossMonsterDropItem();	// 1등 당첨 시 보상 아이템, 이름 사용을 위해 미리 선언
 
 	string action = "";
 
@@ -170,10 +169,10 @@ void Shop::playGamble(Character* player) const
 		isLuckyNumber = false;
 
 		cout << "---------------- 보상 ----------------\n" << endl;
-		cout << " 1등 10000↑: " << bossMonsterDropItem->getName() << endl;
-		cout << " 2등  1000↑: 공격력 x 10" << endl;
-		cout << " 3등   100↑: 10000 골드" << endl;
-		cout << " 4등    50↑: 1000 골드\n" << endl;
+		cout << " 1등 10000↑: 20000 gold"  << endl;
+		cout << " 2등  1000↑: 2000 골드" << endl;
+		cout << " 3등   100↑: 500 골드" << endl;
+		cout << " 4등    50↑: 100 골드\n" << endl;
 		cout << "--------------------------------------\n" << endl;
 		cout << "               순서x\n" << endl;
 		cout << " Lucky  1 2 3 4 5 6 : 한번더 + 보상 3배" << endl;
@@ -196,7 +195,7 @@ void Shop::playGamble(Character* player) const
 		// 처음 들어오면 실행
 		if (multiple == 1)
 		{
-			cout << "300 골드를 지불해서 게임을 할 수 있습니다. 소지골드: " << player->getGold() << endl;
+			cout << "100 골드를 지불해서 게임을 할 수 있습니다. 소지골드: " << player->getGold() << endl;
 
 			while (true)
 			{
@@ -220,13 +219,13 @@ void Shop::playGamble(Character* player) const
 			}
 			
 
-			if (player->getGold() < 300)
+			if (player->getGold() < 100)
 			{
 				shopUI.printNotEnoughGold();
 				return;
 			}
 
-			player->addGold(-300);
+			player->addGold(-100);
 		}
 
 		// 럭키넘버로 인해 두번째 들어올때
@@ -309,7 +308,6 @@ void Shop::playGamble(Character* player) const
 
 		shopUI.printUnluckyNumber();
 
-		delete bossMonsterDropItem;
 
 		return;
 	}
@@ -330,43 +328,28 @@ void Shop::playGamble(Character* player) const
 	// 1등
 	if (sum > 10000 && multiple == 1)
 	{
-		player->addItem(bossMonsterDropItem);
-
+		player->addGold(20000 * multiple);
 		return;
 	}
-
-	if (sum > 10000)
-	{
-		player->addItem(bossMonsterDropItem);
-
-		for (int i = 0; i < multiple - 1; i++)
-		{
-			player->addItem(new BossMonsterDropItem);
-		}
-
-		return;
-	}
-
-	delete bossMonsterDropItem;
 
 	// 2등
 	if (sum > 1000)
 	{
-		player->setAttack(player->getAttack() * 10 * multiple);
+		player->addGold(20000 * multiple);
 		return;
 	}
 
 	// 3등
 	if (sum > 100)
 	{
-		player->addGold(10000 * multiple);
+		player->addGold(1000 * multiple);
 		return;
 	}
 
 	// 4등
 	if (sum > 50)
 	{
-		player->addGold(1000 * multiple);
+		player->addGold(100 * multiple);
 		return;
 	}
 
