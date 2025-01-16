@@ -260,7 +260,7 @@ void Battle::getReward(Monster& monster)
 	Item* drop = monster.dropItem();
 	if (randomInt(1, 100) <= itemDropRate)
 	{
-		battleUi.displayRewardMessage(monster, experience, randomGold, drop->getName());
+		battleUi.displayRewardMessage(monster, experience, randomGold, drop);
 		REPORT->OnItemEvent(drop->getName(), "Acquire");
 	}
 	else

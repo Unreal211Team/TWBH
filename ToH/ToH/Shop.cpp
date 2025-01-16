@@ -237,6 +237,7 @@ void Shop::playGamble(Character* player) const
 			}
 
 			player->addGold(-100);
+			REPORT->OnGoldEvent("SpendGold", 100);
 		}
 
 		// 럭키넘버로 인해 두번째 들어올때
@@ -340,20 +341,23 @@ void Shop::playGamble(Character* player) const
 	if (sum > 10000 && multiple == 1)
 	{
 		player->addGold(20000 * multiple);
+		REPORT->OnGoldEvent("EarnGold", 20000 * multiple);
 		return;
 	}
 
 	// 2등
 	if (sum > 1000)
 	{
-		player->addGold(20000 * multiple);
+		player->addGold(2000 * multiple);
+		REPORT->OnGoldEvent("EarnGold", 2000 * multiple);
 		return;
 	}
 
 	// 3등
 	if (sum > 100)
 	{
-		player->addGold(1000 * multiple);
+		player->addGold(500 * multiple);
+		REPORT->OnGoldEvent("EarnGold", 500 * multiple);
 		return;
 	}
 
@@ -361,6 +365,7 @@ void Shop::playGamble(Character* player) const
 	if (sum > 50)
 	{
 		player->addGold(100 * multiple);
+		REPORT->OnGoldEvent("EarnGold", 100 * multiple);
 		return;
 	}
 
