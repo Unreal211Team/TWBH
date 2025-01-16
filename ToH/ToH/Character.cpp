@@ -5,7 +5,6 @@
 #include "PowerStrike.h"
 #include "MagicClaw.h"
 
-
 Character::Character()
 {
 	mana = 100; 
@@ -205,8 +204,6 @@ void Character::levelUp()
 void Character::addItem(Item* item)
 {
 	inventory.push_back(item);
-	cout << getName() << "°¡ \"";
-	cout << item->getName() << "\"À» È¹µæÇß½À´Ï´Ù." << endl;
 }
 
 void Character::useItem(int index)

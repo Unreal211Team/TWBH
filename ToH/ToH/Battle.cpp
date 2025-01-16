@@ -5,101 +5,42 @@ using namespace std;
 Battle::Battle()
 {
 	this->actingMonster = ActingMonster();
-	battleui = BattleUi();
+	battleUi = BattleUi();
+	this->manager = BuffManager::getInstance();
 }
 
 bool Battle::doBattle()
 {
-	BuffManager* manager = BuffManager::getInstance();
-	Character& player = Character::getInstance();
+	int randomGold = randomInt(10, 20);
 
-	random_device rd;
-	uniform_int_distribution<int> randomG(10, 20);
-	uniform_int_distribution<int> randomI(1, 100);
-
-	int randomGold = randomG(rd);
 	Monster& monster = this->actingMonster.getMonster();
 	
-	battleui.spawnMonster(monster);
+	battleUi.spawnMonster(monster);
 
-	// 전투 로직
+	return doFight(monster);
+}
+
+bool Battle::doFight(Monster& monster)
+{
+	battleUi.displayClear();
 	while (true)
 	{
-		// 전투 시작 조건 (몬스터의 체력이 0보다 크다.)
-		if (monster.getHealth() <= 0)
-		{
-			break;
-		}
-
-		battleui.selectBattleOptions(monster);
-		int choiceAction = battleui.getValidatedInput("입력해주세요 :", 0, 3);
+		battleUi.selectBattleOptions(monster);
+		int choiceAction = battleUi.getValidatedInput("입력해주세요 :", 0, 3);
 
 		switch (choiceAction)
 		{
-
 			// 1. 공격 선택 
 		case 1:
 		{
-			int attackChoice;
-			battleui.showCurrentManaAndAttack(monster);
 
-			cout << "입력 : ";
-			cin >> attackChoice;
-
-			switch (attackChoice)
-			{
-			case 1:
-				monster.takeDamage(player.getAttack());
-				battleui.displayAttackMessage(monster);
-				break;
-			case 2:
-			{
-				PowerStrike powerStrike;
-				if (player.getMana() < powerStrike.getMana())
-				{
-					battleui.manaAlert();
-					continue;
-				}
-				else
-				{
-					powerStrike.use(&player, &monster);
-				}
-				break;
-			}
-			case 3:
-			{
-				MagicClaw magicClaw;
-				if (player.getMana() < magicClaw.getMana())
-				{
-					battleui.manaAlert();
-					continue;
-				}
-				else
-				{
-					magicClaw.use(&player, &monster);
-				}
-				break;
-			}
-			default:
-				battleui.displayWrongInput();
-				continue;
-			}
+			attackChoice(monster);
 
 			// 플레이어의 공격에 몬스터가 죽었을 때
 			if (monster.getHealth() == 0)
 			{
 				// 보상을 지급하는 로직
-				player.addExperience(experience);
-				player.addGold(randomGold);
-
-				battleui.displayRewardMessage(monster, experience, randomGold);
-
-				if (randomI(rd) <= itemDrop)
-				{
-					Item* drop = monster.dropItem();
-					player.addItem(drop);
-				}
-
+				getReward(monster);
 
 				// 캐릭터 레벨업 확인하는 로직
 				if (player.IsLevelUp())
@@ -107,25 +48,25 @@ bool Battle::doBattle()
 					player.levelUp();
 				}
 
-				// 죽은 몬스터가 보스인지 확인하는 로직
-				if (monster.getName() == "Dragon")
+				if (manager->ActiveBuffsCheck())
 				{
-					cout << "\n영웅 " << player.getName() << "에 의해 세계의 평화가 지켜졌다." << endl;
-					return true;
+					manager->updateBuffs(&player);
 				}
-				return true;
+
+				return false;
 			}
-			
 
 			// 몬스터의 공격
 			actingMonster.doAttack();
-			battleui.displayHitMessage(monster);
+			player.takeDamage(actingMonster.getDamage());
+			battleUi.displayHitMessage(monster);
+
 
 			// 몬스터의 공격에 플레이어가 사망했는지 확인하는 로직
 			if (player.getHealth() == 0)
 			{
 				player.isDead();
-				return false;
+				return true;
 			}
 
 			if (manager->ActiveBuffsCheck())
@@ -154,14 +95,15 @@ bool Battle::doBattle()
 		}
 		default:
 		{
-			cout << "잘못된 입력값입니다. \n";
+			battleUi.displayWrongInput();
 			break;
 		}
 
 		}
 	}
-}
+	
 
+}
 
 int Battle::getValidatedInput(const string& prompt, int minValue, int maxValue)
 {
@@ -173,7 +115,7 @@ int Battle::getValidatedInput(const string& prompt, int minValue, int maxValue)
 		if (cin.fail() || input < minValue || input > maxValue) {
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "잘못된 입력입니다. 다시 시도해주세요.\n";
+			battleUi.displayWrongInput();
 		}
 		else {
 			break;
@@ -224,5 +166,81 @@ void Battle::useItemFromInventory(Character* player)
 	}
 
 	player->useItem(itemIndex - 1);
-	cout << inventory[itemIndex - 1]->getName() << " 아이템을 사용했습니다.\n";
+}
+
+int Battle::randomInt(int start, int end)
+{
+	random_device rd;
+	uniform_int_distribution<int> random(start, end);
+
+	return random(rd);
+}
+
+void Battle::attackChoice(Monster& monster)
+{
+	int attackChoice;
+
+	while (true)
+	{
+		battleUi.showCurrentManaAndAttack(monster);
+		cout << "입력 : ";
+		cin >> attackChoice;
+
+		switch (attackChoice)
+		{
+		case 1:
+			monster.takeDamage(player.getAttack());
+			battleUi.displayAttackMessage(monster);
+			return;
+		case 2:
+		{
+			PowerStrike powerStrike;
+			if (player.getMana() < powerStrike.getMana())
+			{
+				battleUi.manaAlert();
+				continue;
+			}
+			else
+			{
+				powerStrike.use(&player, &monster);
+			}
+			return;
+		}
+		case 3:
+		{
+			MagicClaw magicClaw;
+			if (player.getMana() < magicClaw.getMana())
+			{
+				battleUi.manaAlert();
+				continue;
+			}
+			else
+			{
+				magicClaw.use(&player, &monster);
+			}
+			return;
+		}
+		default:
+			battleUi.displayWrongInput();
+			continue;
+		}
+	}
+	
+}
+
+void Battle::getReward(Monster& monster)
+{
+	player.addExperience(experience);
+	player.addGold(randomGold);
+
+	Item* drop = monster.dropItem();
+	if (randomInt(1, 100) <= itemDropRate)
+	{
+		player.addItem(drop);
+		battleUi.displayRewardMessage(monster, experience, randomGold, drop->getName());
+	}
+	else
+	{
+		battleUi.displayRewardMessage(monster, experience, randomGold);
+	}
 }

@@ -3,7 +3,7 @@
 MonsterFactory::MonsterFactory()
 {
     Character& character = Character::getInstance();
-    int characterLevel = character.getLevel();
+    this->characterLevel = character.getLevel();
     this->monsters = { make_shared<Orc>(characterLevel), make_shared<Goblin>(characterLevel),make_shared<Slime>(characterLevel) ,make_shared<Troll>(characterLevel) };
     this->bossMonsters = { make_shared<BossMonster>(characterLevel) };
 }
@@ -23,13 +23,14 @@ shared_ptr<Monster> MonsterFactory::makeMonster()
 
 shared_ptr<Monster> MonsterFactory::makeNomalMonster()
 {
-
-    return move(this->monsters[makeRandomInt(0, static_cast<int>(this->monsters.size() - 1))]);
+    int randomInt = makeRandomInt(0, static_cast<int>(this->monsters.size()) - 1);
+    Evolve evolve;
+    return evolve.evolve(this->monsters[randomInt]);
 }
 
 shared_ptr<Monster> MonsterFactory::makeBossMonster()
 {
-    return move(this->bossMonsters[makeRandomInt(0, static_cast<int>(this->bossMonsters.size() - 1))]);
+    return move(this->bossMonsters[makeRandomInt(0, static_cast<int>(this->bossMonsters.size()) - 1)]);
 }
 
 

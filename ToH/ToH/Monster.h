@@ -4,6 +4,7 @@
 #include "Item.h"
 #include <iostream>
 
+using namespace std;
 class Monster
 {
 protected:
@@ -20,5 +21,9 @@ public:
 	{
 		cout << asciiArt << endl;
 
+	}
+	virtual string getAsciiArt() const
+	{
+		return asciiArt;
 	}
 };

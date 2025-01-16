@@ -12,7 +12,7 @@ public:
 
 	string getName() const;
 	int getHealth() const;
-	int getAttack() const;
+	int getDamage() const;
 	void takeDamage(int damage);
 	Item* dropItem() const;
 

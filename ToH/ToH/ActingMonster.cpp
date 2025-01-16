@@ -30,7 +30,7 @@ int ActingMonster::getHealth() const
 	return this->monster->getHealth();
 }
 
-int ActingMonster::getAttack() const
+int ActingMonster::getDamage() const
 {
 	return this->damage;
 }

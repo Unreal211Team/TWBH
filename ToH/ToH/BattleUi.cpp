@@ -18,7 +18,7 @@ void BattleUi::spawnMonster(const Monster& monster) const
 		cout << "몬스터 Lv." << player.getLevel() << " " << monster.getName() << " 등장! " << endl;
 
 		monster.displayArt();
-
+	}
 		cout << "\n-- Monster status --" << endl;
 		cout << "체력: " << monster.getHealth();
 		cout << "\n공격력: " << monster.getAttack() << "\n";
@@ -28,7 +28,7 @@ void BattleUi::spawnMonster(const Monster& monster) const
 		string str;
 		cin >> str;
 		displayClear();
-	}
+	
 }
 
 void BattleUi::displayMonsterStats(const Monster& monster) const
@@ -53,7 +53,6 @@ void BattleUi::showCurrentManaAndAttack(const Monster& monster) const
 {
 	Character& character = Character::getInstance();
 	stringstream ss;
-	ss << "\n현재 마나: " << character.getMana() << " / " << character.getMaxMana();
 	ss << "\n\n-----------------------------------------------------------\n1. 일반공격 2. 파워스트라이크(30) 3. 매직클로(60)\n-----------------------------------------------------------\n\n";
 	cout << ss.str();
 }
@@ -78,7 +77,7 @@ void BattleUi::displayRewardMessage(const Monster& monster, const int exp, const
 {
 	stringstream ss;
 	Character& character = Character::getInstance();
-	ss << "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n" << monster.getName() << " 처치!\n" << character.getName() << "가 " << exp << "와 " << gold << "를 획득하였습니다! \n ";
+	ss << "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n" << monster.getName() << " 처치!\n" << character.getName() << "가 " << exp << "경험치 와 " << gold << " gold를 획득하였습니다! \n ";
 	if (itemName.size() != 0)
 	{
 		ss << character.getName() << "이(가)" << "<" << itemName << ">을 획득했습니다!\n\n";

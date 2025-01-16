@@ -9,7 +9,6 @@
 #include "Evolve.h"
 #include "BuffManager.h"
 #include "Skill.h"
-#include "AttackModeMonsterFactory.h"
 #include "PowerStrike.h"
 #include "MagicClaw.h"
 
@@ -57,8 +56,8 @@ Monster* GameManager::generateMonster(int level)
 	}
 
 	// 진화 : 몬스터 Elite화 확인 30%확률
-	Evolve evolver;
-	monster = evolver.evolve(monster);
+	//Evolve evolver;
+	//monster = evolver.evolve(monster);
 
 	return monster;
 }

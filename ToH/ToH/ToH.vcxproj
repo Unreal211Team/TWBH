@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AttackBoost.cpp" />
-    <ClCompile Include="AttackModeMonsterFactory.cpp" />
     <ClCompile Include="Battle.cpp" />
     <ClCompile Include="BattleUi.cpp" />
     <ClCompile Include="BossMonster.cpp" />
@@ -52,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AttackBoost.h" />
-    <ClInclude Include="AttackModeMonsterFactory.h" />
     <ClInclude Include="Battle.h" />
     <ClInclude Include="BattleUi.h" />
     <ClInclude Include="BossMonster.h" />
