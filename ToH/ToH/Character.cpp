@@ -17,7 +17,7 @@ Character::Character()
 	attack = 30;
 	experience = 0;
 	maxExperience = 100;
-	gold = 19990;				// Gamble 시연 자금
+	gold = 300;				// Gamble 시연 자금
 	bIsAlive = true;
   
 	skills.push_back(new PowerStrike());
