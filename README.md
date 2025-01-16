@@ -1,4 +1,4 @@
-# :moneybag:Gold is My life
+# :moneybag:The Way Back Heaven
 
 ## 개요
 + 몬스터를 사냥 하여 돈을 모으자!
