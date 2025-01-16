@@ -62,16 +62,10 @@ void BuffManager::updateBuffs(Character* player) {
     buffs.erase(it, buffs.end());
 }
 
-// 활성 버프 출력
-void BuffManager::displayBuffs() const {
-    if (buffs.empty()) {
-        return;
-    }
-    cout << "Active Buffs:\n";
-    for (const auto& buff : buffs) {
-        cout << "- " << buff->name << " (" << buff->remainingTurns << " 턴 남았습니다.): "
-            << "\n";
-    }
+//버프목록 리턴
+vector<Buff*> BuffManager::getBuffList()
+{
+    return buffs;
 }
 
 //활성 버프 유무 확인

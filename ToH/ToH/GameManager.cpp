@@ -11,6 +11,7 @@
 #include "Skill.h"
 #include "PowerStrike.h"
 #include "MagicClaw.h"
+#include "CharacterUI.h"
 
 GameManager* GameManager::instance = nullptr;
 
@@ -185,6 +186,13 @@ void GameManager::battle(Character* player, Monster* monster)
 					cout << "\n영웅 " << player->getName() << "에 의해 세계의 평화가 지켜졌다." << endl;
 					break;
 				}
+
+				//버프 카운팅
+				if (manager->ActiveBuffsCheck())
+				{
+					manager->updateBuffs(player);
+				}
+
 				return;
 			}
 
@@ -205,6 +213,7 @@ void GameManager::battle(Character* player, Monster* monster)
 			cout << "  EXP: " << player->getExperience() << "/" << player->getMaxExperience();
 			cout << "  골드: " << player->getGold() << "원" << endl;
 
+			//버프 카운팅
 			if (manager->ActiveBuffsCheck())
 			{
 				manager->updateBuffs(player);
@@ -212,33 +221,6 @@ void GameManager::battle(Character* player, Monster* monster)
 
 			break;
 		}
-
-		cout << player->getName() << "가 ";
-		cout << monster->getName() << "을 공격합니다! ";
-		cout << monster->getName() << " 체력: " << monster->getHealth() << endl;
-
-
-		/*
-		* 몬스터가 플레이어 공격
-		*/
-		
-		player->takeDamage(monster->getAttack());
-
-		cout << monster->getName() << "이 ";
-		cout << player->getName() << "을 공격합니다! ";
-		cout << player->getName() << " 체력: " << player->getHealth() << endl;
-
-		if (manager->ActiveBuffsCheck())
-		{
-			manager->updateBuffs(player);
-		}
-
-		// 플레이어가 죽었을 때
-		if (player->getHealth() == 0)
-		{
-			break;
-		}
-
 		// 2. 인벤토리 선택
 		case 2:
 		{
@@ -275,24 +257,26 @@ void GameManager::visitShop(Character* character, Shop* shop)
 	while (askVisitShop)
 	{
 		cout << "\n==================================================\n" << endl;
-		cout << "상점을 방문하시겠습니까?" << endl;
-		cout << "1. 한다 \n";
-		cout << "2. 안한다. \n";
+		cout << "상점을 방문하시겠습니까?\n";
+		cout << "1. 한다 2. 안한다\n\n";
 
-		int choiceVisit = getValidatedInput("입력해주세요 :", 1, 2);
+		int choiceVisit = getValidatedInput("입력해주세요 : ", 1, 2);
 
 		switch (choiceVisit)
 		{
 		case 1:
 		{
+			cout << "\n================= 상점 =================\n";
+
 			bool inShop = true;
 			while (inShop)
 			{
+				cout << endl;
 				shop->displayItems();
-				cout << "현재 보유 중인 Gold : " << character->getGold() << "\n";
-				cout << "0. 상점 나가기  1. 구매하기  2. 판매하기  3. ★주사위놀이★  \n";
+				cout << "현재 보유 중인 골드 : " << character->getGold() << " gold\n";
+				cout << "0. 상점 나가기  1. 구매하기  2. 판매하기  3. ★ 주사위 게임★\n\n";
 
-				int choiceAction = getValidatedInput("입력해주세요 :", 0, 3);
+				int choiceAction = getValidatedInput("입력해주세요 : ", 0, 3);
 
 				switch (choiceAction)
 				{
@@ -309,7 +293,7 @@ void GameManager::visitShop(Character* character, Shop* shop)
 				case 1:
 				{
 					// 구매창
-					cout << "0. 뒤로 돌아가기";
+					cout << "\n0. 뒤로 돌아가기";
 
 					for (int i = 0; i < shop->getAvaliableItems().size(); ++i)
 					{
@@ -321,7 +305,7 @@ void GameManager::visitShop(Character* character, Shop* shop)
 
 
 
-					int choiceItem = getValidatedInput("구매할 아이템을 선택해주세요. :", 0, shop->getAvaliableItems().size());
+					int choiceItem = getValidatedInput("구매할 아이템을 선택해주세요 : ", 0, shop->getAvaliableItems().size());
 
 
 					if (choiceItem == 0)
@@ -347,11 +331,11 @@ void GameManager::visitShop(Character* character, Shop* shop)
 						break;
 					}
 
-
+					cout << "----------------------------------------" << endl;
 					// 판매창
 					displayInventory(character);
 
-					cout << "\n원가의 60% 가격으로 판매합니다. \n";
+					cout << " 원가의 60% 가격으로 판매합니다.";
 					cout << "\n0. 뒤로 돌아가기";
 
 					for (int i = 0; i < character->getInventory().size(); ++i)
@@ -360,9 +344,9 @@ void GameManager::visitShop(Character* character, Shop* shop)
 					}
 
 
-					cout << "\n";
+					cout << "\n\n";
 
-					int choiceItem = getValidatedInput("판매할 아이템을 선택해주세요. :", 0, character->getInventory().size());
+					int choiceItem = getValidatedInput("판매할 아이템을 선택해주세요 :", 0, character->getInventory().size());
 
 					// 판매 이전으로 가기
 					if (choiceItem == 0)
@@ -381,6 +365,8 @@ void GameManager::visitShop(Character* character, Shop* shop)
 				case 3:
 				{
 					shop->playGamble(character);
+					cout << endl;
+					break;
 				}
 				default:
 				{
@@ -388,6 +374,8 @@ void GameManager::visitShop(Character* character, Shop* shop)
 				}
 
 				}
+
+				cout << "----------------------------------------\n";
 			}
 			break;
 
@@ -395,7 +383,6 @@ void GameManager::visitShop(Character* character, Shop* shop)
 
 		case 2:
 		{
-			cout << "상점을 나갑니다. \n";
 			askVisitShop = false;
 			break;
 		}
@@ -419,7 +406,7 @@ int GameManager::getValidatedInput(const string& prompt, int minValue, int maxVa
 		if (cin.fail() || input < minValue || input > maxValue) {
 			cin.clear();
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');
-			cout << "잘못된 입력입니다. 다시 시도해주세요.\n";
+			cout << "잘못된 입력입니다. 다시 시도해주세요.\n\n";
 		}
 		else {
 			break;
@@ -433,8 +420,7 @@ void GameManager::displayInventory(Character* player)
 {
 	vector<Item*> inventory = player->getInventory();
 
-	cout << "\n";
-	cout << " --- Inventory ---" << endl;
+	cout << "\n --- Inventory ---" << endl;
 
 	cout << " 골드 : " << player->getGold() << " gold\n";
 	if (inventory.empty())
@@ -471,5 +457,4 @@ void GameManager::useItemFromInventory(Character* player)
 	}
 
 	player->useItem(itemIndex - 1);
-	cout << inventory[itemIndex - 1]->getName() << " 아이템을 사용했습니다.\n";
 }

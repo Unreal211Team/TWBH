@@ -3,12 +3,14 @@
 #include <vector>
 #include "Item.h"
 #include "Character.h"
+#include "ShopUI.h"
 
 class Shop
 {
 private:
 	static Shop* instance;
 	vector<Item*> avaliableItems;
+	ShopUI& shopUI;
 
 	Shop();
 	Shop(const Shop&) = delete;

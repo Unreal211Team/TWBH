@@ -13,7 +13,7 @@ using namespace std;
 
 Shop* Shop::instance = nullptr;
 
-Shop::Shop()	//아이템 추가되면 push_back 필요
+Shop::Shop() : shopUI(ShopUI::getinstance())	//아이템 추가되면 push_back 필요
 {
 	avaliableItems.push_back(new AttackBoost);
 	avaliableItems.push_back(new HealthPotion);
@@ -32,20 +32,7 @@ Shop* Shop::getInstance()
 
 void Shop::displayItems() const
 {
-	cout << "--- List ---" << endl;
-
-	if (avaliableItems.empty())
-	{
-		cout << "There are no items available for sale.\n";
-		return;
-	}
-
-	for (int i = 0; i < avaliableItems.size(); i++)
-	{
-		cout << i + 1 << ". " << avaliableItems[i]->getName() << " " << avaliableItems[i]->getPrice() << "원" << endl;
-	}
-
-	cout << endl;
+	shopUI.printDisplayItems();
 }
 
 void Shop::buyItem(int index, Character* player)	// 아이템 추가되면 수정 필요
@@ -54,14 +41,14 @@ void Shop::buyItem(int index, Character* player)	// 아이템 추가되면 수정 필요
 	{
 		if (player->getGold() < avaliableItems[0]->getPrice())
 		{
-			cout << "골드가 모자랍니다." << endl;
+			shopUI.printNotEnoughGold();
 			return;
 		}
 
 		player->addGold(-50);
 		player->addItem(new AttackBoost);
 
-		cout << "AttackBoost를 구매했습니다." << endl;
+		//cout << "AttackBoost를 구매했습니다." << endl;
 
 		return;
 	}
@@ -69,27 +56,27 @@ void Shop::buyItem(int index, Character* player)	// 아이템 추가되면 수정 필요
 	{
 		if (player->getGold() < avaliableItems[1]->getPrice())
 		{
-			cout << "골드가 모자랍니다." << endl;
+			shopUI.printNotEnoughGold();
 			return;
 		}
 
 		player->addGold(-50);
 		player->addItem(new HealthPotion);
 		
-		cout << "HealthPotion을 구매했습니다." << endl;
+		//cout << "HealthPotion을 구매했습니다." << endl;
 	}
 	if (index == 2)
 	{
 		if (player->getGold() < avaliableItems[2]->getPrice())
 		{
-			cout << "골드가 모자랍니다." << endl;
+			shopUI.printNotEnoughGold();
 			return;
 		}
 
 		player->addGold(-50);
 		player->addItem(new ManaPotion);
 
-		cout << "ManaPotion을 구매했습니다." << endl;
+		//cout << "ManaPotion을 구매했습니다." << endl;
 	}
 }
 
@@ -98,8 +85,8 @@ void Shop::sellItem(int index, Character* player)
 	vector<Item*>& inventory = player->getInventory();
 	Item* item = inventory[index];
 
+	shopUI.printSellltem(item);
 	player->addGold(item->getPrice() * 0.6);	//되팔기 가격 60%
-	cout << item->getName() << "을 판매했습니다." << endl;
 	
 	inventory.erase(inventory.begin() + index);
 	delete item;
@@ -162,6 +149,7 @@ void Shop::playGamble(Character* player) const
 		}
 	}
 	
+	cout << "---------------------------------------------------" << endl;
 	cout << "\n============= 주사위 게임 =============\n" << endl;
 	cout << " 1. 주사위를 6번 던집니다.\n" << endl;
 	cout << " 2-1. 주사위 눈은 합산됩니다." << endl;
@@ -210,19 +198,31 @@ void Shop::playGamble(Character* player) const
 		{
 			cout << "300 골드를 지불해서 게임을 할 수 있습니다. 소지골드: " << player->getGold() << endl;
 
-			cout << "\nY)한다 ...)안한다: ";
-
-			cin >> action;
-
-			if (action != "Y" && action != "y")
+			while (true)
 			{
-				cout << "\n돌아갑니다." << endl;
-				return;
+				cout << "\n 1.한다  2.안한다\n";
+				cout << "입력 : ";
+
+				cin >> action;
+
+				if (action == "2")
+				{
+					cout << "\n돌아갑니다." << endl;
+					return;
+				}
+
+				if (action == "1")
+				{
+					break;
+				}
+
+				cout << "\n잘못된 입력입니다." << endl;
 			}
+			
 
 			if (player->getGold() < 300)
 			{
-				cout << "\n골드가 부족합니다." << endl;
+				shopUI.printNotEnoughGold();
 				return;
 			}
 
@@ -233,10 +233,11 @@ void Shop::playGamble(Character* player) const
 		else
 		{
 			cout << " ★ 럭키넘버★" << endl;
-			cout << "재도전 + 보상 3배 획득의 기회!" << endl;
+			cout << "재도전 + 보상 3배 획득의 기회!\n" << endl;
 		}
 
-		cout << "\n게임을 진행합니다.\n" << endl;
+		cout << "--------------------------------------\n" << endl;
+		cout << "게임을 진행합니다.\n" << endl;
 		
 		int number = 0;
 
@@ -250,15 +251,13 @@ void Shop::playGamble(Character* player) const
 
 			if (action != to_string(i + 1))
 			{
-				cout << "잘못된 입력입니다.\n" << endl;
+				shopUI.printWrongInput();
 				i--;
 				continue;
 			}
 
 			// 주사위 굴리기
 			number = randomDice(rd);
-
-			cout << " " << number << " 나왔습니다." << endl;
 
 			diceNumber.push_back(number);
 
@@ -272,14 +271,7 @@ void Shop::playGamble(Character* player) const
 				diceNumberMap[number]++;
 			}
 
-			cout << "현재:";
-
-			for (int num : diceNumber)
-			{
-				cout << " " << num;
-			}
-
-			cout << "\n" << endl;
+			shopUI.printScore(diceNumber);
 		}
 
 		// 럭키 넘버 일 때
@@ -315,8 +307,7 @@ void Shop::playGamble(Character* player) const
 		player->setExperience(0);
 		player->setMaxExperience(100);
 
-		cout << "\n언럭키넘버 UnU" << endl;
-		cout << "능력치가 초기화 되었습니다..." << endl;
+		shopUI.printUnluckyNumber();
 
 		delete bossMonsterDropItem;
 
@@ -332,32 +323,13 @@ void Shop::playGamble(Character* player) const
 	}
 
 	// 점수 계산식과 합계 출력
-	cout << "점수: ";
+	shopUI.printDisplaySum(diceNumber, sum);
 
-	sort(diceNumber.begin(), diceNumber.end());
-
-	for (int i = 0; i < 5; i++)
-	{
-		cout << diceNumber[i];
-
-		if (diceNumber[i] == diceNumber[i + 1])
-		{
-			cout << " x ";
-		}
-
-		else
-		{
-			cout << " + ";
-		}
-	}
-
-	cout << diceNumber[5] << " = " << sum << "\n" << endl;
+	shopUI.printGamblePrize(sum, multiple);
 
 	// 1등
 	if (sum > 10000 && multiple == 1)
 	{
-		cout << "★ 경축★ 1등 당첨" << endl;
-
 		player->addItem(bossMonsterDropItem);
 
 		return;
@@ -365,8 +337,6 @@ void Shop::playGamble(Character* player) const
 
 	if (sum > 10000)
 	{
-		cout << "★ 경축★ 1등 당첨" << endl;
-
 		player->addItem(bossMonsterDropItem);
 
 		for (int i = 0; i < multiple - 1; i++)
@@ -383,35 +353,25 @@ void Shop::playGamble(Character* player) const
 	if (sum > 1000)
 	{
 		player->setAttack(player->getAttack() * 10 * multiple);
-
-		cout << "2등 당첨" << endl;
-		cout << "공격력이 " << 10 * multiple << "배 증가합니다." << endl;
-
 		return;
 	}
 
 	// 3등
 	if (sum > 100)
 	{
-		cout << "3등 당첨";
-
 		player->addGold(10000 * multiple);
-
 		return;
 	}
 
 	// 4등
 	if (sum > 50)
 	{
-		cout << "4등 당첨";
-
 		player->addGold(1000 * multiple);
-
 		return;
 	}
 
 	// 꽝
-	cout << "꽝! >o< 다음 기회에~" << endl;
+	
 }
 
 
