@@ -20,6 +20,7 @@ Character::Character()
 	gold = 300;				// Gamble 시연 자금
 	bIsAlive = true;
   
+	REPORT->OnGoldEvent("EarnGold", gold);
 	skills.push_back(new PowerStrike());
 	skills.push_back(new MagicClaw());
 }
