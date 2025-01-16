@@ -15,7 +15,7 @@
 
 |팀장|팀원|팀원|팀원|팀원|
 |------|---|---|---|---|
-|![image](https://github.com/user-attachments/assets/71c03a52-023a-4014-9cb7-d2600f4d17ce)|![image](https://github.com/user-attachments/assets/e73e19e8-43e3-42a5-b564-25572d11cca6)|![image](https://github.com/user-attachments/assets/116615ee-ce2a-4a1e-a2e9-63878c232305)|![image](https://github.com/user-attachments/assets/8eb49062-ba69-4d82-b741-7b39d24f96eb)|![image](https://github.com/user-attachments/assets/52a6485a-706d-42e8-8cbe-0f2d100b15a7)|
+|![image](https://github.com/user-attachments/assets/71c03a52-023a-4014-9cb7-d2600f4d17ce)|![image](https://github.com/user-attachments/assets/116615ee-ce2a-4a1e-a2e9-63878c232305)|![image](https://github.com/user-attachments/assets/e73e19e8-43e3-42a5-b564-25572d11cca6)|![image](https://github.com/user-attachments/assets/8eb49062-ba69-4d82-b741-7b39d24f96eb)|![image](https://github.com/user-attachments/assets/52a6485a-706d-42e8-8cbe-0f2d100b15a7)|
 |서원호|조세준|이경민|이종민|유민우|
 
   
@@ -27,6 +27,11 @@
 
 ## 진행
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/75087e3f-0c27-4e35-a25d-e521ff8cfe86" />
+
+## 기술
++ Singleton 패턴을 사용한 객체 생성
++ Factory 패턴을 사용해서 몬스터 생산
+
 
 ## 우리 게임의 차별점
 
