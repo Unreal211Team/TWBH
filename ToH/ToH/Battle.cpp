@@ -1,4 +1,5 @@
 #include "Battle.h"
+#include "Report.h"
 
 using namespace std;
 
@@ -13,8 +14,10 @@ bool Battle::doBattle()
 {
 	randomGold = randomInt(200, 300);
 
+	// 몬스터 생성
 	Monster& monster = this->actingMonster.getMonster();
-	
+	REPORT->OnMonsterEvent(monster.getName(), "spawn");
+
 	battleUi.spawnMonster(monster);
 
 	if (player.getLevel() >= 10)
@@ -47,6 +50,8 @@ bool Battle::doFight(Monster& monster)
 			// 플레이어의 공격에 몬스터가 죽었을 때
 			if (monster.getHealth() == 0)
 			{
+				REPORT->OnMonsterEvent(monster.getName(), "kill");
+				PlayReport::GetInstance()->OnMonsterEvent(monster.getName(), "Kill");
 				// 보상을 지급하는 로직
 				getReward(monster);
 
@@ -200,6 +205,9 @@ bool Battle::attackChoice(Monster& monster)
 		switch (attackChoice)
 		{
 		case 1:
+			// 기본 공격 관련 리포트
+			REPORT->OnBattleEvent("일반공격", "BasicAttack", player.getAttack());
+
 			monster.takeDamage(player.getAttack());
 			battleUi.displayAttackMessage(monster);
 			return true;
@@ -213,6 +221,7 @@ bool Battle::attackChoice(Monster& monster)
 			}
 			else
 			{
+				// 스킬 공격 관련 리포트 -> 스킬 클래스 use 안에 넣기, why? 스킬 최종 데미지와 스킬 이름을 가져오는 함수가 없음
 				powerStrike.use(&player, &monster);
 			}
 			return true;
@@ -227,6 +236,7 @@ bool Battle::attackChoice(Monster& monster)
 			}
 			else
 			{
+				// 스킬 공격 관련 리포트 -> 스킬 클래스 use 안에 넣기
 				magicClaw.use(&player, &monster);
 			}
 			return true;
@@ -250,7 +260,8 @@ void Battle::getReward(Monster& monster)
 	Item* drop = monster.dropItem();
 	if (randomInt(1, 100) <= itemDropRate)
 	{
-		battleUi.displayRewardMessage(monster, experience, randomGold, drop);
+		battleUi.displayRewardMessage(monster, experience, randomGold, drop->getName());
+		REPORT->OnItemEvent(drop->getName(), "Acquire");
 	}
 	else
 	{

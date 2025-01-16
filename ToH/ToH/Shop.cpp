@@ -3,6 +3,7 @@
 #include "HealthPotion.h"
 #include "ManaPotion.h"
 #include "BossMonsterDropItem.h"
+#include "Report.h"
 #include <vector>
 #include <iostream>
 #include <random>
@@ -47,6 +48,7 @@ void Shop::buyItem(int index, Character* player)	// 아이템 추가되면 수정 필요
 
 		player->addGold(-50);
 		player->addItem(new AttackBoost);
+		REPORT->OnItemEvent("AttackBoost", "Acquire");
 
 		//cout << "AttackBoost를 구매했습니다." << endl;
 
@@ -62,6 +64,7 @@ void Shop::buyItem(int index, Character* player)	// 아이템 추가되면 수정 필요
 
 		player->addGold(-50);
 		player->addItem(new HealthPotion);
+		REPORT->OnItemEvent("HealthPotion", "Acquire");
 		
 		//cout << "HealthPotion을 구매했습니다." << endl;
 	}
@@ -75,9 +78,12 @@ void Shop::buyItem(int index, Character* player)	// 아이템 추가되면 수정 필요
 
 		player->addGold(-50);
 		player->addItem(new ManaPotion);
+		REPORT->OnItemEvent("ManaPotion", "Acquire");
 
 		//cout << "ManaPotion을 구매했습니다." << endl;
 	}
+	// 구매 후 아이템 소모 리포트, 아이템 구매 가격 일괄 50gold 
+	REPORT->OnGoldEvent("SpendGold", 50);
 }
 
 void Shop::sellItem(int index, Character* player)
@@ -89,6 +95,11 @@ void Shop::sellItem(int index, Character* player)
 	player->addGold(item->getPrice() * 0.6);	//되팔기 가격 60%
 	
 	inventory.erase(inventory.begin() + index);
+
+	// 판매 완료 시 가격 리포트
+	REPORT->OnGoldEvent("EarnGold", item->getPrice() * 0.6);
+
+	// 리포트 후 삭제
 	delete item;
 }
 

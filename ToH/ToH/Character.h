@@ -39,7 +39,6 @@ private:
 	int experience;
 	int maxExperience;
 	int gold;
-	int stamina;
 	int mana;
 	int maxMana;
 	vector<Item*> inventory;

@@ -1,6 +1,7 @@
 #pragma once
 #include "Skill.h"
 #include "Character.h"
+#include "Report.h"
 
 class PowerStrike : public Skill
 {
@@ -31,6 +32,8 @@ public:
 
         cout << player->getName() << "가 파워스트라이크로 " << target->getName()
             << "에게 " << damage << " 데미지를 입혔습니다!" << endl;
+        REPORT->OnBattleEvent("파워스트라이크", "SkillAttack", damage);
+
     }
 
     const string& getName() const

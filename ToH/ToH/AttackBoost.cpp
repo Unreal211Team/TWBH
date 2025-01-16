@@ -1,6 +1,7 @@
 #include "AttackBoost.h"
 #include "Character.h"
 #include "BuffManager.h"
+#include "Report.h"
 #include <iostream>
 
 
@@ -34,6 +35,7 @@ void AttackBoost::use(Character* character) const
 	cout << "공격력이 상승합니다." << endl;
 	int attack = character->getAttack() + attackIncrease;
 	character->setAttack(attack);
+	REPORT->OnItemEvent("AttackBoost", "use");
 }
 
 int AttackBoost::getPrice() const
