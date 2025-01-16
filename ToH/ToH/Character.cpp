@@ -4,6 +4,7 @@
 #include <iostream>
 #include "PowerStrike.h"
 #include "MagicClaw.h"
+#include "CharacterUI.h"
 
 
 Character* Character::instance = nullptr;
@@ -37,19 +38,7 @@ Character* Character::getInstance(const string& name)
 
 void Character::displayStatus() const
 {
-	cout << "\n";
-	cout << " --- status ---" << "\n" << "\n";
-	cout << " 이름 : " << name << "\n";
-	cout << " Lv." << level << "\n";
-	cout << " Exp	  (" << experience << "/" << maxExperience << ")" << "\n";
-	cout << " HP	  (" << health << "/" << maxHealth << ")\n";
-	cout << " 공격력	  " << attack << "\n";
-	BuffManager* manager = BuffManager::getInstance();
-	if (manager->ActiveBuffsCheck())
-	{
-		manager->displayBuffs();
-	}
-	cout << " --- ----- ---\n\n";
+	CharacterUI::displayStatus(this);
 }
 
 string Character::getName() const
@@ -140,8 +129,7 @@ void Character::setMaxExperience(int maxExperience)
 void Character::addExperience(int experience)
 {
 	this->experience += experience;
-	cout << getName() << "가 ";
-	cout << experience << " Exp 를 획득하였습니다. \n";
+	CharacterUI::displayExperienceGain(this, experience);
 }
 
 int Character::getGold() const
@@ -152,25 +140,15 @@ int Character::getGold() const
 void Character::addGold(int gold)
 {
 	this->gold += gold;
-	cout << "\n";
-	cout << getName() << "가 ";
-	if (gold > 0)
-	{
-		cout << gold << " 골드를 획득했습니다. \n";
-	}
-	else
-	{
-		cout << (-1)*gold << " 골드를 소모했습니다. \n";
-	}
-
+	CharacterUI::displayGoldGain(this, gold);
+	
 }
 
 void Character::takeDamage(int damage)
 {
 	setHealth(this->health - damage);
 
-	cout << getName() << "을(를) 공격합니다! ";
-	cout << getName() << " 체력: " << getHealth() << endl;
+	CharacterUI::displayDamageTaken(this, damage);
 }
 
 
@@ -216,15 +194,13 @@ void Character::levelUp()
 	mana = maxMana;
 
 
-	cout << getName() << "이(가) 레벨업! ";
-	cout << "Lv." << getLevel() << endl;
+	CharacterUI::displayLevelUp(this);
 }
 
 void Character::addItem(Item* item)
 {
 	inventory.push_back(item);
-	cout << getName() << "가 \"";
-	cout << item->getName() << "\"을 획득했습니다." << endl;
+	CharacterUI::displayItemGain(this, item->getName());
 }
 
 void Character::useItem(int index)
@@ -232,11 +208,11 @@ void Character::useItem(int index)
 	// 재료 아이템 사용 불가
 	if (!inventory[index]->canUse())
 	{
-		cout << "사용 불가능한 아이템입니다." << endl;
+		CharacterUI::displayItemCannotUse();
 		return;
 	}
 
-	cout << inventory[index]->getName() << "을 사용합니다." << endl;
+	CharacterUI::displayItemUse(this, inventory[index]->getName());
 
 	inventory[index]->use(this);
 
@@ -257,7 +233,7 @@ bool Character::isDead()
 	if (health <= 0)
 	{
 		bIsAlive = false;
-		cout << getName() << "이(가) 사망했습니다. 게임 오버!" << endl;
+		CharacterUI::displayDeath(this);
 
 	}
 	return bIsAlive;

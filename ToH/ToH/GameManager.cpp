@@ -12,6 +12,7 @@
 #include "AttackModeMonsterFactory.h"
 #include "PowerStrike.h"
 #include "MagicClaw.h"
+#include "CharacterUI.h"
 
 GameManager* GameManager::instance = nullptr;
 
