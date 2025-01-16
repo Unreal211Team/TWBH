@@ -1,4 +1,5 @@
 #include "HealthPotion.h"
+#include "Report.h"
 #include "Character.h"
 #include <iostream>
 #include <algorithm>  // min() 함수 사용을 위해 필요
@@ -29,6 +30,7 @@ void HealthPotion::use(Character* character) const
 	HP = min(HP, maxHP);
 
 	character->setHealth(HP);
+	REPORT->OnItemEvent("HealthPotion","use", healthRestore);
 }
 
 int HealthPotion::getPrice() const

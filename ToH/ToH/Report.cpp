@@ -1,5 +1,7 @@
 #include "Report.h"
 
+PlayReport* PlayReport::Instance = nullptr;
+
 void PlayReport::OnMonsterEvent(const string& monsterName, const string& eventType)
 {
     if (eventType == "spawn")
