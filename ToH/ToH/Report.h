@@ -6,20 +6,20 @@
 
 using namespace std;
 
-class Report : public IObserver
+class PlayReport : public IObserver
 {
 private:
-    static Report* Instance;
+    static PlayReport* Instance;
 
     // 싱글톤 생성자
-    Report() = default;
+    PlayReport() = default;
 
 public:
-    static Report* GetInstance()
+    static PlayReport* GetInstance()
     {
         if (Instance == nullptr)
         {
-            Instance = new Report();
+            Instance = new PlayReport();
         }
         return Instance;
     }
@@ -45,7 +45,7 @@ private:
     int TotalGoldSpent = 0;
 
     // 전투 통계
-    map<string, int> SkillAttackCount;
+    map<string, int> AttackCountByType;
     int BasicAttackCount = 0;
     int TotalSkillAttackDamage = 0;
     int TotalBasicAttackDamage = 0;
@@ -56,10 +56,21 @@ private:
 
 public:
 
+    // 기록 관련 함수
     void OnMonsterEvent(const string& monsterName, const string& eventType) override;
     void OnItemEvent(const string& itemName, const string& eventType, int recoveredHealth = 0, int recoveredMana = 0) override;
     void OnBattleEvent(const string& skillName, const string& eventType, int damage) override;
+    void OnGoldEvent(const string& eventType, int gold) override;
 
+
+    // 출력 관련 함수
+    void GenerateMonsterReport() const;
+    void GenerateItemReport() const;
+    void GenerateBattleReport() const;
+    void GenerateGoldReport() const;
+
+
+    // 전체 데이터 출력
     void GenerateReport() const;
 
-}
+};

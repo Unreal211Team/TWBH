@@ -18,4 +18,7 @@ public:
 	// 전투 관련 이벤트
 	virtual void OnBattleEvent(const string& skillName, const string& eventType, int damage) = 0;
 
+	// 골드 관련 이벤트
+	virtual void OnGoldEvent(const string& eventType, int gold) = 0;
+
 };
