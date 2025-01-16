@@ -57,3 +57,9 @@ void CharacterUI::displayDeath(const Character* character)
 {
     cout << character->getName() << "이(가) 사망했습니다. 게임 오버!\n";
 }
+
+//탈출 메세지
+void CharacterUI::displayEscape(const Character& character)
+{
+    cout << "골드를 모아 탈출에 성공하였습니다!\n";
+}

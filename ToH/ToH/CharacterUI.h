@@ -13,4 +13,5 @@ public:
     static void displayItemUse(const Character* character, const string& itemName);
     static void displayItemCannotUse();
     static void displayDeath(const Character* character);
+    static void displayEscape(const Character& character);
 };
