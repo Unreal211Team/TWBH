@@ -21,7 +21,7 @@ Character::Character(string name) : name(name)
 	attack = 30;
 	experience = 0;
 	maxExperience = 100;
-	gold = 300;				// Gamble ì‹œì—° ìê¸ˆ
+	gold = 300;				// Gamble ½Ã¿¬ ÀÚ±İ
 	bIsAlive = true;
   
 	skills.push_back(new PowerStrike());
@@ -41,7 +41,7 @@ Character* Character::getInstance(const string& name)
 void Character::displayStatus() const
 {
 	CharacterUI::displayStatus(this);
-  	//ë²„í”„ Ui
+  	//¹öÇÁ Ui
 	BuffUi::printMessege();
 }
 
@@ -172,29 +172,29 @@ bool Character::IsLevelUp() const
 void Character::levelUp()
 {
 
-	// ê²½í—˜ì¹˜ ê°ì†Œ
+	// °æÇèÄ¡ °¨¼Ò
 	experience -= maxExperience;
 
-	// ìš”êµ¬ ê²½í—˜ì¹˜ ì¦ê°€
+	// ¿ä±¸ °æÇèÄ¡ Áõ°¡
 	maxExperience *= 1.2;
-	maxExperience = (maxExperience / 10) * 10;  // 10ì˜ ë°°ìˆ˜ë¡œ ì„¤ì •
+	maxExperience = (maxExperience / 10) * 10;  // 10ÀÇ ¹è¼ö·Î ¼³Á¤
 
-	// ë ˆë²¨ì—…
+	// ·¹º§¾÷
 	++level;
 
-	// ì²´ë ¥ì—…
+	// Ã¼·Â¾÷
 	maxHealth += 20;
 
-	// ì™„ì „íšŒë³µ
+	// ¿ÏÀüÈ¸º¹
 	health = maxHealth;
 
-	// ê³µê²©ì—…
+	// °ø°İ¾÷
 	attack += 5;
 
-	//ë§ˆë‚˜ì´ëŸ‰ì—…
+	//¸¶³ªÃÑ·®¾÷
 	maxMana += 10;
 
-	//ë§ˆë‚˜íšŒë³µ
+	//¸¶³ªÈ¸º¹
 	mana = maxMana;
 
 
@@ -209,7 +209,7 @@ void Character::addItem(Item* item)
 
 void Character::useItem(int index)
 {
-	// ì¬ë£Œ ì•„ì´í…œ ì‚¬ìš© ë¶ˆê°€
+	// Àç·á ¾ÆÀÌÅÛ »ç¿ë ºÒ°¡
 	if (!inventory[index]->canUse())
 	{
 		CharacterUI::displayItemCannotUse();
@@ -220,13 +220,13 @@ void Character::useItem(int index)
 
 	inventory[index]->use(this);
 
-	// ë©”ëª¨ë¦¬ í•´ì œ í›„ erase
+	// ¸Ş¸ğ¸® ÇØÁ¦ ÈÄ erase
 	delete inventory[index];
 
 	inventory.erase(inventory.begin() + index);
 }
 
-//ë²„í”„ ì¢…ë£Œ
+//¹öÇÁ Á¾·á
 void Character::resetAttackBuff()
 {
 	attack -= 10;
@@ -246,7 +246,7 @@ bool Character::isDead()
 Character::~Character()
 {
   
-	// ë©”ëª¨ë¦¬ í•´ì œ
+	// ¸Ş¸ğ¸® ÇØÁ¦
 	for (Skill* skill : skills)
 	{	
 		delete skill;
@@ -255,7 +255,7 @@ Character::~Character()
   
 	for (Item* item : inventory)
 	{
-		delete item;  // ì•„ì´í…œì— ëŒ€í•œ ë©”ëª¨ë¦¬ í•´ì œ
+		delete item;  // ¾ÆÀÌÅÛ¿¡ ´ëÇÑ ¸Ş¸ğ¸® ÇØÁ¦
 	}
-	inventory.clear();  // ë²¡í„° ë¹„ìš°ê¸°
+	inventory.clear();  // º¤ÅÍ ºñ¿ì±â
 }
