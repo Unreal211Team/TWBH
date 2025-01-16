@@ -9,7 +9,6 @@
 #include "Evolve.h"
 #include "BuffManager.h"
 #include "Skill.h"
-#include "AttackModeMonsterFactory.h"
 #include "PowerStrike.h"
 #include "MagicClaw.h"
 #include "CharacterUI.h"
@@ -58,8 +57,8 @@ Monster* GameManager::generateMonster(int level)
 	}
 
 	// 진화 : 몬스터 Elite화 확인 30%확률
-	Evolve evolver;
-	monster = evolver.evolve(monster);
+	//Evolve evolver;
+	//monster = evolver.evolve(monster);
 
 	return monster;
 }
@@ -197,13 +196,10 @@ void GameManager::battle(Character* player, Monster* monster)
 				return;
 			}
 
-			AttackModeMonsterFactory& attackModeMonsterFactory = AttackModeMonsterFactory::getInstance();
-			shared_ptr<ActingMonster> tempMonster = attackModeMonsterFactory.getRandomMonster(*monster);
 
 			// 몬스터의 공격
 			cout << monster->getName() << "이(가) ";
-			player->takeDamage(tempMonster->getAttack());
-			tempMonster->doAttack();
+			player->takeDamage(monster->getAttack());
 
 			cout << "플레이어의 체력 :" << player->getHealth() << endl;
 			// 몬스터의 공격에 플레이어가 사망했는지 확인하는 로직

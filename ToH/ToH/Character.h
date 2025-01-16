@@ -17,21 +17,21 @@ private:
 	static Character* instance;
 
 
-	Character(string name);
+	Character();
+	~Character();
 	Character(const Character&) = delete;
 	Character& operator=(const Character&) = delete;
 
 
 public:
 
-	static Character* getInstance(const string& name = "");
-	~Character();
+	static Character& getInstance();
 
 
 private:
 
 	// 
-	const string name;
+	string name;
 	int level;
 	int health;
 	int maxHealth;
@@ -53,6 +53,7 @@ public:
 
 	// Getter & Setter
 	string getName() const;
+	void setName(const string& name);
 	int getLevel() const;
 	void setLevel(int level);
 	int getHealth() const;

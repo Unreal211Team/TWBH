@@ -1,14 +1,46 @@
 #include "ActingMonster.h"
 
-
-
-void ActingMonster::setMonster(Monster& monster)
+ActingMonster::ActingMonster()
 {
-    this->monster = &monster;
+	MonsterFactory monsterFactory = MonsterFactory();
+	this->monster = monsterFactory.makeMonster();
+	this->damage = monster->getAttack();
+	this->monsterPattern = MonsterPatternFactory();
 }
 
-int ActingMonster::getAttack() const
+void ActingMonster::doAttack()
 {
-    return this->monster->getAttack();
+	 if (this->monsterPattern.doRandomPatrens(*monster))
+	 {
+		 this->damage = 0;
+	 }
+	 else
+	 {
+		 this->damage = monster->getAttack();
+	 }
 }
 
+string ActingMonster::getName() const
+{
+	return this->monster->getName();
+}
+
+int ActingMonster::getHealth() const
+{
+	return this->monster->getHealth();
+}
+
+int ActingMonster::getDamage() const
+{
+	return this->damage;
+}
+
+void ActingMonster::takeDamage(int damage)
+{
+	this->monster->takeDamage(damage);
+}
+
+Item* ActingMonster::dropItem() const
+{
+	return this->monster->dropItem();
+}

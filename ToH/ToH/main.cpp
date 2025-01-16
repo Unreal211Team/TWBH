@@ -2,7 +2,7 @@
 #include "GameManager.h"
 #include "Shop.h"
 #include "BossMonster.h"
-
+#include "Battle.h"
 using namespace std;
 
 int main()
@@ -20,41 +20,44 @@ int main()
 	// 이름 입력 받기
 	cin >> heroName;
 
-	Character* character = Character::getInstance(heroName);
+	Character& character = Character::getInstance();
+	character.setName(heroName);
 	Monster* monster = nullptr;
-	
 	system("cls");
 
 	cout << "생성 완료! \n";
-
-	character->displayStatus();
+	
+	character.displayStatus();
 
 	string action = "";
 
 	bool isDigit = false;	//입력값이 숫자인지 아닌지 판단할 때 쓰임
 	int act = 0;
 
-	while (character->getLevel() < 10 && character->getHealth() > 0)
+	while (character.getLevel() < 10 && character.getHealth() > 0)
 	{
 
 		// 배틀
 		cout << "\n==================================================" << endl;
-		monster = gameManager->generateMonster(character->getLevel());
 
-		// 전투
-		gameManager->battle(character, monster);
+		Battle battle = Battle();
+		battle.doBattle();
+		//monster = gameManager->generateMonster(character.getLevel());
+
+		//// 전투
+		//gameManager->battle(&character, monster);
 
 		// 사망
-		if (character->getHealth() == 0)
+		if (character.getHealth() == 0)
 		{
 			break;
 		}
 
-		gameManager->visitShop(character, shop);
+		gameManager->visitShop(&character, shop);
 
 	}
 
-	if (character->getLevel() < 10)
+	if (character.getLevel() < 10)
 	{
 		return 0;
 	}
@@ -77,10 +80,9 @@ int main()
 
 	monster = new BossMonster();
 
-	gameManager->battle(character, monster);
+	gameManager->battle(&character, monster);
 
 	delete shop;
-	delete character;
 	delete gameManager;
 
 	return 0;
