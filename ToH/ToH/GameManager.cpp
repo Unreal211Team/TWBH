@@ -385,6 +385,7 @@ void GameManager::visitShop(Character* character, Shop* shop)
 				case 3:
 				{
 					shop->playGamble(character);
+					break;
 				}
 				default:
 				{
