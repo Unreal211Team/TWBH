@@ -142,7 +142,7 @@ void Shop::playGamble(Character* player) const
 		// 1 2 3 4 5 6 : 해당 경우는 럭키 넘버이므로 언럭키 넘버가 될 수 없음.
 		if (unluckyNumbers[i].size() == 6)
 		{
-			unluckyNumbers.clear();
+			unluckyNumbers[i].clear();
 			i--;
 			continue;
 		}
