@@ -3,7 +3,7 @@
 #include "Monster.h"
 
 using namespace std;
-
+#include <sstream>
 class EliteMonster:public Monster
 {
 protected:
@@ -16,6 +16,7 @@ private:
 
 public:
 	EliteMonster(Monster* monster);
+	EliteMonster(shared_ptr<Monster>& monster);
 	string getName() const override;
 	int getHealth() const override;
 	int getAttack() const override;
@@ -23,11 +24,7 @@ public:
 	Item* dropItem() const override;
 	void displayArt() const override
 	{
-		cout << "           _/\\_/\\_" << endl;    
-		cout << "          /       \\" << endl;
-		cout << "         /  Elite  \\" << endl;
-		cout << "          \\_______/" << endl;
-		originalMonster->displayArt();
+		cout << asciiArt;
 	}
 	
 };

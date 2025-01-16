@@ -20,14 +20,6 @@ bool BossMonsterDropItem::canUse() const
 
 void BossMonsterDropItem::use(Character* character) const
 {	
-	cout << "체력이 100배 상승합니다." << endl;
-	cout << "공격력이 100배 상승합니다." << endl;
-
-	// 먼저 공격력과 최대 체력 증가
-	character->setAttack(character->getAttack() * 100);
-	character->setMaxHealth(character->getMaxHealth() * 100);
-	// 그 후에 현재 체력 업데이트
-	character->setHealth(character->getMaxHealth());
 
 	return;
 }

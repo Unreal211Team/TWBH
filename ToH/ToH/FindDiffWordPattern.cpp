@@ -1,35 +1,30 @@
-#include "FindDiffWordMonster.h"
-using namespace std;
-int FindDiffWordMonster::getAttack() const
-{
-    return this->damage;
-}
+#include "FindDiffWordPattern.h"
 
-void FindDiffWordMonster::doAttack()
+bool FindDiffWordPattern::doAttack(const Monster& monster)
 {
-    Character* character = Character::getInstance("");
+    Character& character = Character::getInstance();
 
     random_device rd;
     uniform_int_distribution<int> randomCol(0, Lstring.size() * 3);
-    uniform_int_distribution<int> randomRow(1, character->getLevel());
+    uniform_int_distribution<int> randomRow(1, character.getLevel());
     string str;
     string tempString{ Lstring };
     int changeRow = randomRow(rd);
-    
+
     int answer = 0;
     cout << "\n==========================\n";
     cout << "ºóÆ´À» Ã£ÀÚ!!" << endl << endl;
 
-    for (int col = 0; col < character->getLevel(); col++)
+    for (int col = 0; col < character.getLevel(); col++)
     {
         int changeCol = randomCol(rd);
-        string tempString(10, 'l'); 
+        string tempString(10, 'l');
         if (changeCol < Lstring.size())
         {
             tempString[changeCol] = 'i';
             answer++;
         }
-        cout << tempString <<endl;
+        cout << tempString << endl;
 
     }
 
@@ -46,13 +41,23 @@ void FindDiffWordMonster::doAttack()
         cout << "ºóÆ´À» ÅëÇØ È¸ÇÇÇß´Ù!!" << endl;
         this->damage = 0;
         cout << "¡Ù ¡Ú ¡Ù ¡Ú ¡Ù ¡Ú ¡Ù ¡Ú ¡Ù ¡Ú\n";
+        return true;
     }
     else
     {
         cout << "--------------------------\n";
         cout << "ºóÆ´À» Ã£Áö¸øÇß´Ù" << endl;
-        this->damage = monster->getAttack();
+        this->damage = monster.getAttack();
         cout << "--------------------------\n";
+        return false;
     }
 
 }
+
+int FindDiffWordPattern::getDamage()
+{
+    return this->damage;
+}
+
+
+

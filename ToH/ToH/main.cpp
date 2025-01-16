@@ -2,11 +2,15 @@
 #include "GameManager.h"
 #include "Shop.h"
 #include "BossMonster.h"
+#include "Battle.h"
+#include "CharacterUI.h"
+#include "Report.h"
 
 using namespace std;
 
 int main()
 {
+	
 	GameManager* gameManager = GameManager::getInstance();
 	Shop* shop = Shop::getInstance();
 	
@@ -20,67 +24,47 @@ int main()
 	// 이름 입력 받기
 	cin >> heroName;
 
-	Character* character = Character::getInstance(heroName);
+	Character& character = Character::getInstance();
+	character.setName(heroName);
 	Monster* monster = nullptr;
-	
 	system("cls");
 
 	cout << "생성 완료! \n";
-
-	character->displayStatus();
+	
+	character.displayStatus();
 
 	string action = "";
 
 	bool isDigit = false;	//입력값이 숫자인지 아닌지 판단할 때 쓰임
 	int act = 0;
 
-	while (character->getLevel() < 10 && character->getHealth() > 0)
+	while (character.getGold() < 20000 && character.getHealth() > 0)
 	{
 
 		// 배틀
 		cout << "\n==================================================" << endl;
-		monster = gameManager->generateMonster(character->getLevel());
 
-		// 전투
-		gameManager->battle(character, monster);
+		Battle battle = Battle();
+		battle.doBattle();
 
 		// 사망
-		if (character->getHealth() == 0)
+		if (character.getHealth() == 0)
 		{
 			break;
 		}
 
-		gameManager->visitShop(character, shop);
+		gameManager->visitShop(&character, shop);
 
 	}
 
-	if (character->getLevel() < 10)
+	if (character.getGold() >= 20000)
 	{
-		return 0;
+		CharacterUI::displayEscape(character);
 	}
 
-
-	cout << "\n" << endl;
-
-	// 레벨이 10이면 보스전, 추후에 main에서 분리 필요할지도?
-
-	for (int i = 0; i < 3; i++)
-	{
-		for (int j = 0; j < 9; j++)
-		{
-			cout << "Warning! ";
-		}
-		cout << endl;
-	}
-
-	cout << "\n --- Boss 출현! ---\n" << endl;
-
-	monster = new BossMonster();
-
-	gameManager->battle(character, monster);
+	REPORT->GenerateReport();
 
 	delete shop;
-	delete character;
 	delete gameManager;
 
 	return 0;

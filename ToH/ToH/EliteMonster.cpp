@@ -14,6 +14,21 @@ EliteMonster::EliteMonster(Monster* monster)
 	attack = monster->getAttack() * 2;
 }
 
+EliteMonster::EliteMonster(shared_ptr<Monster>& monster)
+{
+	this->originalMonster = monster.get();
+	name = "Elite_" + monster->getName();
+	health = monster->getHealth() * 2;
+	attack = monster->getAttack() * 2;
+	stringstream ss;
+	ss << "\n\n           _/\\_/\\_" << endl;
+	ss << "          /       \\" << endl;
+	ss << "         /  Elite  \\" << endl;
+	ss << "          \\_______/" << endl;
+
+	asciiArt = ss.str() + originalMonster->getAsciiArt();
+}
+
 //ÀÌ¸§
 string EliteMonster::getName() const
 {

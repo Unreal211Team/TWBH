@@ -1,5 +1,6 @@
 #include "ManaPotion.h"
 #include "Character.h"
+#include "Report.h"
 #include <iostream>
 #include <algorithm>  // min() 함수 사용을 위해 필요
 
@@ -28,6 +29,7 @@ void ManaPotion::use(Character* character) const
 	// 최대 마나을 초과하지 못함.
 	MP = min(MP, maxMP);
 
+	REPORT->OnItemEvent("ManaPotion", "use", 0, ManaRestore);
 	character->setMana(MP);
 }
 
