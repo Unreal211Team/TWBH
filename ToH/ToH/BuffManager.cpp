@@ -48,12 +48,10 @@ void BuffManager::updateBuffs(Character* player) {
     auto it = remove_if(buffs.begin(), buffs.end(),
         [player](const Buff* buff) {
             if (buff->remainingTurns <= 0) {
-                switch (buff->name == "AttackBoost")
+                if (buff->name == "AttackBoost")
                 {
                     player->resetAttackBuff();
-                default:
-                    break;
-                }
+                }//다른버프 추가시 else if로 추가
                 delete buff; // 메모리 해제
                 return true; // 벡터에서 제거
             }
